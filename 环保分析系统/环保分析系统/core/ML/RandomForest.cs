@@ -10,9 +10,11 @@ using Emgu.CV.Structure;
 using Emgu.CV.ML;
 using Emgu.CV.ML.MlEnum;
 using 环保分析系统.core.ML.Impl;
+
+
 namespace 环保分析系统.core.ML
 {
-    class RandomForest : IMLAlgorithm
+    class RandomForest : AbstractMLAlg
     {
         private static log4net.ILog logger = log4net.LogManager.GetLogger(typeof(RandomForest));
         private RTrees randomforset = new RTrees();
@@ -26,15 +28,24 @@ namespace 环保分析系统.core.ML
         //返回值：  类型（bool)
         //修改记录：
         //==================================================================
-        public  bool Train(Matrix<float> traindata, Matrix<float> label, int flags = 0) 
+        public override bool Train(float[] data, int flags = 0) 
         {
             logger.Info("RandomForest train");
 
             //mergr trian data and label
-            if (traindata==null||label==null) 
+            if (data == null) 
             {
                 logger.Debug("train data is null,program can not run");
                 return false;
+            }
+            //merge data
+            Matrix<float> traindata = null;
+            Matrix<float> label = null ;
+            bool isSuccess=false;
+            isSuccess=doMergeTrainData(data,traindata,label);
+            if (isSuccess || traindata == null || label == null)
+            {
+                throw new Exception("megre train data flase");
             }
 
             //training
@@ -60,11 +71,22 @@ namespace 环保分析系统.core.ML
         //返回值：  类型（float) 预测的结果
         //修改记录：
         //==================================================================
-        public Matrix<float> Predict(Matrix<float> predictdata) 
+        public override float[] Predict(float[] data) 
         {
             logger.Info("Predict data");
-            Matrix<float> result;
 
+            //merge predict data
+            Matrix<float> result=null;
+            Matrix<float> predictdata = null;
+            bool isSuccess = false;
+            isSuccess = doMergePredictData(data, predictdata);
+            if(isSuccess||predictdata==null)
+            {
+                throw new Exception("megre predict data flase");
+            }
+
+
+            //predict processing
             try
             {
                result = new Matrix<float>(predictdata.Height, 1);
@@ -75,7 +97,15 @@ namespace 环保分析系统.core.ML
                 logger.Error("error information:" + e);
                 return null;
             }
-            return result;
+            
+            //deal result to list
+            float[] resultList = new float[result.Height];
+            for (int i = 0; i < result.Height;++i )
+            {
+                resultList[i]=result.Data[i,0];
+
+            }
+            return resultList;
         }
 
     }
