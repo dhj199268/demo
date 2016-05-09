@@ -26,7 +26,7 @@ namespace 环保分析系统.core.ML
         //返回值：  类型（bool)
         //修改记录：
         //==================================================================
-        bool Train(Matrix<float> traindata,Matrix<float> label, int flags = 0) 
+        public  bool Train(Matrix<float> traindata, Matrix<float> label, int flags = 0) 
         {
             logger.Info("RandomForest train");
 
@@ -60,7 +60,7 @@ namespace 环保分析系统.core.ML
         //返回值：  类型（float) 预测的结果
         //修改记录：
         //==================================================================
-        Matrix<float> Predict(Matrix<float> predictdata) 
+        public Matrix<float> Predict(Matrix<float> predictdata) 
         {
             logger.Info("Predict data");
             Matrix<float> result;
