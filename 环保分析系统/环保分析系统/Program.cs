@@ -10,13 +10,14 @@ namespace 环保分析系统
     {
         /// <summary>
         /// 应用程序的主入口点。
-        /// </summary>
+       /// </summary>
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormLogin());
+            Application.Run(new mainForm());
+            
         }
     }
 }

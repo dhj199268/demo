@@ -59,6 +59,8 @@
     <Compile Include="core\ML\AbstractMLAlg.cs" />
     <Compile Include="core\ML\Impl\IMLAlgorithm.cs" />
     <Compile Include="core\ML\RandomForest.cs" />
+    <Compile Include="core\ML\WavesANN.cs" />
+    <Compile Include="core\Until\MatrixUntil.cs" />
     <Compile Include="EPSystem.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,7 +104,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="core\Until\" />
     <Folder Include="dll\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

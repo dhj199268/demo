@@ -12,7 +12,8 @@ namespace 环保分析系统.core.ML.Impl
     interface IMLAlgorithm
     {
         bool Train(float[] data, int flags = 0);
-        float[] Predict(float[] data); 
+        float[] Predict( float[] data);
+        void clear();
         //bool SaveModel(string filename);
         //bool loadModel(string filename)
     

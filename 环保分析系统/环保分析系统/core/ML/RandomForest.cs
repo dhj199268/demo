@@ -17,7 +17,45 @@ namespace 环保分析系统.core.ML
     class RandomForest : AbstractMLAlg
     {
         private static log4net.ILog logger = log4net.LogManager.GetLogger(typeof(RandomForest));
-        private RTrees randomforset = new RTrees();
+        
+        private int maxCategories;
+        private float regAccuracy;
+        private int maxDepth ;
+        private bool seRule;
+
+        private RandomForest(){}
+       
+        public RandomForest(int numTree=500, int maxCategories=10, float regAccuracy=0.1f,int maxDepth=15, bool seRule=true)
+        {
+
+            this.maxCategories = maxCategories;
+            this.regAccuracy = regAccuracy;
+            this.maxDepth = maxDepth;
+            this.seRule = seRule;
+            
+            
+            
+            //放在最后
+            initialization();
+        }
+
+        protected override void initialization()
+        {
+            RTrees temp = new RTrees();
+            temp.MaxCategories = maxCategories;
+            temp.RegressionAccuracy = regAccuracy;
+            temp.MaxDepth = maxDepth;
+            temp.Use1SERule = seRule;
+
+            this.trainmodel = temp;
+
+        
+        }
+        public override void clear()
+        {
+
+            this.trainmodel.Clear();
+        }
 
         //==================================================================
         //函数名：  Train
@@ -28,22 +66,23 @@ namespace 环保分析系统.core.ML
         //返回值：  类型（bool)
         //修改记录：
         //==================================================================
-        public override bool Train(float[] data, int flags = 0) 
+        public override bool Train( float[] data, int flags = 0) 
         {
             logger.Info("RandomForest train");
 
             //mergr trian data and label
-            if (data == null) 
-            {
+            if (data == null)
+            { 
                 logger.Debug("train data is null,program can not run");
                 return false;
             }
+            
             //merge data
             Matrix<float> traindata = null;
             Matrix<float> label = null ;
-            bool isSuccess=false;
-            isSuccess=doMergeTrainData(data,traindata,label);
-            if (isSuccess || traindata == null || label == null)
+            bool isSuccess = false;
+            isSuccess = doMergeTrainData(ref data, out traindata,out label);
+            if (!isSuccess || traindata == null || label == null)
             {
                 throw new Exception("megre train data flase");
             }
@@ -52,7 +91,7 @@ namespace 环保分析系统.core.ML
             try
             {
                 TrainData tempdata = new TrainData(traindata, DataLayoutType.RowSample, label);
-                randomforset.Train(tempdata);
+                trainmodel.Train(tempdata);
             }
             catch (Exception e){
                 logger.Error("error information:"+e);
@@ -62,6 +101,7 @@ namespace 环保分析系统.core.ML
             return true;
             
         }
+
         //==================================================================
         //函数名：  Predict
         //作者：    dhj
@@ -75,11 +115,19 @@ namespace 环保分析系统.core.ML
         {
             logger.Info("Predict data");
 
+            if (trainmodel == null)
+            {
+                throw new Exception("model is null");
+            }
+
+
             //merge predict data
             Matrix<float> result=null;
-            Matrix<float> predictdata = null;
+            Matrix<float> predictdata=null;
             bool isSuccess = false;
-            isSuccess = doMergePredictData(data, predictdata);
+
+
+            isSuccess = doMergePredictData(ref data, out predictdata);
             if(isSuccess||predictdata==null)
             {
                 throw new Exception("megre predict data flase");
@@ -90,7 +138,7 @@ namespace 环保分析系统.core.ML
             try
             {
                result = new Matrix<float>(predictdata.Height, 1);
-               randomforset.Predict(predictdata, result);
+               trainmodel.Predict(predictdata, result);
             }
             catch (Exception e)
             {

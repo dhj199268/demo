@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
+using Emgu.CV.ML;
+using Emgu.CV.ML.MlEnum;
 using 环保分析系统.core.ML.Impl;
 
 namespace 环保分析系统.core.ML
@@ -13,8 +15,23 @@ namespace 环保分析系统.core.ML
     abstract class AbstractMLAlg : IMLAlgorithm
     {
         private static log4net.ILog logger = log4net.LogManager.GetLogger(typeof(AbstractMLAlg));
-        public abstract bool Train(float[] data, int flags = 0);
-        public abstract float[] Predict(float[] data);
+        protected IStatModel  trainmodel = null;
+        protected int segTime = 150;
+
+        abstract protected void initialization();
+
+        public int SegTime
+        {  get{
+                    return segTime;
+                }
+            set {
+                segTime = value;
+            }
+        }
+            
+            
+        public abstract bool Train( float[] data,  int flags = 0);
+        public abstract float[] Predict( float[] data);
 
 
         //==================================================================
@@ -26,8 +43,10 @@ namespace 环保分析系统.core.ML
         //返回值：  类型（bool) 整合是否成功
         //修改记录：
         //==================================================================
-        protected bool doMergeTrainData(float[] data,Matrix<float> traindata ,Matrix<float> label,int segTime=150)
+        protected bool doMergeTrainData(ref float[] data, out Matrix<float> traindata ,out Matrix<float> label)
         {
+
+            logger.Info("merge train data");
             //init
             int datalen = data.Length;
             if(datalen<segTime)
@@ -35,7 +54,7 @@ namespace 环保分析系统.core.ML
                 throw new Exception("data is too few  or segTime is too much");
             }
 
-            int rows=datalen - segTime ;
+            int rows = datalen - segTime;
             traindata = new Matrix<float>(rows, segTime);
             label =new Matrix<float>(rows, 1);
 
@@ -47,10 +66,9 @@ namespace 环保分析系统.core.ML
                     for (int j = 0; j < segTime; ++j)
                     {
                         traindata.Data[i, j] = data[i + j];
-
                     }
-
-                    label.Data[i, 0] = data[i + segTime + 1];
+                    int temp = i + segTime;
+                    label.Data[i, 0] = data[temp];
                 }
             }
             catch (Exception e)
@@ -60,6 +78,7 @@ namespace 环保分析系统.core.ML
             }
             return true;
         }
+
         //==================================================================
         //函数名：  doMergePredictData
         //作者：    dhj
@@ -69,14 +88,19 @@ namespace 环保分析系统.core.ML
         //返回值：  类型（bool) 整合是否成功
         //修改记录：
         //==================================================================
-        protected bool doMergePredictData(float[] data,Matrix<float> predictData)
+        protected bool doMergePredictData(ref float[] data,out  Matrix<float> predictData)
         {
-
+            logger.Info("merge predict data");
             //init 
             int datalen = data.Length;
+            if (datalen != segTime)
+            {
+                throw new Exception("data is not equls to seg time");
+            }
+       
 
             try
-            {
+            {   
                 predictData = new Matrix<float>(1, datalen);
                 //merge predict data
                 for (int i = 0; i < datalen; ++i)
