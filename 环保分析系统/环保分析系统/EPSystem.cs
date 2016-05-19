@@ -42,7 +42,8 @@ namespace 环保分析系统
 
         private void 随机深林ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RandomForest test = new RandomForest(1000);
+            RandomForest test = new RandomForest(1000,6);
+            
             //test.SegTime = 5;
            float[] data ={1,2,3,4,5,4,6,6,
                        1,2,3,4,5,4,6,6,
@@ -70,6 +71,46 @@ namespace 环保分析系统
             //float[] data = { 1,2,3,4,5,6,1,3};
             test.Train(data);
             //Console.ReadLine();
+            float[] testdata = { 1, 2, 3, 4, 5, 4 };
+            float[] result;
+            result = test.Predict(testdata);
+            logger.Info("result:" + result[0]);
+            test.Clear(); 
+        }
+
+        private void 小波神经网络ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            float[] data ={1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,1,2,3,4,5,4,6,6
+                       };
+
+            WavesANN test = new WavesANN(15, 6);
+            test.Train(data);
+            float[] testdata = { 1, 2, 3, 4, 5 ,4};
+            float[] result;
+            result = test.Predict(testdata);
+            logger.Info("result:" + result[0]);
+            test.Clear(); 
 
         }
     }

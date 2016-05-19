@@ -14,11 +14,11 @@ using 环保分析系统.core.Until;
 
 namespace 环保分析系统.core.ML
 {
-    class WavesANN:AbstractMLAlg
+    class WavesANN//:AbstractMLAlg
     {    
         private static log4net.ILog logger = log4net.LogManager.GetLogger(typeof(WavesANN));
 
-        private static int ZERO = 0;
+        private static int OUTLAYER = 0;
         //输入层个数,即segTime的个数
         private int outlayer = 1;//输出层结点个数
         private int hidelayer;//隐藏层结点个数
@@ -28,12 +28,24 @@ namespace 环保分析系统.core.ML
         private int maxiter = 100;//对大迭代次数
         private double maxv;
         private double minv;
-
+        private int segTime;
         private Matrix<float> Wij;
         private Matrix<float> Wjk;
         private Matrix<float> b;
         private Matrix<float> a;
-       
+
+
+        private WavesANN() { }
+
+        public WavesANN(int hidelayer,int segTime, int iter = 100, float lr1=0.01f, float lr2 = 0.001f)
+        {
+            this.hidelayer = hidelayer;
+            this.segTime = segTime;
+            this.maxiter = iter;
+            this.lr1 = lr1;
+            this.lr2 = lr2;
+        
+        }
         protected float morlet(double data) 
         {
             return (float)(Math.Exp(data * data / 2.0 * (-1)) * Math.Cos(1.75 * data));
@@ -113,40 +125,47 @@ namespace 环保分析系统.core.ML
                 //train net
                 for (int k = 0; k < traindata.Height; ++k)
                 {
+                        logger.Debug("train net time :" + (k + 1));
                         x = traindata.GetRow(k);
-                        yqw = label[k, ZERO];
+                        yqw = label[k, OUTLAYER];
                         y = y + trainPredictOut(ref x, ref yqw,ref  b, ref a,ref net, ref net_ab);
-                        x.Dispose();
+                        //x.Dispose();
 
                        
                         // updata weight
                         float error = yqw-y;
                         float temp;
+                        logger.Debug("updata weight");
                         for (int j = 0; j < hidelayer;++j )
                         {
 
                             //cal d_Wij
-                            temp = morlet(net_ab[outlayer, j]);
-                            d_Wij[outlayer, j] = d_Wij[outlayer, j] - error * temp;
+                            logger.Debug("cal d_Wij");
+                            temp = morlet(net_ab[OUTLAYER, j]);
+                            d_Wij[OUTLAYER, j] = d_Wij[OUTLAYER, j] - error * temp;
 
                             //cal d_Wjk
-                            temp = d_morlet(net_ab[ZERO, j]);
+                            logger.Debug("cal d_Wjk");
+                            temp = d_morlet(net_ab[OUTLAYER, j]);
                             for (int z = 0; z < segTime; ++z)
                             {
-                                d_Wjk[j, z] = d_Wjk[j, z] + error * Wij[outlayer, j];
-                                d_Wjk[j, z] = -1 * d_Wjk[j, z] * temp * x[k, ZERO] / a[ZERO, j];
+                                d_Wjk[j, z] = d_Wjk[j, z] + error * Wij[OUTLAYER, j];
+                                d_Wjk[j, z] = -1 * d_Wjk[j, z] * temp * x[OUTLAYER,z] / a[OUTLAYER, j];
                             }
 
                             //cal d_b
-                            d_b[outlayer, j] += error * Wij[outlayer, j];
-                            d_b[outlayer, j] *= temp / a[ZERO, j];
+                            logger.Debug("cal d_b");
+                            d_b[OUTLAYER, j] += error * Wij[OUTLAYER, j];
+                            d_b[OUTLAYER, j] *= temp / a[OUTLAYER, j];
 
                             //cal d_a
-                            d_a[outlayer, j] += error * Wij[outlayer, j];
-                            d_a[outlayer, j] *= temp * (net[ZERO, j] - b[ZERO, j]) / b[ZERO, j] / a[ZERO, j];
+                            logger.Debug("cal d_a");
+                            d_a[OUTLAYER, j] += error * Wij[OUTLAYER, j];
+                            d_a[OUTLAYER, j] *= temp * (net[OUTLAYER, j] - b[OUTLAYER, j]) / b[OUTLAYER, j] / a[OUTLAYER, j];
                         }
 
                        //updata wight params
+                        logger.Debug("updata wight params");
                         Wij -= lr1 * d_Wij;
                         Wjk -= lr2 * d_Wjk;
                         b -= lr2 * d_b;
@@ -160,6 +179,7 @@ namespace 环保分析系统.core.ML
                         net.SetZero();
                         net_ab.SetZero();
                         y = 0;
+                        
                 }
               
             
@@ -168,7 +188,7 @@ namespace 环保分析系统.core.ML
         }
         private float trainPredictOut(ref Matrix<float> x, ref float yqw, ref Matrix<float> b,ref Matrix<float> a, ref Matrix<float> net, ref Matrix<float> net_ab)
         {
-            logger.Info("train preidct out net");
+            logger.Debug("train preidct out net");
 
             
             float temp;
@@ -176,18 +196,20 @@ namespace 环保分析系统.core.ML
 
             for (int j = 0; j < hidelayer; ++j)
             { 
-                for(int k=0;k<segTime;++k)
+                for(int k=0;k< segTime;++k)
                 {
-                    net[0, j] = net[0, j] + Wjk[j, k] * x[k, 0];
-                    net_ab[0, j] = (net[0, j] - b[1, j]) / a[0, j];
+                    net[OUTLAYER, j] = net[OUTLAYER, j] + Wjk[j, k] * x[OUTLAYER, k];
+                    net_ab[OUTLAYER, j] = (net[OUTLAYER, j] - b[OUTLAYER, j]) / a[OUTLAYER, j];
 
                 }
-                temp = morlet(net_ab[1, j]);
+                temp = morlet(net_ab[OUTLAYER, j]);
                 for (int k = 0; k < outlayer; ++k)
                 {
                     y = y + Wij[k, j] * temp;
                 }
             }
+
+            logger.Debug("train preidct out over");
             return y;
         }
 
@@ -210,23 +232,104 @@ namespace 环保分析系统.core.ML
             {
                 for (int k = 0; k < segTime; ++k)
                 {
-                    net[ZERO, j]+=Wjk[j,k] * predictdata[0,k];
-                    net_ab[ZERO, j]+=(net[ZERO, j]-b[ZERO,j])/a[ZERO,j];
+                    net[OUTLAYER, j] += Wjk[j, k] * predictdata[0, k];
+                    net_ab[OUTLAYER, j] += (net[OUTLAYER, j] - b[OUTLAYER, j]) / a[OUTLAYER, j];
                 }
-                temp = morlet(net_ab[ZERO, j]);
+                temp = morlet(net_ab[OUTLAYER, j]);
 
-                y += Wij[ZERO, j] * temp;
+                y += Wij[OUTLAYER, j] * temp;
             
             }
+
             return y;
         
         }
-        public void clear()
+
+        public override void Clear()
         {
             Wjk.Dispose();
             Wij.Dispose();
             a.Dispose();
             b.Dispose();
+        }
+
+        
+        public override bool Train(float[] data, int flags = 0) 
+        {
+            logger.Info("WavesANN train");
+
+            //mergr trian data and label
+            if (data == null)
+            {
+                logger.Debug("train data is null,program can not run");
+                return false;
+            }
+
+            //merge data
+            Matrix<float> traindata = null;
+            Matrix<float> label = null;
+            bool isSuccess = false;
+            isSuccess = doMergeTrainData(ref data, out traindata, out label);
+            if (!isSuccess || traindata == null || label == null)
+            {
+                throw new Exception("megre train data flase");
+            }
+
+           //nomal data
+            MatrixUntil.maxminnomal(ref traindata,out maxv,out minv);
+            MatrixUntil.maxminnomal(ref label, out maxv, out minv);
+
+
+            //training
+            try
+            {
+                train(ref traindata,ref label);
+            }
+            catch (Exception e)
+            {
+                logger.Error("error information:" + e);
+                logger.Info("train flase");
+                return false;
+            }
+
+            logger.Info("train success");
+            return true;
+        }
+        public override float[] Predict(float[] data)
+        {
+            logger.Info("Predict data");
+
+
+            //merge predict data
+            float[] result = new float[1];
+            Matrix<float> predictdata = null;
+            bool isSuccess = false;
+
+
+            isSuccess = doMergePredictData(ref data, out predictdata);
+            if (!isSuccess || predictdata == null)
+            {
+                throw new Exception("megre predict data flase");
+            }
+            //nomaldata
+            MatrixUntil.maxminnomal(ref predictdata, out maxv, out minv);
+
+            //predict processing
+            try
+            {
+                result[0] = predict(ref predictdata);
+                MatrixUntil.reversemaxminnomal(ref result, maxv,minv);
+            }
+            catch (Exception e)
+            {
+                logger.Error("error information:" + e);
+                return null;
+            }
+
+            //deal result to list
+
+            return result;
+
         }
     }
 }

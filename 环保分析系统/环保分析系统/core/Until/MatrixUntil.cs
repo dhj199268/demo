@@ -98,9 +98,35 @@ namespace 环保分析系统.core.Until
         {
             Point tempa;
             Point tempb;
+            minv = 0;
+            maxv = 0;
             //Matrix<float> temprow = data.GetRow(i);
+
             data.MinMax(out minv, out maxv, out tempa, out tempb);
             maxminnomal(ref data, maxv, minv);
+            //data = (ymax - ymin) * (data - minv) / (maxv - minv) + ymin;
+
+            /*if (data.Width == 1)
+            {
+                data.MinMax(out minv, out maxv, out tempa, out tempb);
+                data = (ymax - ymin) * (data - minv) / (maxv - minv) + ymin;
+            }
+            else
+            {
+                Matrix<float> tmp;
+                for (int i = 0; i < data.Height; ++i)
+                {
+                    tmp = data.GetRow(i);
+                    tmp.MinMax(out minv, out maxv, out tempa, out tempb);
+                    tmp = (ymax - ymin) * (tmp - minv) / (maxv - minv) + ymin;
+
+                    for (int j = 0; j < tmp.Width; ++j)
+                    {
+                        data[i, j] = tmp[0, j];
+                    }
+                }
+            }*/
+            
         }
         public static void maxminnomal(ref Matrix<float> data, double maxv, double minv)
         {
@@ -125,6 +151,18 @@ namespace 环保分析系统.core.Until
             double ymin = -1;
             data = (data - ymin) * (maxv - minv) / (ymax - ymin) + minv;
 
+        }
+        public static void reversemaxminnomal(ref float[] data, double maxv, double minv)
+        {
+            double ymax = 1;
+            double ymin = -1;
+            for (int i = 0; i < data.Length; ++i)
+            {
+                double tmp = (double)data[i];
+                tmp = (tmp - ymin) * (maxv - minv) / (ymax - ymin) + minv;
+                data[i] = (float)tmp;
+            
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ namespace 环保分析系统.core.ML
         protected IStatModel  trainmodel = null;
         protected int segTime = 150;
 
-        abstract protected void initialization();
+        
 
         public int SegTime
         {  get{
@@ -32,7 +32,7 @@ namespace 环保分析系统.core.ML
             
         public abstract bool Train( float[] data,  int flags = 0);
         public abstract float[] Predict( float[] data);
-
+        abstract public void Clear();
 
         //==================================================================
         //函数名：  doMergeTrainData
@@ -97,21 +97,21 @@ namespace 环保分析系统.core.ML
             {
                 throw new Exception("data is not equls to seg time");
             }
-       
 
+            
             try
-            {   
+            {
                 predictData = new Matrix<float>(1, datalen);
                 //merge predict data
                 for (int i = 0; i < datalen; ++i)
                 {
-                    predictData.Data[0, i] = data[i];
+                    predictData[0, i] = data[i];
                 }
             }
             catch (Exception e)
             {
                 logger.Error("error information:" + e);
-                return false;
+                throw e;
             }
             return true;
         }

@@ -25,9 +25,9 @@ namespace 环保分析系统.core.ML
 
         private RandomForest(){}
        
-        public RandomForest(int numTree=500, int maxCategories=10, float regAccuracy=0.1f,int maxDepth=15, bool seRule=true)
+        public RandomForest(int numTree=500,int segTime=150, int maxCategories=10, float regAccuracy=0.1f,int maxDepth=15, bool seRule=true)
         {
-
+            this.segTime = segTime;
             this.maxCategories = maxCategories;
             this.regAccuracy = regAccuracy;
             this.maxDepth = maxDepth;
@@ -36,36 +36,28 @@ namespace 环保分析系统.core.ML
             
             
             //放在最后
-            initialization();
+            this.initialization();
         }
 
-        protected override void initialization()
+        protected  void initialization()
         {
             RTrees temp = new RTrees();
-            temp.MaxCategories = maxCategories;
-            temp.RegressionAccuracy = regAccuracy;
-            temp.MaxDepth = maxDepth;
-            temp.Use1SERule = seRule;
+            temp.MaxCategories = this.maxCategories;
+            temp.RegressionAccuracy = this.regAccuracy;
+            temp.MaxDepth = this.maxDepth;
+            temp.Use1SERule = this.seRule;
 
             this.trainmodel = temp;
 
         
         }
-        public override void clear()
+        public override void Clear()
         {
 
             this.trainmodel.Clear();
         }
 
-        //==================================================================
-        //函数名：  Train
-        //作者：    dhj
-        //日期：    2016-05-09
-        //功能：    RandomForest 训练
-        //输入参数：data 需要的数据，flags 扩展项
-        //返回值：  类型（bool)
-        //修改记录：
-        //==================================================================
+      
         public override bool Train( float[] data, int flags = 0) 
         {
             logger.Info("RandomForest train");
@@ -128,7 +120,7 @@ namespace 环保分析系统.core.ML
 
 
             isSuccess = doMergePredictData(ref data, out predictdata);
-            if(isSuccess||predictdata==null)
+            if(!isSuccess||predictdata==null)
             {
                 throw new Exception("megre predict data flase");
             }
@@ -150,7 +142,7 @@ namespace 环保分析系统.core.ML
             float[] resultList = new float[result.Height];
             for (int i = 0; i < result.Height;++i )
             {
-                resultList[i]=result.Data[i,0];
+                resultList[i]=result[i,0];
 
             }
             return resultList;
