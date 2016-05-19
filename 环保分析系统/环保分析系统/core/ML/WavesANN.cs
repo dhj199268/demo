@@ -14,7 +14,7 @@ using 环保分析系统.core.Until;
 
 namespace 环保分析系统.core.ML
 {
-    class WavesANN//:AbstractMLAlg
+    class WavesANN:AbstractMLAlg
     {    
         private static log4net.ILog logger = log4net.LogManager.GetLogger(typeof(WavesANN));
 
@@ -28,7 +28,7 @@ namespace 环保分析系统.core.ML
         private int maxiter = 100;//对大迭代次数
         private double maxv;
         private double minv;
-        private int segTime;
+        //private int segTime;
         private Matrix<float> Wij;
         private Matrix<float> Wjk;
         private Matrix<float> b;
