@@ -26,8 +26,10 @@ namespace 环保分析系统.core.ML
         private float lr1   = 0.01f;//权值
         private float lr2   = 0.001f;//学习率
         private int maxiter = 100;//对大迭代次数
-        private double maxv;
-        private double minv;
+        private double intputmaxv;
+        private double intputminv;
+        private double outputmaxv;
+        private double outputrminv;
         //private int segTime;
         private Matrix<float> Wij;
         private Matrix<float> Wjk;
@@ -85,11 +87,19 @@ namespace 环保分析系统.core.ML
             a = new Matrix<float>(outlayer, hidelayer);
             b = new Matrix<float>(outlayer, hidelayer);
 
+            //tmp data
+            //Matrix<float> tmp1_Wjk, tmp2_Wjk, tmp1_Wij, tmp2_Wij, tmp1_a, tmp2_a, tmp1_b, tmp2_b;
             //rand init
             Wjk.SetRandNormal(mean, std);
             Wij.SetRandNormal(mean, std);
             a.SetRandNormal(mean, std);
             b.SetRandNormal(mean, std);
+
+            //init tmp
+           /* tmp1_Wjk = Wij.Clone(); tmp2_Wjk = tmp1_Wjk.Clone();
+            tmp1_Wij = Wij.Clone(); tmp2_Wij = tmp1_Wij.Clone();
+            tmp1_a = a.Clone(); tmp2_a = tmp1_a.Clone();
+            tmp1_b = b.Clone(); tmp2_b = tmp1_b.Clone();*/
 
             //study weight init
             Matrix<float> d_Wjk = new Matrix<float>(hidelayer, segTime);
@@ -128,7 +138,7 @@ namespace 环保分析系统.core.ML
                         logger.Debug("train net time :" + (k + 1));
                         x = traindata.GetRow(k);
                         yqw = label[k, OUTLAYER];
-                        y = y + trainPredictOut(ref x, ref yqw,ref  b, ref a,ref net, ref net_ab);
+                        y =  trainPredictOut(ref x,ref net, ref net_ab);
                         //x.Dispose();
 
                        
@@ -186,7 +196,7 @@ namespace 环保分析系统.core.ML
             }
 
         }
-        private float trainPredictOut(ref Matrix<float> x, ref float yqw, ref Matrix<float> b,ref Matrix<float> a, ref Matrix<float> net, ref Matrix<float> net_ab)
+        private float trainPredictOut(ref Matrix<float> x, ref Matrix<float> net, ref Matrix<float> net_ab)
         {
             logger.Debug("train preidct out net");
 
@@ -226,7 +236,8 @@ namespace 环保分析系统.core.ML
             Matrix<float> net_ab = new Matrix<float>(outlayer, hidelayer);
             
             float y=0.0f;
-            float temp;
+
+            /*float temp;
             //predict
             for (int j = 0; j < hidelayer; ++j)
             {
@@ -239,8 +250,9 @@ namespace 环保分析系统.core.ML
 
                 y += Wij[OUTLAYER, j] * temp;
             
-            }
+            }*/
 
+            y=trainPredictOut(ref predictdata, ref net, ref net_ab);
             return y;
         
         }
@@ -276,8 +288,8 @@ namespace 环保分析系统.core.ML
             }
 
            //nomal data
-            MatrixUntil.maxminnomal(ref traindata,out maxv,out minv);
-            MatrixUntil.maxminnomal(ref label, out maxv, out minv);
+            MatrixUntil.maxminnomal(ref traindata,out intputmaxv, out intputminv);
+            MatrixUntil.maxminnomal(ref label, out outputmaxv, out outputrminv);
 
 
             //training
@@ -312,13 +324,13 @@ namespace 环保分析系统.core.ML
                 throw new Exception("megre predict data flase");
             }
             //nomaldata
-            MatrixUntil.maxminnomal(ref predictdata, out maxv, out minv);
+            MatrixUntil.maxminnomal(ref predictdata,  intputmaxv,  intputminv);
 
             //predict processing
             try
             {
                 result[0] = predict(ref predictdata);
-                MatrixUntil.reversemaxminnomal(ref result, maxv,minv);
+                MatrixUntil.reversemaxminnomal(ref result, outputmaxv,outputrminv);
             }
             catch (Exception e)
             {
