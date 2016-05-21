@@ -14,6 +14,7 @@ using log4net;
 
 //用于初始化log 配置文件，必须加入
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
+
 namespace 环保分析系统
 {
     public partial class mainForm : Form
@@ -69,12 +70,13 @@ namespace 环保分析系统
                        1,2,3,4,5,4,6,6,1,2,3,4,5,4,6,6
                        };
             //float[] data = { 1,2,3,4,5,6,1,3};
-            test.Train(data);
+            test.Train(ref data);
             //Console.ReadLine();
-            float[] testdata = { 1, 2, 3, 4, 5, 4 };
+            float[] testdata = { 1, 2, 3, 4, 5, 4, 6, 6, 1, 2, 3, 23 };
             float[] result;
-            result = test.Predict(testdata);
-            logger.Info("result:" + result[0]);
+            result = test.Predict(ref testdata);
+            for (int i = 0; i < result.Length; ++i)
+                logger.Info("result:" + result[i]);
             test.Clear(); 
         }
 
@@ -105,11 +107,51 @@ namespace 环保分析系统
                        };
 
             WavesANN test = new WavesANN(15, 6);
-            test.Train(data);
-            float[] testdata = { 1, 2, 3, 4, 5 ,4};
+            test.Train(ref data);
+            float[] testdata = { 1, 2, 3, 4, 5 ,4,6,6,1,2,3,23};
             float[] result;
-            result = test.Predict(testdata);
-            logger.Info("result:" + result[0]);
+            result = test.Predict(ref testdata);
+            for (int i = 0; i < result.Length;++i )
+                logger.Info("result:" + result[i]);
+            test.Clear(); 
+
+        }
+
+        private void kmeansToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            float[] data ={1,2,45,4,76,5,6,9,
+                       1,2,3,4,5,23,6,6,
+                       1,2,2,4,5,3,6,43,
+                       1,2,3,4,5,2,6,6,
+                       1,7,3,4,5,4,6,6,
+                       1,34,9,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,3,3,4,54,1,6,7,
+                       1,2,3,4,5,4,6,6,
+                       1,2,9,4,5,4,5,6,
+                       1,2,3,4,5,4,6,6,
+                       1,45,0,4,5,3,2,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,4,23,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,5,4,5,4,6,6,
+                       1,2,9,4,55,43,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,23,3,4,5,8,6,6,
+                       1,2,8,4,5,4,67,6,
+                       1,2,83,4,5,4,6,6,
+                       1,2,3,4,5,67,6,6,1,2,3,87,7,4,8,4
+                       };
+
+            Kmeans test = new Kmeans(2,5,1000);
+            test.Train(ref data);
+            float[] testdata = { 1, 2, 3, 4, 5, 4, 6, 6, 1, 2, 3, 23 };
+            float[] result;
+            result = test.Predict(ref testdata);
+            for (int i = 0; i < result.Length; ++i)
+               logger.Info("result:" + result[i]);
+
+
             test.Clear(); 
 
         }

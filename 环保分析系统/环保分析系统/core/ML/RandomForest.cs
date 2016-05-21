@@ -22,6 +22,7 @@ namespace 环保分析系统.core.ML
         private float regAccuracy;
         private int maxDepth ;
         private bool seRule;
+        private IStatModel trainmodel = null;
 
         private RandomForest(){}
        
@@ -33,14 +34,18 @@ namespace 环保分析系统.core.ML
             this.maxDepth = maxDepth;
             this.seRule = seRule;
             
-            
-            
-            //放在最后
-            this.initialization();
         }
-
-        protected  void initialization()
+       
+        public override void Clear()
         {
+
+            this.trainmodel.Clear();
+        }
+        protected override void beforeTrain()
+        {
+            logger.Info("before train in RF");
+
+
             RTrees temp = new RTrees();
             temp.MaxCategories = this.maxCategories;
             temp.RegressionAccuracy = this.regAccuracy;
@@ -49,16 +54,31 @@ namespace 环保分析系统.core.ML
 
             this.trainmodel = temp;
 
-        
         }
-        public override void Clear()
+        protected override void train()
         {
-
-            this.trainmodel.Clear();
+            logger.Info(" train model in RF");
+            TrainData tempdata = new TrainData(traindata, DataLayoutType.RowSample, label);
+            trainmodel.Train(tempdata);
         }
 
-      
-        public override bool Train( float[] data, int flags = 0) 
+
+
+        protected override void predict(ref Matrix<float> data, out float[] result)
+        {
+            Matrix<float> tmp = new Matrix<float>(data.Height, 1);
+            trainmodel.Predict(data, tmp);
+
+             result = new float[tmp.Height];
+            for (int i = 0; i < tmp.Height; ++i)
+            {
+                result[i] = tmp[i, 0];
+
+            }
+
+        }
+
+       /* public override bool Train( ref float[] data, int flags = 0) 
         {
             logger.Info("RandomForest train");
 
@@ -73,8 +93,8 @@ namespace 环保分析系统.core.ML
             Matrix<float> traindata = null;
             Matrix<float> label = null ;
             bool isSuccess = false;
-            isSuccess = doMergeTrainData(ref data, out traindata,out label);
-            if (!isSuccess || traindata == null || label == null)
+            isSuccess = doMergeData(ref data, out traindata,out label);
+            if (!isSuccess && traindata == null && label == null)
             {
                 throw new Exception("megre train data flase");
             }
@@ -103,7 +123,7 @@ namespace 环保分析系统.core.ML
         //返回值：  类型（float) 预测的结果
         //修改记录：
         //==================================================================
-        public override float[] Predict(float[] data) 
+        public override float[] Predict(ref float[] data) 
         {
             logger.Info("Predict data");
 
@@ -119,8 +139,8 @@ namespace 环保分析系统.core.ML
             bool isSuccess = false;
 
 
-            isSuccess = doMergePredictData(ref data, out predictdata);
-            if(!isSuccess||predictdata==null)
+            isSuccess = doMergeData(ref data, out predictdata);
+            if(!isSuccess&&predictdata==null)
             {
                 throw new Exception("megre predict data flase");
             }
@@ -147,6 +167,7 @@ namespace 环保分析系统.core.ML
             }
             return resultList;
         }
+*/
 
     }
 }

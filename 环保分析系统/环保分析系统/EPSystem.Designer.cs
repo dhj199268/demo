@@ -44,6 +44,7 @@
             this.预测算法ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.随机深林ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.小波神经网络ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kmeansToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -149,7 +150,8 @@
             // 
             this.预测算法ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.随机深林ToolStripMenuItem,
-            this.小波神经网络ToolStripMenuItem});
+            this.小波神经网络ToolStripMenuItem,
+            this.kmeansToolStripMenuItem});
             this.预测算法ToolStripMenuItem.Name = "预测算法ToolStripMenuItem";
             this.预测算法ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
             this.预测算法ToolStripMenuItem.Text = "预测算法";
@@ -167,6 +169,13 @@
             this.小波神经网络ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.小波神经网络ToolStripMenuItem.Text = "小波神经网络";
             this.小波神经网络ToolStripMenuItem.Click += new System.EventHandler(this.小波神经网络ToolStripMenuItem_Click);
+            // 
+            // kmeansToolStripMenuItem
+            // 
+            this.kmeansToolStripMenuItem.Name = "kmeansToolStripMenuItem";
+            this.kmeansToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.kmeansToolStripMenuItem.Text = "Kmeans";
+            this.kmeansToolStripMenuItem.Click += new System.EventHandler(this.kmeansToolStripMenuItem_Click);
             // 
             // mainForm
             // 
@@ -204,6 +213,7 @@
         private System.Windows.Forms.ToolStripMenuItem 预测算法ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 随机深林ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 小波神经网络ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kmeansToolStripMenuItem;
 
     }
 }

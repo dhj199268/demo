@@ -164,5 +164,29 @@ namespace 环保分析系统.core.Until
             
             }
         }
+
+        public static bool isAccurate(ref Matrix<float> last, ref Matrix<float> old, float accurate)
+        {
+            Matrix<float> tmp = new Matrix<float>(last.Size);
+            CvInvoke.AbsDiff(last, old, tmp);
+
+
+            Point tempa;
+            Point tempb;
+            double minv = 0;
+            double maxv = 0;
+            tmp.MinMax(out minv, out maxv, out tempa, out tempb);
+            if (minv < accurate)
+            {
+                
+                return true;
+            }
+
+            return false;
+
+        }
+
+
+      
     }
 }

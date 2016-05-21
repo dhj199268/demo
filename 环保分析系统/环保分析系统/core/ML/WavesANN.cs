@@ -69,10 +69,10 @@ namespace 环保分析系统.core.ML
         //返回值：  类型（void) 
         //修改记录：
         //==================================================================
-        private void train(ref Matrix<float> traindata, ref Matrix<float> label)
+        protected override void train()
         {   
             logger.Info("WavesANN train processing");
-            if (traindata.Height != label.Height || traindata.Width != segTime)
+            if (traindata.Height != label.Height && traindata.Width != segTime)
             {
                 throw new Exception("train data or label data dim  out of range");
             }
@@ -126,19 +126,13 @@ namespace 环保分析系统.core.ML
             logger.Info("iter train");
             for (int i = 0; i < maxiter; ++i)
             {
-
-                if(logger.IsDebugEnabled)
-                {
                     logger.Debug("iter time :"+(i+1));
-                }
-                
                 //train net
                 for (int k = 0; k < traindata.Height; ++k)
                 {
-                        logger.Debug("train net time :" + (k + 1));
                         x = traindata.GetRow(k);
                         yqw = label[k, OUTLAYER];
-                        y =  trainPredictOut(ref x,ref net, ref net_ab);
+                        y = _predict(ref x, ref net, ref net_ab);
                         //x.Dispose();
 
                        
@@ -150,12 +144,10 @@ namespace 环保分析系统.core.ML
                         {
 
                             //cal d_Wij
-                            logger.Debug("cal d_Wij");
                             temp = morlet(net_ab[OUTLAYER, j]);
                             d_Wij[OUTLAYER, j] = d_Wij[OUTLAYER, j] - error * temp;
 
                             //cal d_Wjk
-                            logger.Debug("cal d_Wjk");
                             temp = d_morlet(net_ab[OUTLAYER, j]);
                             for (int z = 0; z < segTime; ++z)
                             {
@@ -164,18 +156,15 @@ namespace 环保分析系统.core.ML
                             }
 
                             //cal d_b
-                            logger.Debug("cal d_b");
                             d_b[OUTLAYER, j] += error * Wij[OUTLAYER, j];
                             d_b[OUTLAYER, j] *= temp / a[OUTLAYER, j];
 
                             //cal d_a
-                            logger.Debug("cal d_a");
                             d_a[OUTLAYER, j] += error * Wij[OUTLAYER, j];
                             d_a[OUTLAYER, j] *= temp * (net[OUTLAYER, j] - b[OUTLAYER, j]) / b[OUTLAYER, j] / a[OUTLAYER, j];
                         }
 
                        //updata wight params
-                        logger.Debug("updata wight params");
                         Wij -= lr1 * d_Wij;
                         Wjk -= lr2 * d_Wjk;
                         b -= lr2 * d_b;
@@ -196,11 +185,8 @@ namespace 环保分析系统.core.ML
             }
 
         }
-        private float trainPredictOut(ref Matrix<float> x, ref Matrix<float> net, ref Matrix<float> net_ab)
+        private float _predict(ref Matrix<float> x, ref Matrix<float> net, ref Matrix<float> net_ab)
         {
-            logger.Debug("train preidct out net");
-
-            
             float temp;
             float y=0.0f;
 
@@ -218,15 +204,13 @@ namespace 环保分析系统.core.ML
                     y = y + Wij[k, j] * temp;
                 }
             }
-
-            logger.Debug("train preidct out over");
             return y;
         }
 
-        private float predict(ref Matrix<float> predictdata)
+        protected override void predict(ref Matrix<float> predictdata,out float[] y)
         {
             logger.Info("predict processing");
-            if (predictdata.Width != segTime || predictdata.Height!=1)
+            if (predictdata.Width != segTime)
             {
                 throw new Exception("error dim about predictdata");
             }
@@ -234,8 +218,8 @@ namespace 环保分析系统.core.ML
             //init net
             Matrix<float> net = new Matrix<float>(outlayer, hidelayer);
             Matrix<float> net_ab = new Matrix<float>(outlayer, hidelayer);
-            
-            float y=0.0f;
+            Matrix<float> tmp;
+            y = new float [predictdata.Height];
 
             /*float temp;
             //predict
@@ -251,9 +235,15 @@ namespace 环保分析系统.core.ML
                 y += Wij[OUTLAYER, j] * temp;
             
             }*/
+            for(int i =0;i<y.Length;++i)
+            {
+                tmp = predictdata.GetRow(i);
+                y[i] = _predict(ref tmp, ref net, ref net_ab);
 
-            y=trainPredictOut(ref predictdata, ref net, ref net_ab);
-            return y;
+                net.SetZero();
+                net_ab.SetZero();
+            }
+            
         
         }
 
@@ -263,10 +253,26 @@ namespace 环保分析系统.core.ML
             Wij.Dispose();
             a.Dispose();
             b.Dispose();
+            traindata.Dispose();
+            label.Dispose();
         }
 
-        
-        public override bool Train(float[] data, int flags = 0) 
+        protected override void beforeTrain()
+        {
+            MatrixUntil.maxminnomal(ref traindata, out intputmaxv, out intputminv);
+            MatrixUntil.maxminnomal(ref label, out outputmaxv, out outputrminv);
+        }
+
+        protected override void beforePredict(ref Matrix<float> predictdata)
+        {
+            MatrixUntil.maxminnomal(ref predictdata, intputmaxv, intputminv);
+        }
+        protected override void afterPredict(ref float[] data)
+        {
+            MatrixUntil.reversemaxminnomal(ref data, outputmaxv, outputrminv);
+        }
+
+      /*  public override bool Train(ref float[] data, int flags = 0) 
         {
             logger.Info("WavesANN train");
 
@@ -281,7 +287,7 @@ namespace 环保分析系统.core.ML
             Matrix<float> traindata = null;
             Matrix<float> label = null;
             bool isSuccess = false;
-            isSuccess = doMergeTrainData(ref data, out traindata, out label);
+            isSuccess = doMergeData(ref data, out traindata, out label);
             if (!isSuccess || traindata == null || label == null)
             {
                 throw new Exception("megre train data flase");
@@ -307,18 +313,18 @@ namespace 环保分析系统.core.ML
             logger.Info("train success");
             return true;
         }
-        public override float[] Predict(float[] data)
+        public override float[] Predict(ref float[] data)
         {
             logger.Info("Predict data");
 
 
             //merge predict data
-            float[] result = new float[1];
+            float[] result ;
             Matrix<float> predictdata = null;
             bool isSuccess = false;
 
 
-            isSuccess = doMergePredictData(ref data, out predictdata);
+            isSuccess = doMergeData(ref data, out predictdata);
             if (!isSuccess || predictdata == null)
             {
                 throw new Exception("megre predict data flase");
@@ -329,19 +335,18 @@ namespace 环保分析系统.core.ML
             //predict processing
             try
             {
-                result[0] = predict(ref predictdata);
-                MatrixUntil.reversemaxminnomal(ref result, outputmaxv,outputrminv);
+                predict(ref predictdata,out result);
+                MatrixUntil.reversemaxminnomal(ref result, outputmaxv, outputrminv);
             }
             catch (Exception e)
             {
                 logger.Error("error information:" + e);
-                return null;
+                throw e;
             }
 
             //deal result to list
-
             return result;
 
-        }
+        }*/
     }
 }
