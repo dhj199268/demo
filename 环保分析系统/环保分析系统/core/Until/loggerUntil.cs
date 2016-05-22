@@ -18,19 +18,32 @@ namespace 环保分析系统.core.Until
         public static void printMatToLogger(string msg, ref Matrix<float> data, ref log4net.ILog logger)
         {
 
-            string str = null;
+            StringBuilder str = new StringBuilder("\n");
+            //str.Append("\n");
             for (int i = 0; i < data.Height; ++i)
             {
+                str.Append(i + ":  ");
                 for (int j = 0; j < data.Width; ++j)
                 {
-                    str += data[i, j] + "  ";
+                    str.Append(data[i, j] + "  ");
 
                 }
-
-                str += ":";
+                str.Append("\n");
             }
             logger.Debug(msg + str);
 
+        }
+        public static void printMatToLogger(string msg, ref float[] data, ref log4net.ILog logger)
+        {
+
+            StringBuilder str = new StringBuilder();
+            for (int i = 0; i < data.Length; ++i)
+            {
+                str.Append(data[i]+"\n");
+            }
+            logger.Debug(msg + str);
+        
+        
         }
 
     }

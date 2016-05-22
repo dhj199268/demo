@@ -20,6 +20,7 @@ namespace 环保分析系统.core.ML
         protected Matrix<float> traindata;
         protected Matrix<float> label;
         protected bool haslabel=true;
+        protected float accurate;//精确度
 
         public int SegTime
         {  get{

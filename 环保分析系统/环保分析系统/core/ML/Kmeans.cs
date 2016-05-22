@@ -22,7 +22,6 @@ namespace 环保分析系统.core.ML
         private Matrix<float> center;//族中心，索引为分类的种类
         private Matrix<float> centerDiag;//族中心的对称矩阵
         private int maxIter;//最大迭代次数
-        private float accurate;//精确度
 
 
         private Kmeans() { }
@@ -142,13 +141,6 @@ namespace 环保分析系统.core.ML
                     }
                     ++count;
                 }
-
-                if (logger.IsDebugEnabled)
-                {
-                    loggerUntil.printMatToLogger("init center mat", ref center, ref logger);
-
-                }
-
                 randomset.Clear();
         }
         protected override void train()
@@ -163,14 +155,18 @@ namespace 环保分析系统.core.ML
 
             //init center 
             initCenter(ref traindata);
+            if (logger.IsDebugEnabled)
+            {
+                loggerUntil.printMatToLogger("init center mat : ", ref center, ref logger);
 
+            }
 
             oldcenter=center.Clone();
 
             //iter train
             for (int iter = 0; iter < maxIter; ++iter)
             {
-                logger.Debug("iter time :" + (iter + 1));
+                logger.Debug("iter time : " + (iter + 1));
 
                 calCenterDiag();
 
@@ -196,7 +192,7 @@ namespace 环保分析系统.core.ML
                 
                   if (logger.IsDebugEnabled)
                 {
-                    loggerUntil.printMatToLogger("updata center mat", ref center,ref logger);
+                    loggerUntil.printMatToLogger("updata center mat:", ref center,ref logger);
                 
                 }
 
@@ -215,9 +211,9 @@ namespace 环保分析系统.core.ML
 
         public override void Clear()
         {
-            
-            center.Dispose();
-            centerDiag.Dispose();
+
+            this.center.Dispose();
+            this.centerDiag.Dispose();
             this.traindata.Dispose();
         }
         protected override void predict(ref Matrix<float> data, out float[] result)

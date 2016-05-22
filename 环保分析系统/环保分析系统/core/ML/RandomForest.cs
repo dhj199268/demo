@@ -19,7 +19,6 @@ namespace 环保分析系统.core.ML
         private static log4net.ILog logger = log4net.LogManager.GetLogger(typeof(RandomForest));
         
         private int maxCategories;
-        private float regAccuracy;
         private int maxDepth ;
         private bool seRule;
         private IStatModel trainmodel = null;
@@ -30,7 +29,7 @@ namespace 环保分析系统.core.ML
         {
             this.segTime = segTime;
             this.maxCategories = maxCategories;
-            this.regAccuracy = regAccuracy;
+            this.accurate = regAccuracy;
             this.maxDepth = maxDepth;
             this.seRule = seRule;
             
@@ -38,7 +37,8 @@ namespace 环保分析系统.core.ML
        
         public override void Clear()
         {
-
+            this.traindata.Dispose();
+            this.label.Dispose();
             this.trainmodel.Clear();
         }
         protected override void beforeTrain()
@@ -48,7 +48,7 @@ namespace 环保分析系统.core.ML
 
             RTrees temp = new RTrees();
             temp.MaxCategories = this.maxCategories;
-            temp.RegressionAccuracy = this.regAccuracy;
+            temp.RegressionAccuracy = this.accurate;
             temp.MaxDepth = this.maxDepth;
             temp.Use1SERule = this.seRule;
 

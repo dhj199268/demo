@@ -15,31 +15,7 @@ namespace 环保分析系统.core.Until
     class MatrixUntil
     {
         private MatrixUntil() { }
-        //==================================================================
-        //函数名：  DotMul
-        //作者：    dhj
-        //日期：    2016-05-16
-        //功能：    矩阵点乘
-        //输入参数：
-        //返回值：  类型（bool) 整合是否成功
-        //修改记录：
-        //==================================================================
-        public static void DotMul(ref Matrix<float> src1, ref Matrix<float> src2, out Matrix<float> result)
-        {
-            if (src1.Width != src2.Width || src1.Height != src2.Height)
-            {
-                throw new Exception("src1 dim not equel src2 dim");
-            }
-
-            result = new Matrix<float>(src1.Height, src1.Width);
-            for (int i = 0; i < result.Height; ++i)
-            {
-                for (int j = 0; j < result.Width; ++j)
-                {
-                    result[i, j] = src1[i, j] * src2[i, j];
-                }
-            }
-        }
+       
         //==================================================================
         //函数名：  Sin
         //作者：    dhj
@@ -94,47 +70,49 @@ namespace 环保分析系统.core.Until
         //返回值：  类型（bool) 整合是否成功
         //修改记录：
         //==================================================================
-        public static void maxminnomal(ref Matrix<float> data, out double maxv, out double minv)
+        public static void maxminnomal(ref Matrix<float> data, out float[] maxv, out float[] minv)
         {
             Point tempa;
             Point tempb;
-            minv = 0;
-            maxv = 0;
-            //Matrix<float> temprow = data.GetRow(i);
+            double tmpminv ;
+            double tmpmaxv ;
+            Matrix<float> tmpmat;
+            maxv = new float[data.Width];
+            minv = new float[data.Width];
 
-            data.MinMax(out minv, out maxv, out tempa, out tempb);
-            maxminnomal(ref data, maxv, minv);
-            //data = (ymax - ymin) * (data - minv) / (maxv - minv) + ymin;
+            for (int i = 0; i < data.Width; i++)
+            {
+                tmpmat = data.GetCol(i);
+                tmpmat.MinMax(out tmpminv, out tmpmaxv, out tempa, out tempb);
+                maxv[i] = (float)tmpmaxv;
+                minv[i] = (float)tmpminv;
 
-            /*if (data.Width == 1)
-            {
-                data.MinMax(out minv, out maxv, out tempa, out tempb);
-                data = (ymax - ymin) * (data - minv) / (maxv - minv) + ymin;
-            }
-            else
-            {
-                Matrix<float> tmp;
-                for (int i = 0; i < data.Height; ++i)
+                for (int j = 0; j < data.Height; j++)
                 {
-                    tmp = data.GetRow(i);
-                    tmp.MinMax(out minv, out maxv, out tempa, out tempb);
-                    tmp = (ymax - ymin) * (tmp - minv) / (maxv - minv) + ymin;
-
-                    for (int j = 0; j < tmp.Width; ++j)
-                    {
-                        data[i, j] = tmp[0, j];
-                    }
+                    data[j, i] = 2 * (data[j, i] - (float)tmpminv) / ((float)tmpmaxv - (float)tmpminv) - 1;
                 }
-            }*/
+            }
+            
+
+            
+           
             
         }
-        public static void maxminnomal(ref Matrix<float> data, double maxv, double minv)
+        public static void maxminnomal(ref Matrix<float> data, float[] maxv, float[] minv)
         {
-            double ymax = 1;
-            double ymin = -1;
-
+            double tmpminv;
+            double tmpmaxv;
             //Matrix<float> temprow = data.GetRow(i);
-            data = (ymax - ymin) * (data - minv) / (maxv - minv) + ymin;
+            for (int i = 0; i < data.Width; i++)
+            {
+                tmpmaxv=maxv[i];
+                tmpminv=minv[i];
+
+                for (int j = 0; j < data.Height; j++)
+                {
+                    data[j, i] = 2 * (data[j, i] - (float)tmpminv) / ((float)tmpmaxv - (float)tmpminv) - 1;
+                }
+            }
         }
         //==================================================================
         //函数名：  reversemaxminnomal
@@ -145,28 +123,29 @@ namespace 环保分析系统.core.Until
         //返回值：  类型（bool) 整合是否成功
         //修改记录：
         //==================================================================
-        public static void reversemaxminnomal(ref Matrix<float> data, double maxv, double minv)
+        public static void reversemaxminnomal(ref Matrix<float> data, float maxv, float minv)
         {
-            double ymax = 1;
             double ymin = -1;
-            data = (data - ymin) * (maxv - minv) / (ymax - ymin) + minv;
+            data = (data - ymin) * (maxv - minv) / 2.0 + minv;
 
         }
-        public static void reversemaxminnomal(ref float[] data, double maxv, double minv)
+        public static void reversemaxminnomal(ref float[] data, float maxv, float minv)
         {
-            double ymax = 1;
             double ymin = -1;
             for (int i = 0; i < data.Length; ++i)
             {
                 double tmp = (double)data[i];
-                tmp = (tmp - ymin) * (maxv - minv) / (ymax - ymin) + minv;
+                tmp = (tmp - ymin) * (maxv - minv) / 2.0 + minv;
                 data[i] = (float)tmp;
-            
             }
         }
 
         public static bool isAccurate(ref Matrix<float> last, ref Matrix<float> old, float accurate)
         {
+            if (last.Size!=old.Size)
+            {
+                throw new Exception(" the two mat dim is no equal");
+            }
             Matrix<float> tmp = new Matrix<float>(last.Size);
             CvInvoke.AbsDiff(last, old, tmp);
 
@@ -176,7 +155,7 @@ namespace 环保分析系统.core.Until
             double minv = 0;
             double maxv = 0;
             tmp.MinMax(out minv, out maxv, out tempa, out tempb);
-            if (minv < accurate)
+            if (maxv < accurate)
             {
                 
                 return true;
