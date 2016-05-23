@@ -25,7 +25,7 @@ namespace 环保分析系统.core.ML
 
 
         private Kmeans() { }
-        public Kmeans(int numClass=2, int segTime = 150,int maxIter=500, float accurate=0.001f)
+        public Kmeans(int numClass = 2, int maxIter = 500, int segTime = 2, float accurate = 0.001f)
         {
             if (numClass < 2)
             {
@@ -79,9 +79,9 @@ namespace 环保分析系统.core.ML
         
         }
 
-        private void updateCenter(ref Matrix<float> data, ref Dictionary<int, List<int>> indexs)
+        private void updateCenter( ref Dictionary<int, List<int>> indexs)
         {
-            Matrix<float> tmp = new Matrix<float>(1,data.Width);
+            Matrix<float> tmp = new Matrix<float>(1,traindata.Width);
             
 
             foreach(int yclass in indexs.Keys)
@@ -89,11 +89,10 @@ namespace 环保分析系统.core.ML
 
                 List<int> indexlist = indexs[yclass];
                 foreach (int i in indexlist)
-                {   
-                    tmp =tmp+ data.GetRow(i);
+                {
+                    tmp = tmp + traindata.GetRow(i);
                 }
-                
-
+                 
                 tmp /= indexlist.Count;
 
                 // clear and free memory
@@ -188,7 +187,7 @@ namespace 环保分析系统.core.ML
                
                 //updata center
                 //logger.Info("updata center");
-                updateCenter(ref traindata, ref indexs);
+                updateCenter( ref indexs);
                 
                   if (logger.IsDebugEnabled)
                 {
@@ -226,6 +225,25 @@ namespace 环保分析系统.core.ML
                 tmp = data.GetRow(i);
                 result[i] = _predict(ref tmp, out dist);
             }
+        }
+
+        protected override bool doMergeData(ref float[] data, out Matrix<float> mergedata)
+        {
+            logger.Info("merge data processing");
+
+            int rows = data.Length / segTime;
+            mergedata = new Matrix<float>(rows,segTime);
+
+            for (int row = 0; row < rows; ++row)
+            {
+                for (int col = 0; col < segTime; col++)
+                {
+                    mergedata[row,col]=data[row*segTime+col];
+                }
+                
+            }
+
+            return true;
         }
 
       /*  public override float[] Predict(ref float[] data)

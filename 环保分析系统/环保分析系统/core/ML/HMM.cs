@@ -38,8 +38,57 @@ namespace 环保分析系统.core.ML
             this.traindata.Dispose();
         }
 
-      
+      /*  protected override bool doMergeData(ref float[] data, out Matrix<float> mergedata)
+        {
+            logger.Info("merge data processing");
+
+            int rows = data.Length / numstats;
+            int cols = numstats;
+            mergedata = new Matrix<float>(numstats, numstats);
+
+            for (int row = 0; row < rows; ++row)
+            {
+                for (int col = 0; col < cols; ++col)
+                {
+                    mergedata[row, col] = data[row * cols + col];
+                }
+            }
+
+            return true;
+           
+        }*/
         protected override void beforeTrain()
+        {
+           
+        }
+
+        public override bool Train(ref float[] data, int flags = 0)
+        {
+            logger.Info("train processing");
+            int row;
+            int col;
+            traindata = new Matrix<float>(numstats, numstats);
+
+            for (int i = 0; i < data.Length-1; ++i)
+            {
+                row = (int)data[i];
+                col = (int)data[i + 1];
+                traindata[row, col] += 1;
+            }
+            beforeTrain();
+            train();
+            return true;
+
+        }
+        protected override void beforePredict(ref Matrix<float> data)
+        {
+            if (logger.IsDebugEnabled)
+            {
+                loggerUntil.printMatToLogger("prinf predict mat :", ref data, ref logger);
+
+            }
+        }
+      /*  protected override void beforeTrain()
         {
             logger.Debug("befor train deal");
             transferMat = new Matrix<float>(numstats, numstats);
@@ -61,29 +110,30 @@ namespace 环保分析系统.core.ML
                 transferMat[row, col] += 1;
             }
 
-           /* float[,] data = { { 126f, 14f, 1, 0 }, { 11, 17, 7, 3 }, { 4, 6, 7, 7 }, { 0, 1, 9, 22 } };
-            transferMat = new Matrix<float>(data);*/
+           / * float[,] data = { { 126f, 14f, 1, 0 }, { 11, 17, 7, 3 }, { 4, 6, 7, 7 }, { 0, 1, 9, 22 } };
+            transferMat = new Matrix<float>(data);* /
             if (logger.IsDebugEnabled)
             {
                 loggerUntil.printMatToLogger("prinf count mat :", ref transferMat, ref logger);
 
             }
 
-        }
+        }*/
         protected override void train()
         {
             Matrix<float> tmprow;
             float tmpsum;
+            transferMat = new Matrix<float>(numstats, numstats);
 
-            for (int i = 0; i < transferMat.Height; i++)
+            for (int i = 0; i < traindata.Height; i++)
             {
-                tmprow = transferMat.GetRow(i);
+                tmprow = traindata.GetRow(i);
                 tmpsum = (float)tmprow.Sum;
 
                 for (int j = 0; j < traindata.Width; j++)
                 {
-                    
-                    transferMat[i, j] = transferMat[i, j] / tmpsum;
+
+                    transferMat[i, j] = traindata[i, j] / tmpsum;
                 }
                 
             }
@@ -101,11 +151,7 @@ namespace 环保分析系统.core.ML
             //cal sum prob
             for (int col = data.Width - 1; col >= 0; --col)
             {
-                if (logger.IsDebugEnabled)
-                {
-                    loggerUntil.printMatToLogger("prinf transfer prob mat :", ref probmat, ref logger);
-
-                }
+               
 
                 for (int row = 0; row < data.Height; row++)
                 {
@@ -122,7 +168,19 @@ namespace 环保分析系统.core.ML
                 }
 
                 //get prob map(n)
-                probmat *= this.transferMat;
+                if (0!=col)
+                {
+                    probmat *= this.transferMat;
+
+                    if (logger.IsDebugEnabled)
+                    {
+                        loggerUntil.printMatToLogger("prinf transfer prob mat :", ref probmat, ref logger);
+
+                    }
+                }
+                
+
+                
                 
             }
 

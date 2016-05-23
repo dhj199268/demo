@@ -166,7 +166,7 @@ namespace 环保分析系统
                        1,2,3,4,5,67,6,6,1,2,3,87,7,4,8,4
                        };
 
-            Kmeans test = new Kmeans(3,5,1000);
+            Kmeans test = new Kmeans(3,1000,2);
             test.Train(ref data);
             float[] testdata = { 1, 2, 3, 4, 5, 4, 6, 6, 1, 2, 3, 23 };
             float[] result;
@@ -189,7 +189,7 @@ namespace 环保分析系统
                        };
             HMM test = new HMM();
             test.Train(ref data);
-            float[] testdata = { 0,0, 0, 0,0,3,3,3};
+            float[] testdata = { 1,0, 1, 1,1,3,3,3};
             float[] result;
             result = test.Predict(ref testdata);
             for (int i = 0; i < result.Length; ++i)
