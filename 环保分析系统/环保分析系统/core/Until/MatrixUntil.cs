@@ -123,10 +123,23 @@ namespace 环保分析系统.core.Until
         //返回值：  类型（bool) 整合是否成功
         //修改记录：
         //==================================================================
-        public static void reversemaxminnomal(ref Matrix<float> data, float maxv, float minv)
+        public static void reversemaxminnomal(ref Matrix<float> data,ref float[] maxv, ref float[] minv)
         {
-            double ymin = -1;
-            data = (data - ymin) * (maxv - minv) / 2.0 + minv;
+            float ymin = -1;
+            float tmpmax;
+            float tmpmin;
+            for (int i = 0; i < data.Width; i++)
+            {
+                tmpmax = maxv[i];
+                tmpmin = minv[i];
+
+                for (int j = 0; j < data.Height; j++)
+                {
+                    data[j, i] = (data[j, i] - ymin) * (tmpmax - tmpmin) / 2.0f + tmpmin;
+                }
+                
+            }
+            
 
         }
         public static void reversemaxminnomal(ref float[] data, float maxv, float minv)

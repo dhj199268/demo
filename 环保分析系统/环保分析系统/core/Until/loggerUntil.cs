@@ -26,7 +26,6 @@ namespace 环保分析系统.core.Until
                 for (int j = 0; j < data.Width; ++j)
                 {
                     str.Append(data[i, j] + "  ");
-
                 }
                 str.Append("\n");
             }
@@ -36,7 +35,7 @@ namespace 环保分析系统.core.Until
         public static void printMatToLogger(string msg, ref float[] data, ref log4net.ILog logger)
         {
 
-            StringBuilder str = new StringBuilder();
+            StringBuilder str = new StringBuilder("\n");
             for (int i = 0; i < data.Length; ++i)
             {
                 str.Append(data[i]+"\n");

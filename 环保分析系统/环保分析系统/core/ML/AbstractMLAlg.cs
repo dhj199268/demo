@@ -160,12 +160,6 @@ namespace 环保分析系统.core.ML
 
             //deal result to list
             return result;
-        
-        
-        
-        
-        
-        
         }
        
 

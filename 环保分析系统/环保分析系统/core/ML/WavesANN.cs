@@ -336,9 +336,10 @@ namespace 环保分析系统.core.ML
 
         protected override void beforeTrain()
         {
+            //loggerUntil.printMatToLogger("printf nomal train data mat : ", ref traindata, ref logger);
             MatrixUntil.maxminnomal(ref traindata, out intputmaxv, out intputminv);
+            
             MatrixUntil.maxminnomal(ref label, out outputmaxv, out outputrminv);
-
             if (logger.IsDebugEnabled)
             {
                 loggerUntil.printMatToLogger("printf nomal train data mat : ", ref traindata, ref logger);

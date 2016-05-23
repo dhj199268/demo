@@ -93,7 +93,7 @@ namespace 环保分析系统
                        1,2,3,4,5,4,6,6,
                        1,2,9,4,5,4,5,6,
                        1,2,3,4,5,4,6,6,
-                       1,45,0,4,5,3,2,6,
+                       1,45,30,4,5,3,2,6,
                        1,2,3,4,5,4,6,6,
                        1,2,4,23,5,4,6,6,
                        1,2,3,4,5,4,6,6,
@@ -177,6 +177,24 @@ namespace 环保分析系统
 
             test.Clear(); 
 
+        }
+
+        private void hMMToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            float[] data ={1,1, 1, 2,
+                              1,3, 1, 1,
+                              1,1, 0, 1,
+                              1,0, 1, 1,
+                              1,1, 1, 0,
+                       };
+            HMM test = new HMM();
+            test.Train(ref data);
+            float[] testdata = { 0,0, 0, 0,0,3,3,3};
+            float[] result;
+            result = test.Predict(ref testdata);
+            for (int i = 0; i < result.Length; ++i)
+                logger.Info("result:" + result[i]);
+            test.Clear(); 
         }
     }
 }

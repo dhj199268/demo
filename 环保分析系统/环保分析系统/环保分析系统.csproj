@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="core\ML\AbstractMLAlg.cs" />
+    <Compile Include="core\ML\HMM.cs" />
     <Compile Include="core\ML\Impl\IMLAlgorithm.cs" />
     <Compile Include="core\ML\Kmeans.cs" />
     <Compile Include="core\ML\RandomForest.cs" />
