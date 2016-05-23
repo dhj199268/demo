@@ -43,6 +43,7 @@ namespace 环保分析系统
             this.txtPassword.Clear();
             this.txtLoginName.Focus();
         }
+
         //登录事件
         private void btnDengLu_Click(object sender, EventArgs e)
         {
@@ -50,7 +51,7 @@ namespace 环保分析系统
             string password = this.txtPassword.Text;
 
             //进行密码认证
-            bool isloginsuccess = loginService(ref username,ref password);
+            bool isloginsuccess = LoginService(ref username,ref password);
             
             //认证成功 打开EPS 窗口
             if (true == isloginsuccess)
@@ -73,7 +74,7 @@ namespace 环保分析系统
         //          认证成功返回ture，否则返回false            
         //修改记录：
         //==================================================================
-        private bool loginService(ref string username, ref string password)
+        private bool LoginService(ref string username, ref string password)
         {
             const string _username = "123456";
             const string _password = "admin";
@@ -92,7 +93,7 @@ namespace 环保分析系统
             else
             {   //用户名和密码错误处理
                 if(logger.IsDebugEnabled){
-                    logger.Debug("your input username:" + username + "password:" + password);
+                    logger.Debug("your input username:｛" + username + " ｝password:｛" + password +"}");
                 }
                 MessageBox.Show("用户名或密码错误");
                 clear();

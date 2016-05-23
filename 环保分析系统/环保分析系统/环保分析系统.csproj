@@ -32,6 +32,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Emgu.CV">
+      <HintPath>dll\Emgu.CV.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.ML">
+      <HintPath>dll\Emgu.CV.ML.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.Util">
+      <HintPath>dll\Emgu.Util.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>dll\log4net.dll</HintPath>
     </Reference>
@@ -47,6 +56,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="core\ML\AbstractMLAlg.cs" />
+    <Compile Include="core\ML\HMM.cs" />
+    <Compile Include="core\ML\Impl\IMLAlgorithm.cs" />
+    <Compile Include="core\ML\Kmeans.cs" />
+    <Compile Include="core\ML\RandomForest.cs" />
+    <Compile Include="core\ML\WavesANN.cs" />
+    <Compile Include="core\Until\loggerUntil.cs" />
+    <Compile Include="core\Until\MatrixUntil.cs" />
     <Compile Include="EPSystem.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,7 +104,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="dll\" />
