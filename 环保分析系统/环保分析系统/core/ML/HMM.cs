@@ -59,7 +59,11 @@ namespace 环保分析系统.core.ML
         }*/
         protected override void beforeTrain()
         {
-           
+            if (logger.IsDebugEnabled)
+            {
+                loggerUntil.printMatToLogger("prinf count mat :", ref traindata, ref logger);
+
+            }
         }
 
         public override bool Train(ref float[] data, int flags = 0)
@@ -75,8 +79,10 @@ namespace 环保分析系统.core.ML
                 col = (int)data[i + 1];
                 traindata[row, col] += 1;
             }
+
             beforeTrain();
             train();
+
             return true;
 
         }
@@ -84,7 +90,7 @@ namespace 环保分析系统.core.ML
         {
             if (logger.IsDebugEnabled)
             {
-                loggerUntil.printMatToLogger("prinf predict mat :", ref data, ref logger);
+                loggerUntil.printMatToLogger("prinf predict data  mat :", ref data, ref logger);
 
             }
         }
@@ -178,9 +184,6 @@ namespace 环保分析系统.core.ML
 
                     }
                 }
-                
-
-                
                 
             }
 
