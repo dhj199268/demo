@@ -41,6 +41,11 @@
             this.数据分析ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.计算器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.matlabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.预测算法ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.随机深林ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.小波神经网络ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kmeansToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hMMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -65,7 +70,8 @@
             this.系统管理ToolStripMenuItem,
             this.数据分析ToolStripMenuItem,
             this.信息ToolStripMenuItem,
-            this.数据分析ToolStripMenuItem1});
+            this.数据分析ToolStripMenuItem1,
+            this.预测算法ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1052, 25);
@@ -141,6 +147,45 @@
             this.matlabToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.matlabToolStripMenuItem.Text = "Matlab";
             // 
+            // 预测算法ToolStripMenuItem
+            // 
+            this.预测算法ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.随机深林ToolStripMenuItem,
+            this.小波神经网络ToolStripMenuItem,
+            this.kmeansToolStripMenuItem,
+            this.hMMToolStripMenuItem});
+            this.预测算法ToolStripMenuItem.Name = "预测算法ToolStripMenuItem";
+            this.预测算法ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.预测算法ToolStripMenuItem.Text = "预测算法";
+            // 
+            // 随机深林ToolStripMenuItem
+            // 
+            this.随机深林ToolStripMenuItem.Name = "随机深林ToolStripMenuItem";
+            this.随机深林ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.随机深林ToolStripMenuItem.Text = "随机深林";
+            this.随机深林ToolStripMenuItem.Click += new System.EventHandler(this.随机深林ToolStripMenuItem_Click);
+            // 
+            // 小波神经网络ToolStripMenuItem
+            // 
+            this.小波神经网络ToolStripMenuItem.Name = "小波神经网络ToolStripMenuItem";
+            this.小波神经网络ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.小波神经网络ToolStripMenuItem.Text = "小波神经网络";
+            this.小波神经网络ToolStripMenuItem.Click += new System.EventHandler(this.小波神经网络ToolStripMenuItem_Click);
+            // 
+            // kmeansToolStripMenuItem
+            // 
+            this.kmeansToolStripMenuItem.Name = "kmeansToolStripMenuItem";
+            this.kmeansToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.kmeansToolStripMenuItem.Text = "Kmeans";
+            this.kmeansToolStripMenuItem.Click += new System.EventHandler(this.kmeansToolStripMenuItem_Click);
+            // 
+            // hMMToolStripMenuItem
+            // 
+            this.hMMToolStripMenuItem.Name = "hMMToolStripMenuItem";
+            this.hMMToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hMMToolStripMenuItem.Text = "HMM";
+            this.hMMToolStripMenuItem.Click += new System.EventHandler(this.hMMToolStripMenuItem_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -174,6 +219,11 @@
         private System.Windows.Forms.ToolStripMenuItem matlabToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 添加用户名ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 删除用户名ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 预测算法ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 随机深林ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 小波神经网络ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kmeansToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hMMToolStripMenuItem;
 
     }
 }
