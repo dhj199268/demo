@@ -6,11 +6,14 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using 环保分析系统.core.ML;
 using 环保分析系统.core.ML.Impl;
 using log4net;
+using 环保分析系统.UI.ChildWindow;
+using 环保分析系统.core;
 
 //用于初始化log 配置文件，必须加入
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -44,9 +47,31 @@ namespace 环保分析系统
         private void 随机深林ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RandomForest test = new RandomForest(1000,6);
-            
+            float[] data ={1,2,45,4,76,5,6,9,
+                       1,2,3,4,5,23,6,6,
+                       1,2,2,4,5,3,6,43,
+                       1,2,3,4,5,2,6,6,
+                       1,7,3,4,5,4,6,6,
+                       1,34,9,4,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,3,3,4,54,1,6,7,
+                       1,2,3,4,5,4,6,6,
+                       1,2,9,4,5,4,5,6,
+                       1,2,3,4,5,4,6,6,
+                       1,45,30,4,5,3,2,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,4,23,5,4,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,2,5,4,5,4,6,6,
+                       1,2,9,4,55,43,6,6,
+                       1,2,3,4,5,4,6,6,
+                       1,23,3,4,5,8,6,6,
+                       1,2,8,4,5,4,67,6,
+                       1,2,83,4,5,4,6,6,
+                       1,2,3,4,5,67,6,6,1,2,3,87,7,4,8,4
+                       };
             //test.SegTime = 5;
-           float[] data ={1,2,3,4,5,4,6,6,
+          /* float[] data ={1,2,3,4,5,4,6,6,
                        1,2,3,4,5,4,6,6,
                        1,2,3,4,5,4,6,6,
                        1,2,3,4,5,4,6,6,
@@ -68,7 +93,7 @@ namespace 环保分析系统
                        1,2,3,4,5,4,6,6,
                        1,2,3,4,5,4,6,6,
                        1,2,3,4,5,4,6,6,1,2,3,4,5,4,6,6
-                       };
+                       };*/
             //float[] data = { 1,2,3,4,5,6,1,3};
             test.Train(ref data);
             //Console.ReadLine();
@@ -130,13 +155,22 @@ namespace 环保分析系统
                        };*/
 
             WavesANN test = new WavesANN(15, 6,100);
-            test.Train(ref data);
             float[] testdata = { 1, 2, 3, 4, 5 ,4,6,6,1,2,3,23};
-            float[] result;
-            result = test.Predict(ref testdata);
-            for (int i = 0; i < result.Length;++i )
-                logger.Info("result:" + result[i]);
-            test.Clear(); 
+
+            ThreadML param = new ThreadML(ref data, ref testdata, test);
+            Thread thread = new Thread(new ThreadStart(param.train));
+
+            try
+            {
+                thread.Start();
+               // thread.Join(); 
+                
+            }
+            catch (Exception error)
+            {
+                thread.Abort();
+                logger.Error(error);
+            }
 
         }
 
@@ -170,13 +204,23 @@ namespace 环保分析系统
             test.Train(ref data);
             float[] testdata = { 1, 2, 3, 4, 5, 4, 6, 6, 1, 2, 3, 23 };
             float[] result;
-            result = test.Predict(ref testdata);
-            for (int i = 0; i < result.Length; ++i)
-               logger.Info("result:" + result[i]);
+            ThreadML param = new ThreadML(ref data, ref testdata, test);
+            Thread thread = new Thread(new ThreadStart(param.train));
 
+            try
+            {
+                thread.Start();
+               /* thread.Join();
+                result = param.Result;
+                for (int i = 0; i < result.Length; ++i)
+                    logger.Info("result:" + result[i]);*/
+            }
+            catch (Exception)
+            {
 
-            test.Clear(); 
-
+                thread.Abort();
+                logger.Error(e);
+            }
         }
 
         private void hMMToolStripMenuItem_Click(object sender, EventArgs e)
@@ -187,14 +231,34 @@ namespace 环保分析系统
                               1,0, 1, 1,
                               1,1, 1, 0,
                        };
-            HMM test = new HMM();
-            test.Train(ref data);
             float[] testdata = { 1,0, 1, 1,1,3,3,3};
-            float[] result;
-            result = test.Predict(ref testdata);
-            for (int i = 0; i < result.Length; ++i)
-                logger.Info("result:" + result[i]);
-            test.Clear(); 
+             float[] result;
+             HMM test = new HMM();
+            ThreadML param = new ThreadML(ref data,ref testdata,test );
+
+            Thread thread = new Thread(new ThreadStart(param.train));
+
+            try
+            {
+                thread.Start();
+                thread.Join();
+            }
+            catch (Exception)
+            {
+
+                thread.Abort();
+                logger.Error(e);
+            }
+            
         }
+
+        private void 关于ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox diag = new AboutBox();
+            diag.Show();
+        }
+
+
+       
     }
 }
