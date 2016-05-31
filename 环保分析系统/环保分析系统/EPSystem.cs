@@ -13,6 +13,7 @@ using 环保分析系统.core.ML;
 using 环保分析系统.core.ML.Impl;
 using log4net;
 using 环保分析系统.UI.ChildWindow;
+using 环保分析系统.UI.ChildWindow.baseWindow;
 using 环保分析系统.core;
 
 //用于初始化log 配置文件，必须加入
@@ -199,14 +200,14 @@ namespace 环保分析系统
                        1,2,83,4,5,4,6,6,
                        1,2,3,4,5,67,6,6,1,2,3,87,7,4,8,4
                        };
-
+            baseForm bf = new baseForm();
+            bf.ShowDialog();
             Kmeans test = new Kmeans(3,1000,2);
             test.Train(ref data);
             float[] testdata = { 1, 2, 3, 4, 5, 4, 6, 6, 1, 2, 3, 23 };
-            float[] result;
             ThreadML param = new ThreadML(ref data, ref testdata, test);
             Thread thread = new Thread(new ThreadStart(param.train));
-
+            
             try
             {
                 thread.Start();
@@ -232,7 +233,6 @@ namespace 环保分析系统
                               1,1, 1, 0,
                        };
             float[] testdata = { 1,0, 1, 1,1,3,3,3};
-             float[] result;
              HMM test = new HMM();
             ThreadML param = new ThreadML(ref data,ref testdata,test );
 

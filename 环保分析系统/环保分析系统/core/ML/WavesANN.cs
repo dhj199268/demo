@@ -23,9 +23,9 @@ namespace 环保分析系统.core.ML
         private const int outlayer = 1;//输出层结点个数
         private int hidelayer;//隐藏层结点个数
         private float alfa;//权值动量
-        private float lr1   = 0.01f;//权值
-        private float lr2   = 0.001f;//学习率
-        private int maxiter = 100;//对大迭代次数
+        private float lr1  ;//权值
+        private float lr2   ;//学习率
+        private int maxiter ;//对大迭代次数
         private float[] intputmaxv;
         private float[] intputminv;
         private float[] outputmaxv;
@@ -118,7 +118,6 @@ namespace 环保分析系统.core.ML
                 loggerUntil.printMatToLogger("init Wjk mat : ", ref Wjk, ref logger);
                 loggerUntil.printMatToLogger("init a   mat : ", ref a, ref logger);
                 loggerUntil.printMatToLogger("init b   mat : ", ref b, ref logger);
-
             }
         
         
@@ -144,17 +143,12 @@ namespace 环保分析系统.core.ML
            
 
             //net weight init
-
             initWight();
-
-          
-           
 
            /* Matrix<float> old_Wjk = new Matrix<float>(Wjk.Size);
             Matrix<float> old_Wij = new Matrix<float>(Wij.Size);
             Matrix<float> old_a = new Matrix<float>(a.Size);
             Matrix<float> old_b = new Matrix<float>(b.Size);
-
             Wjk.CopyTo(old_Wjk);
             Wij.CopyTo(old_Wij);
             a.CopyTo(old_a);
@@ -170,7 +164,7 @@ namespace 环保分析系统.core.ML
             Matrix<float> b_1 = new Matrix<float>(b.Size); 
             Matrix<float> b_2 = new Matrix<float>(b.Size); 
 
-            Wij.CopyTo(Wij_1);
+            //Wij.CopyTo(Wij_1);
             Wij_1.CopyTo(Wij_2);
             Wjk.CopyTo(Wjk_1);
             Wjk_1.CopyTo(Wjk_2);
@@ -242,33 +236,29 @@ namespace 环保分析系统.core.ML
                         }
 
                     //updata wight params
+                        Wij.CopyTo(Wij_1);
+                        Wjk.CopyTo(Wjk_1);
+                        a.CopyTo(a_1);
+                        b.CopyTo(b_1);
+
                         Wij -= (lr1 * d_Wij + this.alfa * (Wij_1 - Wij_2));
                         Wjk -= (lr1 * d_Wjk + this.alfa * (Wjk_1 - Wjk_2));
-                        b -= (lr2 * d_b + this.alfa * (b_1 - b_2));
-                        a -= (lr2 * d_a + this.alfa * (a_1 - a_2));
+                        b   -= (lr2 * d_b   + this.alfa * (b_1   - b_2));
+                        a   -= (lr2 * d_a   + this.alfa * (a_1   - a_2));
 
+                        Wij_1.CopyTo(Wij_2);
+                        Wjk_1.CopyTo(Wjk_2);
+                        a_1.CopyTo(a_2);
+                        b_1.CopyTo(b_2);
 
-
-                    Wij_1.CopyTo(Wij_2);
-                    Wij.CopyTo(Wij_1);
-                    Wjk_1.CopyTo(Wjk_2);
-                    Wjk.CopyTo(Wjk_1);
-                    a_1.CopyTo(a_2);
-                    a.CopyTo(a_1);
-                    b_1.CopyTo(b_2);
-                    b.CopyTo(b_1);
-                   
-
-
-
-                    //zeros params
-                    d_Wjk.SetZero();
-                    d_Wij.SetZero();
-                    d_a.SetZero();
-                    d_b.SetZero();
-                    net.SetZero();
-                    net_ab.SetZero();
-                    y = 0;
+                        //zeros params
+                        d_Wjk.SetZero();
+                        d_Wij.SetZero();
+                        d_a.SetZero();
+                        d_b.SetZero();
+                        net.SetZero();
+                        net_ab.SetZero();
+                        y = 0;
                        
                         
                 }
@@ -381,7 +371,6 @@ namespace 环保分析系统.core.ML
         {
             //loggerUntil.printMatToLogger("printf nomal train data mat : ", ref traindata, ref logger);
             MatrixUntil.maxminnomal(ref traindata, out intputmaxv, out intputminv);
-            
             MatrixUntil.maxminnomal(ref label, out outputmaxv, out outputrminv);
             if (logger.IsDebugEnabled)
             {
