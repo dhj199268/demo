@@ -43,15 +43,30 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
             this.splitContainer1.Panel2Collapsed = true;
             //this.splitContainer1.Panel2.Hide();
 
-            this.comboBox1.Items.Add("快   速");
-            this.comboBox1.Items.Add("标   准");
-            this.comboBox1.Items.Add("精   确");
-            this.comboBox1.SelectedIndex = 1;
+            this.MothdcomboBox.Items.Add("快   速");
+            this.MothdcomboBox.Items.Add("标   准");
+            this.MothdcomboBox.Items.Add("精   确");
+            this.MothdcomboBox.SelectedIndex = 1;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+
+        protected virtual void resetParams();
+
+        private void reset_Click(object sender, EventArgs e)
+        {
+            this.devarList.ClearSelected();
+            this.indevarList.ClearSelected();
+            resetParams();
         }
     }
 }
