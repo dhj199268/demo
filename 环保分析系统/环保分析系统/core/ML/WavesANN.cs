@@ -36,10 +36,8 @@ namespace 环保分析系统.core.ML
         private Matrix<float> b;
         private Matrix<float> a;
 
-
-        private WavesANN() { }
-
         public WavesANN(int hidelayer, int segTime,int iter = 100, float lr1 = 0.01f, float lr2 = 0.001f,float k=0.8f, float accurate=0.001f)
+            : base(segTime, true)
         {
             this.hidelayer = hidelayer;
             this.segTime = segTime;

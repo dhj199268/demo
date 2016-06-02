@@ -23,16 +23,14 @@ namespace 环保分析系统.core.ML
         private bool seRule;
         private IStatModel trainmodel = null;
 
-        private RandomForest(){}
        
         public RandomForest(int numTree=500,int segTime=150, int maxCategories=10, float regAccuracy=0.1f,int maxDepth=15, bool seRule=true)
+            :base(segTime,true)
         {
-            this.segTime = segTime;
             this.maxCategories = maxCategories;
             this.accurate = regAccuracy;
             this.maxDepth = maxDepth;
             this.seRule = seRule;
-            
         }
        
         public override void Clear()

@@ -200,7 +200,7 @@ namespace 环保分析系统
                        1,2,83,4,5,4,6,6,
                        1,2,3,4,5,67,6,6,1,2,3,87,7,4,8,4
                        };
-            baseForm bf = new baseForm();
+            RandomForestForm bf = new RandomForestForm();
             bf.ShowDialog();
             Kmeans test = new Kmeans(3,1000,2);
             test.Train(ref data);
