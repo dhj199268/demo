@@ -22,10 +22,10 @@ namespace 环保分析系统.core.ML
         //输入层个数,即segTime的个数
         private const int outlayer = 1;//输出层结点个数
         private int hidelayer;//隐藏层结点个数
-
-        private float lr1   = 0.01f;//权值
-        private float lr2   = 0.001f;//学习率
-        private int maxiter = 100;//对大迭代次数
+        private float alfa;//权值动量
+        private float lr1  ;//权值
+        private float lr2   ;//学习率
+        private int maxiter ;//对大迭代次数
         private float[] intputmaxv;
         private float[] intputminv;
         private float[] outputmaxv;
@@ -36,10 +36,8 @@ namespace 环保分析系统.core.ML
         private Matrix<float> b;
         private Matrix<float> a;
 
-
-        private WavesANN() { }
-
-        public WavesANN(int hidelayer, int segTime, int iter = 100, float lr1 = 0.01f, float lr2 = 0.001f, float accurate=0.001f)
+        public WavesANN(int hidelayer, int segTime,int iter = 100, float lr1 = 0.01f, float lr2 = 0.001f,float k=0.8f, float accurate=0.001f)
+            : base(segTime, true)
         {
             this.hidelayer = hidelayer;
             this.segTime = segTime;
@@ -47,6 +45,7 @@ namespace 环保分析系统.core.ML
             this.lr1 = lr1;
             this.lr2 = lr2;
             this.accurate = accurate;
+            this.alfa = k;
         }
         protected float morlet(double data) 
         {
@@ -59,7 +58,68 @@ namespace 环保分析系统.core.ML
 
             return (float)(Math.Sin(temp) * exptemp * (-1.75) - data * Math.Cos(temp) * exptemp);
         }
+        private void initWight()
+        {
+            /*float[,] dateWjk = new float[,]{
+          {-1.603095E-09f , 0.1581351f  ,-0.700928f,  -0.428596f , 1.238742f,  -0.2780082f},
+          {-0.6483988f , 0.3051633f , 0.5150146f , -1.145044f,  0.7698455f , -0.04643121f},
+          {1.305906f  ,-1.959684f , -1.899214f , -0.5372382f , -0.7482896f,  1.896493f},
+          {0.2740504f , -1.380205f , 1.536549f , -0.7863572f  ,-2.47486f , -1.547924f},
+          {-1.366019f  ,-0.0632474f  ,1.35166f  ,0.7991089f  ,-0.2629067f  ,-0.5210055f},
+          {1.832979f,0.3665396f,1.292024f,-0.6415402f,-0.8612988f,1.0746f },
+          { 0.04817724f,-0.2777255f,-0.1544364f,-0.3687655f,1.049587f,0.4745168f},
+          {-0.1098307f,1.027995f,-0.7473472f,-0.6086587f,-0.2126996f,1.161373f},
+          { -1.97154f,0.6979373f,-0.2164864f,0.09800851f,0.2626977f,-0.8374355f },
+          {0.6489992f,-0.1693007f,1.664958f,-0.2866672f,-0.8016707f,0.709641f},
+          {0.5940348f,0.6862857f,-0.486322f,-0.5800229f,0.1246383f,-0.9583831f},
+          {-0.9581243f,1.170798f,0.6460137f,0.366217f,-1.171016f,1.329355f },
+          {1.277516f,1.433298f,-0.5041577f,-1.072145f,1.10956f,0.4944702f },
+          {-0.898831f,-0.5393173f,-0.1154103f,-0.9486543f,0.5228851f,0.1146836f},
+          {0.03454646f,-0.9715312f,0.8627224f,1.256821f,-0.7619987f,0.5566175f}
+          };
+          float[] dataWij = new float[] { 2.282419f, 2.586385f, 1.670612f, -0.09844889f, 1.181688f, -1.981908f, 1.194082f, 0.125284f, 1.428096f, -1.436763f, 0.05035987f, 0.9311036f, -0.6933131f, -1.548525f, -1.383015f };
+          float[] dataa = new float[]{-1.255837f , -1.116254f , 0.0733989f,0.354004f ,-0.3725047f , -0.1567855f , 0.3352263f , 0.4787318f , 0.2413591f , 0.373641f , 0.1144013f,  1.010988f  ,0.07992264f  ,-2.235177f  ,-1.379348f };
+          float[] datab = new float[] { -1.265001f, -0.2734743f, 0.6498196f, 0.1608497f,-0.8530558f ,0.1870729f,0.2749617f ,-1.43715f , 0.2649245f,  -0.686395f , 1.267891f , -0.09106331f,  0.54422f , 0.02860428f,  0.2482116f};*/
+            /*  Wij = new Matrix<float>(dataWij);  //hide to out
+          Wij = Wij.Transpose();
+          Wjk = new Matrix<float>(dateWjk);//input to hide
+          a = new Matrix<float>(dataa); a = a.Transpose();
+          b = new Matrix<float>(datab); b = b.Transpose();*/
+            MCvScalar mean = new MCvScalar(0);
+            MCvScalar std = new MCvScalar(1);
+            Wij = new Matrix<float>(outlayer, hidelayer);  //hide to out
+            Wjk = new Matrix<float>(hidelayer, segTime);//input to hide
+            a = new Matrix<float>(outlayer, hidelayer);
+            b = new Matrix<float>(outlayer, hidelayer);
+        
 
+            //rand init
+            Random random = new Random();
+            int time = random.Next(1,100);
+            //time = 10;
+            while (time > 0)
+            {
+                Wjk.SetZero();
+                Wij.SetZero();
+                a.SetZero();
+                b.SetZero();
+                --time;
+                Wjk.SetRandNormal(mean, std);
+                Wij.SetRandNormal(mean, std);
+                a.SetRandNormal(mean, std);
+                b.SetRandNormal(mean, std);
+            }
+
+            if (logger.IsDebugEnabled)
+            {
+                loggerUntil.printMatToLogger("init Wij mat : ", ref Wij, ref logger);
+                loggerUntil.printMatToLogger("init Wjk mat : ", ref Wjk, ref logger);
+                loggerUntil.printMatToLogger("init a   mat : ", ref a, ref logger);
+                loggerUntil.printMatToLogger("init b   mat : ", ref b, ref logger);
+            }
+        
+        
+        }
         //==================================================================
         //函数名：  train
         //作者：    dhj
@@ -78,75 +138,38 @@ namespace 环保分析系统.core.ML
             }
 
             logger.Info("new init");
-            MCvScalar mean = new MCvScalar(0);
-            MCvScalar std = new MCvScalar(1);
+           
 
             //net weight init
-            /*float[,] dateWjk = new float[,]{
-            {-1.603095E-09f , 0.1581351f  ,-0.700928f,  -0.428596f , 1.238742f,  -0.2780082f},
-            {-0.6483988f , 0.3051633f , 0.5150146f , -1.145044f,  0.7698455f , -0.04643121f},
-            {1.305906f  ,-1.959684f , -1.899214f , -0.5372382f , -0.7482896f,  1.896493f},
-            {0.2740504f , -1.380205f , 1.536549f , -0.7863572f  ,-2.47486f , -1.547924f},
-            {-1.366019f  ,-0.0632474f  ,1.35166f  ,0.7991089f  ,-0.2629067f  ,-0.5210055f},
-            {1.832979f,0.3665396f,1.292024f,-0.6415402f,-0.8612988f,1.0746f },
-            { 0.04817724f,-0.2777255f,-0.1544364f,-0.3687655f,1.049587f,0.4745168f},
-            {-0.1098307f,1.027995f,-0.7473472f,-0.6086587f,-0.2126996f,1.161373f},
-            { -1.97154f,0.6979373f,-0.2164864f,0.09800851f,0.2626977f,-0.8374355f },
-            {0.6489992f,-0.1693007f,1.664958f,-0.2866672f,-0.8016707f,0.709641f},
-            {0.5940348f,0.6862857f,-0.486322f,-0.5800229f,0.1246383f,-0.9583831f},
-            {-0.9581243f,1.170798f,0.6460137f,0.366217f,-1.171016f,1.329355f },
-            {1.277516f,1.433298f,-0.5041577f,-1.072145f,1.10956f,0.4944702f },
-            {-0.898831f,-0.5393173f,-0.1154103f,-0.9486543f,0.5228851f,0.1146836f},
-            {0.03454646f,-0.9715312f,0.8627224f,1.256821f,-0.7619987f,0.5566175f}
-            };
-            float[] dataWij = new float[] { 2.282419f, 2.586385f, 1.670612f, -0.09844889f, 1.181688f, -1.981908f, 1.194082f, 0.125284f, 1.428096f, -1.436763f, 0.05035987f, 0.9311036f, -0.6933131f, -1.548525f, -1.383015f };
-            float[] dataa = new float[]{-1.255837f , -1.116254f , 0.0733989f,0.354004f ,-0.3725047f , -0.1567855f , 0.3352263f , 0.4787318f , 0.2413591f , 0.373641f , 0.1144013f,  1.010988f  ,0.07992264f  ,-2.235177f  ,-1.379348f };
-            float[] datab = new float[] { -1.265001f, -0.2734743f, 0.6498196f, 0.1608497f,-0.8530558f ,0.1870729f,0.2749617f ,-1.43715f , 0.2649245f,  -0.686395f , 1.267891f , -0.09106331f,  0.54422f , 0.02860428f,  0.2482116f};*/
-
-
-            Wij = new Matrix<float>(outlayer, hidelayer);  //hide to out
-            Wjk = new Matrix<float>(hidelayer, segTime);//input to hide
-            a = new Matrix<float>(outlayer, hidelayer);
-            b = new Matrix<float>(outlayer, hidelayer);
-          /*  Wij = new Matrix<float>(dataWij);  //hide to out
-            Wij = Wij.Transpose();
-            Wjk = new Matrix<float>(dateWjk);//input to hide
-            a = new Matrix<float>(dataa); a = a.Transpose();
-            b = new Matrix<float>(datab); b = b.Transpose();*/
-
-            //tmp data
-            //rand init
-            Wjk.SetRandNormal(mean, std);
-            Wij.SetRandNormal(mean, std);
-            a.SetRandNormal(mean, std);
-            b.SetRandNormal(mean, std);
+            initWight();
 
            /* Matrix<float> old_Wjk = new Matrix<float>(Wjk.Size);
             Matrix<float> old_Wij = new Matrix<float>(Wij.Size);
             Matrix<float> old_a = new Matrix<float>(a.Size);
             Matrix<float> old_b = new Matrix<float>(b.Size);
-
             Wjk.CopyTo(old_Wjk);
             Wij.CopyTo(old_Wij);
             a.CopyTo(old_a);
             b.CopyTo(old_b);*/
 
+            //init  K  
+            Matrix<float> Wij_1 = new Matrix<float>(Wij.Size); 
+            Matrix<float> Wij_2 = new Matrix<float>(Wij.Size); 
+            Matrix<float> Wjk_1 = new Matrix<float>(Wjk.Size); 
+            Matrix<float> Wjk_2 = new Matrix<float>(Wjk.Size);
+            Matrix<float> a_1 = new Matrix<float>(a.Size); 
+            Matrix<float> a_2 = new Matrix<float>(a.Size); 
+            Matrix<float> b_1 = new Matrix<float>(b.Size); 
+            Matrix<float> b_2 = new Matrix<float>(b.Size); 
 
-
-            if (logger.IsDebugEnabled)
-            {
-                loggerUntil.printMatToLogger("init Wij mat : ", ref Wij, ref logger);
-                loggerUntil.printMatToLogger("init Wjk mat : ", ref Wjk, ref logger);
-                loggerUntil.printMatToLogger("init a   mat : ", ref a, ref logger);
-                loggerUntil.printMatToLogger("init b   mat : ", ref b, ref logger);
-
-            }
-
-            //init tmp
-           /* tmp1_Wjk = Wij.Clone(); tmp2_Wjk = tmp1_Wjk.Clone();
-            tmp1_Wij = Wij.Clone(); tmp2_Wij = tmp1_Wij.Clone();
-            tmp1_a = a.Clone(); tmp2_a = tmp1_a.Clone();
-            tmp1_b = b.Clone(); tmp2_b = tmp1_b.Clone();*/
+            //Wij.CopyTo(Wij_1);
+            Wij_1.CopyTo(Wij_2);
+            Wjk.CopyTo(Wjk_1);
+            Wjk_1.CopyTo(Wjk_2);
+            a.CopyTo(a_1);
+            a_1.CopyTo(a_2);
+            b.CopyTo(b_1);
+            b_1.CopyTo(b_2);
 
             //study weight init
             Matrix<float> d_Wjk = new Matrix<float>(hidelayer, segTime);
@@ -211,21 +234,29 @@ namespace 环保分析系统.core.ML
                         }
 
                     //updata wight params
-                    Wij -= lr1 * d_Wij;
-                    Wjk -= lr1 * d_Wjk;
-                    b -= lr2 * d_b;
-                    a -= lr2 * d_a;
+                        Wij.CopyTo(Wij_1);
+                        Wjk.CopyTo(Wjk_1);
+                        a.CopyTo(a_1);
+                        b.CopyTo(b_1);
 
+                        Wij -= (lr1 * d_Wij + this.alfa * (Wij_1 - Wij_2));
+                        Wjk -= (lr1 * d_Wjk + this.alfa * (Wjk_1 - Wjk_2));
+                        b   -= (lr2 * d_b   + this.alfa * (b_1   - b_2));
+                        a   -= (lr2 * d_a   + this.alfa * (a_1   - a_2));
 
+                        Wij_1.CopyTo(Wij_2);
+                        Wjk_1.CopyTo(Wjk_2);
+                        a_1.CopyTo(a_2);
+                        b_1.CopyTo(b_2);
 
-                    //zeros params
-                    d_Wjk.SetZero();
-                    d_Wij.SetZero();
-                    d_a.SetZero();
-                    d_b.SetZero();
-                    net.SetZero();
-                    net_ab.SetZero();
-                    y = 0;
+                        //zeros params
+                        d_Wjk.SetZero();
+                        d_Wij.SetZero();
+                        d_a.SetZero();
+                        d_b.SetZero();
+                        net.SetZero();
+                        net_ab.SetZero();
+                        y = 0;
                        
                         
                 }
@@ -338,7 +369,6 @@ namespace 环保分析系统.core.ML
         {
             //loggerUntil.printMatToLogger("printf nomal train data mat : ", ref traindata, ref logger);
             MatrixUntil.maxminnomal(ref traindata, out intputmaxv, out intputminv);
-            
             MatrixUntil.maxminnomal(ref label, out outputmaxv, out outputrminv);
             if (logger.IsDebugEnabled)
             {

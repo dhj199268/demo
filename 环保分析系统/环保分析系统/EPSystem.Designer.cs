@@ -46,6 +46,8 @@
             this.小波神经网络ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kmeansToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hMMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -57,6 +59,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.menuStrip1);
             this.panel1.Location = new System.Drawing.Point(-11, -2);
             this.panel1.Name = "panel1";
@@ -71,10 +74,11 @@
             this.数据分析ToolStripMenuItem,
             this.信息ToolStripMenuItem,
             this.数据分析ToolStripMenuItem1,
-            this.预测算法ToolStripMenuItem});
+            this.预测算法ToolStripMenuItem,
+            this.帮助ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1052, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(1050, 25);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -161,30 +165,45 @@
             // 随机深林ToolStripMenuItem
             // 
             this.随机深林ToolStripMenuItem.Name = "随机深林ToolStripMenuItem";
-            this.随机深林ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.随机深林ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.随机深林ToolStripMenuItem.Text = "随机深林";
             this.随机深林ToolStripMenuItem.Click += new System.EventHandler(this.随机深林ToolStripMenuItem_Click);
             // 
             // 小波神经网络ToolStripMenuItem
             // 
             this.小波神经网络ToolStripMenuItem.Name = "小波神经网络ToolStripMenuItem";
-            this.小波神经网络ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.小波神经网络ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.小波神经网络ToolStripMenuItem.Text = "小波神经网络";
             this.小波神经网络ToolStripMenuItem.Click += new System.EventHandler(this.小波神经网络ToolStripMenuItem_Click);
             // 
             // kmeansToolStripMenuItem
             // 
             this.kmeansToolStripMenuItem.Name = "kmeansToolStripMenuItem";
-            this.kmeansToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.kmeansToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.kmeansToolStripMenuItem.Text = "Kmeans";
             this.kmeansToolStripMenuItem.Click += new System.EventHandler(this.kmeansToolStripMenuItem_Click);
             // 
             // hMMToolStripMenuItem
             // 
             this.hMMToolStripMenuItem.Name = "hMMToolStripMenuItem";
-            this.hMMToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hMMToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.hMMToolStripMenuItem.Text = "HMM";
             this.hMMToolStripMenuItem.Click += new System.EventHandler(this.hMMToolStripMenuItem_Click);
+            // 
+            // 帮助ToolStripMenuItem
+            // 
+            this.帮助ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.关于ToolStripMenuItem});
+            this.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
+            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.帮助ToolStripMenuItem.Text = "帮助";
+            // 
+            // 关于ToolStripMenuItem
+            // 
+            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.关于ToolStripMenuItem.Text = "关于";
+            this.关于ToolStripMenuItem.Click += new System.EventHandler(this.关于ToolStripMenuItem_Click);
             // 
             // mainForm
             // 
@@ -192,9 +211,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1035, 550);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "mainForm";
-            this.ShowIcon = false;
             this.Text = "环保信息分析系统";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.mainForm_FormClosing);
             this.panel1.ResumeLayout(false);
@@ -224,6 +244,8 @@
         private System.Windows.Forms.ToolStripMenuItem 小波神经网络ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem kmeansToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hMMToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
 
     }
 }

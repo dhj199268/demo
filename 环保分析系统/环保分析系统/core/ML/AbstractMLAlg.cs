@@ -22,6 +22,11 @@ namespace 环保分析系统.core.ML
         protected bool haslabel=true;
         protected float accurate;//精确度
 
+        public AbstractMLAlg(int segTime, bool haslabel)
+        {
+            this.segTime = segTime;
+            this.haslabel = haslabel;
+        }
         public int SegTime
         {  get{
                     return segTime;
@@ -164,7 +169,7 @@ namespace 环保分析系统.core.ML
        
 
         //==================================================================
-        //函数名：  doMergeTrainData
+        //函数名：  doMergeData
         //作者：    dhj
         //日期：    2016-05-09
         //功能：    整合训练数据

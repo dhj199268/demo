@@ -23,9 +23,8 @@ namespace 环保分析系统.core.ML
         private Matrix<float> centerDiag;//族中心的对称矩阵
         private int maxIter;//最大迭代次数
 
-
-        private Kmeans() { }
         public Kmeans(int numClass = 2, int maxIter = 500, int segTime = 2, float accurate = 0.001f)
+            : base(segTime, true)
         {
             if (numClass < 2)
             {
