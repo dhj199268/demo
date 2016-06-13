@@ -28,20 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.系统管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.字体大小ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.字体颜色ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.添加用户名ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.删除用户名ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.数据分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.数据分析ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.计算器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.matlabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnOut = new System.Windows.Forms.Button();
+            this.btnIn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,19 +48,29 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Controls.Add(this.btnIn);
+            this.panel1.Controls.Add(this.btnOut);
+            this.panel1.Controls.Add(this.dataGridView1);
             this.panel1.Controls.Add(this.menuStrip1);
             this.panel1.Location = new System.Drawing.Point(-11, -2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1052, 559);
             this.panel1.TabIndex = 0;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 25);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 23;
+            this.dataGridView1.Size = new System.Drawing.Size(1049, 479);
+            this.dataGridView1.TabIndex = 1;
+            // 
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.SteelBlue;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.系统管理ToolStripMenuItem,
             this.数据分析ToolStripMenuItem,
             this.信息ToolStripMenuItem,
             this.数据分析ToolStripMenuItem1});
@@ -71,41 +79,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(1052, 25);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // 系统管理ToolStripMenuItem
-            // 
-            this.系统管理ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.字体大小ToolStripMenuItem,
-            this.字体颜色ToolStripMenuItem,
-            this.添加用户名ToolStripMenuItem,
-            this.删除用户名ToolStripMenuItem});
-            this.系统管理ToolStripMenuItem.Name = "系统管理ToolStripMenuItem";
-            this.系统管理ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-            this.系统管理ToolStripMenuItem.Text = "系统管理";
-            // 
-            // 字体大小ToolStripMenuItem
-            // 
-            this.字体大小ToolStripMenuItem.Name = "字体大小ToolStripMenuItem";
-            this.字体大小ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.字体大小ToolStripMenuItem.Text = "字体大小";
-            // 
-            // 字体颜色ToolStripMenuItem
-            // 
-            this.字体颜色ToolStripMenuItem.Name = "字体颜色ToolStripMenuItem";
-            this.字体颜色ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.字体颜色ToolStripMenuItem.Text = "字体颜色";
-            // 
-            // 添加用户名ToolStripMenuItem
-            // 
-            this.添加用户名ToolStripMenuItem.Name = "添加用户名ToolStripMenuItem";
-            this.添加用户名ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.添加用户名ToolStripMenuItem.Text = "添加用户名";
-            // 
-            // 删除用户名ToolStripMenuItem
-            // 
-            this.删除用户名ToolStripMenuItem.Name = "删除用户名ToolStripMenuItem";
-            this.删除用户名ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.删除用户名ToolStripMenuItem.Text = "删除用户名";
             // 
             // 数据分析ToolStripMenuItem
             // 
@@ -131,15 +104,33 @@
             // 计算器ToolStripMenuItem
             // 
             this.计算器ToolStripMenuItem.Name = "计算器ToolStripMenuItem";
-            this.计算器ToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.计算器ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.计算器ToolStripMenuItem.Text = "计算器";
             this.计算器ToolStripMenuItem.DoubleClick += new System.EventHandler(this.计算器ToolStripMenuItem_DoubleClick);
             // 
             // matlabToolStripMenuItem
             // 
             this.matlabToolStripMenuItem.Name = "matlabToolStripMenuItem";
-            this.matlabToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.matlabToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.matlabToolStripMenuItem.Text = "Matlab";
+            // 
+            // btnOut
+            // 
+            this.btnOut.Location = new System.Drawing.Point(825, 517);
+            this.btnOut.Name = "btnOut";
+            this.btnOut.Size = new System.Drawing.Size(75, 23);
+            this.btnOut.TabIndex = 2;
+            this.btnOut.Text = "数据导出";
+            this.btnOut.UseVisualStyleBackColor = true;
+            // 
+            // btnIn
+            // 
+            this.btnIn.Location = new System.Drawing.Point(959, 517);
+            this.btnIn.Name = "btnIn";
+            this.btnIn.Size = new System.Drawing.Size(75, 23);
+            this.btnIn.TabIndex = 3;
+            this.btnIn.Text = "数据导入";
+            this.btnIn.UseVisualStyleBackColor = true;
             // 
             // mainForm
             // 
@@ -154,6 +145,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.mainForm_FormClosing);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -164,16 +156,14 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem 系统管理ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 数据分析ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 信息ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 字体大小ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 字体颜色ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 数据分析ToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem 计算器ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem matlabToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 添加用户名ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 删除用户名ToolStripMenuItem;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button btnIn;
+        private System.Windows.Forms.Button btnOut;
 
     }
 }
