@@ -16,7 +16,11 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
         {
             InitializeComponent();
         }
-
+        public void SetFeatures(string[] features)
+        {
+            this.features = features;
+        
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             if (this.splitContainer.Panel2Collapsed == false)
@@ -42,11 +46,28 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
             this.Height = this.smallhight;
             this.splitContainer.Panel2Collapsed = true;
             //this.splitContainer1.Panel2.Hide();
+            SetFeatureToListBox(ref this.features, ref this.varList);
+           
+        }
+        private static void SetFeatureToListBox(ref string[] feature, ref ListBox listbox)
+        {
+            if (feature == null)
+            {
+                throw new Exception("error set features");
+            }
+            else
+            {
+                for (int i = 0; i < feature.Length; ++i)
+                {
+                   listbox.Items.Add(feature[i]);
+                }
+            }
+        
         }
 
 
         //用于获取行号
-        public int[] getRowNum()
+        public int[] GetRowNum()
         {
             string strtmp= this.trainrownum.Text;
             string[] strlist = strtmp.Split('-');
@@ -70,8 +91,7 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
 
         private void reset_Click(object sender, EventArgs e)
         {
-            this.devarList.ClearSelected();
-            this.indevarList.ClearSelected();
+            ResetParm();
         }
 
         private void isAdvence_CheckedChanged(object sender, EventArgs e)
@@ -116,5 +136,44 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
         {
             onlyInputNum( sender,  e);
         }
+
+        private void VarToVar(ref ListBox src,ref ListBox dst)
+        {
+
+            if (src.SelectedIndex>=0)
+            {
+                dst.Items.Add(src.Items[src.SelectedIndex]); 
+                src.Items.Remove(src.Items[src.SelectedIndex]);
+            }
+           
+        }
+        private void ResetParm()
+        {
+            this.varList.Items.Clear();
+            SetFeatureToListBox(ref this.features, ref this.varList);
+            this.devarList.Items.Clear();
+            this.indevarList.Items.Clear();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            VarToVar(ref this.varList, ref this.indevarList);
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            VarToVar(ref this.indevarList,ref this.varList);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            VarToVar(ref this.varList, ref this.devarList);
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            VarToVar( ref this.devarList,ref this.varList);
+        }
+
     }
 }

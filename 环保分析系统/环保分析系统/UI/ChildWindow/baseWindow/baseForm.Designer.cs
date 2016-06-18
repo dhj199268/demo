@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.predictrownum = new System.Windows.Forms.TextBox();
             this.timelabel = new System.Windows.Forms.Label();
             this.timeTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -48,10 +52,6 @@
             this.indevarList = new System.Windows.Forms.ListBox();
             this.varList = new System.Windows.Forms.ListBox();
             this.isAdvence = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.predictrownum = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -102,6 +102,44 @@
             this.splitContainer.SplitterDistance = 386;
             this.splitContainer.TabIndex = 0;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(150, 175);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(54, 22);
+            this.button2.TabIndex = 21;
+            this.button2.Text = ">>";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(150, 84);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(54, 22);
+            this.button1.TabIndex = 20;
+            this.button1.Text = "<<";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(10, 310);
+            this.label1.Name = "label1";
+            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label1.Size = new System.Drawing.Size(65, 12);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "预测行号：";
+            // 
+            // predictrownum
+            // 
+            this.predictrownum.Location = new System.Drawing.Point(81, 305);
+            this.predictrownum.Name = "predictrownum";
+            this.predictrownum.Size = new System.Drawing.Size(76, 21);
+            this.predictrownum.TabIndex = 18;
+            // 
             // timelabel
             // 
             this.timelabel.AutoSize = true;
@@ -135,7 +173,7 @@
             // 
             // trainrownum
             // 
-            this.trainrownum.Location = new System.Drawing.Point(71, 273);
+            this.trainrownum.Location = new System.Drawing.Point(81, 273);
             this.trainrownum.Name = "trainrownum";
             this.trainrownum.Size = new System.Drawing.Size(76, 21);
             this.trainrownum.TabIndex = 14;
@@ -159,6 +197,7 @@
             this.button6.TabIndex = 12;
             this.button6.Text = "<<";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button5
             // 
@@ -168,6 +207,7 @@
             this.button5.TabIndex = 11;
             this.button5.Text = ">>";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // devarlabel
             // 
@@ -292,42 +332,6 @@
             this.isAdvence.UseVisualStyleBackColor = true;
             this.isAdvence.CheckedChanged += new System.EventHandler(this.isAdvence_CheckedChanged);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(10, 310);
-            this.label1.Name = "label1";
-            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label1.Size = new System.Drawing.Size(65, 12);
-            this.label1.TabIndex = 19;
-            this.label1.Text = "预测行号：";
-            // 
-            // predictrownum
-            // 
-            this.predictrownum.Location = new System.Drawing.Point(71, 305);
-            this.predictrownum.Name = "predictrownum";
-            this.predictrownum.Size = new System.Drawing.Size(76, 21);
-            this.predictrownum.TabIndex = 18;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(150, 84);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(54, 22);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "<<";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(150, 175);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(54, 22);
-            this.button2.TabIndex = 21;
-            this.button2.Text = ">>";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // baseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -386,5 +390,7 @@
         private System.Windows.Forms.TextBox predictrownum;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private string[] features;
+        private int limit;
     }
 }

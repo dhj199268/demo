@@ -96,7 +96,9 @@ namespace 环保分析系统
                        1,2,3,4,5,4,6,6,1,2,3,4,5,4,6,6
                        };*/
             //float[] data = { 1,2,3,4,5,6,1,3};
+            string[] ft = { "1", "2", "3" };
             RandomForestForm bf = new RandomForestForm();
+            bf.SetFeatures(ft);
             bf.ShowDialog();
 
             test.Train(ref data);
