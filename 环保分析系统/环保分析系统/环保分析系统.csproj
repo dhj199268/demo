@@ -91,11 +91,29 @@
     <Compile Include="UI\ChildWindow\baseWindow\baseForm.Designer.cs">
       <DependentUpon>baseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ChildWindow\HMMForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ChildWindow\HMMForm.Designer.cs">
+      <DependentUpon>HMMForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ChildWindow\KmeansForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ChildWindow\KmeansForm.Designer.cs">
+      <DependentUpon>KmeansForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ChildWindow\RandomForestForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\ChildWindow\RandomForestForm.Designer.cs">
       <DependentUpon>RandomForestForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ChildWindow\WaveANNForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ChildWindow\WaveANNForm.Designer.cs">
+      <DependentUpon>WaveANNForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="EPSystem.resx">
       <DependentUpon>EPSystem.cs</DependentUpon>
@@ -118,8 +136,17 @@
     <EmbeddedResource Include="UI\ChildWindow\baseWindow\baseForm.resx">
       <DependentUpon>baseForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\ChildWindow\HMMForm.resx">
+      <DependentUpon>HMMForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ChildWindow\KmeansForm.resx">
+      <DependentUpon>KmeansForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\ChildWindow\RandomForestForm.resx">
       <DependentUpon>RandomForestForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ChildWindow\WaveANNForm.resx">
+      <DependentUpon>WaveANNForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
