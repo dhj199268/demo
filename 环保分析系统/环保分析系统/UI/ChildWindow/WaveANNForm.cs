@@ -19,5 +19,17 @@ namespace 环保分析系统.UI.ChildWindow
         {
             this.itertextBox.Text = Convert.ToString(this.itertrackBar.Value);
         }
+
+        private void hidelayertrackBar_Scroll(object sender, EventArgs e)
+        {
+            this.hidelayertextBox.Text = Convert.ToString(this.hidelayertrackBar.Value);
+        }
+        protected override void setAdvancedControlEnabled(bool state)
+        {
+            this.hidelayertextBox.Enabled = state;
+            this.hidelayertrackBar.Enabled = state;
+            this.itertrackBar.Enabled = state;
+            this.itertextBox.Enabled = state;
+        }
     }
 }

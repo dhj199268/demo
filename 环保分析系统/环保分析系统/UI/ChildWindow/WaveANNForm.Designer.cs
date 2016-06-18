@@ -34,7 +34,7 @@
             this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.hidelayertrackBar = new System.Windows.Forms.TrackBar();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.hidelayertextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
@@ -50,7 +50,7 @@
             // 
             this.splitContainer.Panel2.Controls.Add(this.hidelayertrackBar);
             this.splitContainer.Panel2.Controls.Add(this.label2);
-            this.splitContainer.Panel2.Controls.Add(this.textBox1);
+            this.splitContainer.Panel2.Controls.Add(this.hidelayertextBox);
             this.splitContainer.Panel2.Controls.Add(this.trackBar2);
             this.splitContainer.Panel2.Controls.Add(this.itertrackBar);
             this.splitContainer.Panel2.Controls.Add(this.label1);
@@ -59,6 +59,7 @@
             // 
             // itertextBox
             // 
+            this.itertextBox.Enabled = false;
             this.itertextBox.Location = new System.Drawing.Point(224, 47);
             this.itertextBox.Name = "itertextBox";
             this.itertextBox.Size = new System.Drawing.Size(48, 21);
@@ -76,6 +77,7 @@
             // 
             // itertrackBar
             // 
+            this.itertrackBar.Enabled = false;
             this.itertrackBar.Location = new System.Drawing.Point(140, 47);
             this.itertrackBar.Maximum = 1000;
             this.itertrackBar.Minimum = 100;
@@ -97,6 +99,7 @@
             // 
             // hidelayertrackBar
             // 
+            this.hidelayertrackBar.Enabled = false;
             this.hidelayertrackBar.Location = new System.Drawing.Point(140, 91);
             this.hidelayertrackBar.Maximum = 50;
             this.hidelayertrackBar.Minimum = 1;
@@ -106,6 +109,7 @@
             this.hidelayertrackBar.TabIndex = 7;
             this.hidelayertrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
             this.hidelayertrackBar.Value = 6;
+            this.hidelayertrackBar.Scroll += new System.EventHandler(this.hidelayertrackBar_Scroll);
             // 
             // label2
             // 
@@ -116,13 +120,14 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "隐藏层数";
             // 
-            // textBox1
+            // hidelayertextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(224, 91);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(48, 21);
-            this.textBox1.TabIndex = 5;
-            this.textBox1.Text = "6";
+            this.hidelayertextBox.Enabled = false;
+            this.hidelayertextBox.Location = new System.Drawing.Point(224, 91);
+            this.hidelayertextBox.Name = "hidelayertextBox";
+            this.hidelayertextBox.Size = new System.Drawing.Size(48, 21);
+            this.hidelayertextBox.TabIndex = 5;
+            this.hidelayertextBox.Text = "6";
             // 
             // WaveANNForm
             // 
@@ -148,6 +153,6 @@
         private System.Windows.Forms.TrackBar itertrackBar;
         private System.Windows.Forms.TrackBar hidelayertrackBar;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox hidelayertextBox;
     }
 }

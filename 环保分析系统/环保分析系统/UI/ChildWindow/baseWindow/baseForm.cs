@@ -48,7 +48,7 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
         //用于获取行号
         public int[] getRowNum()
         {
-            string strtmp= this.rownum.Text;
+            string strtmp= this.trainrownum.Text;
             string[] strlist = strtmp.Split('-');
             if (strlist.Length!=2)
             {
@@ -79,7 +79,7 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
             setAdvancedControlEnabled(this.isAdvence.Checked);
         }
 
-        //state 表示checkbox 是否按下的bool值
+    
         protected void onlyInputNum(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 0x20) e.KeyChar = (char)0;  //禁止空格键
@@ -97,7 +97,7 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
                 }
             }
         }
-
+        //state 表示checkbox 是否按下的bool值
         protected virtual void setAdvancedControlEnabled(bool state)
         {
 
