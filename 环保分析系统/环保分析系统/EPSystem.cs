@@ -96,6 +96,9 @@ namespace 环保分析系统
                        1,2,3,4,5,4,6,6,1,2,3,4,5,4,6,6
                        };*/
             //float[] data = { 1,2,3,4,5,6,1,3};
+            RandomForestForm bf = new RandomForestForm();
+            bf.ShowDialog();
+
             test.Train(ref data);
             //Console.ReadLine();
             float[] testdata = { 1, 2, 3, 4, 5, 4, 6, 6, 1, 2, 3, 23 };
@@ -154,7 +157,8 @@ namespace 环保分析系统
                        1,2,3,4,5,4,6,6,
                        1,2,3,4,5,4,6,6,1,2,3,4,5,4,6,6
                        };*/
-
+            WaveANNForm wf = new WaveANNForm();
+            wf.ShowDialog();
             WavesANN test = new WavesANN(15, 6,100);
             float[] testdata = { 1, 2, 3, 4, 5 ,4,6,6,1,2,3,23};
 
@@ -200,8 +204,8 @@ namespace 环保分析系统
                        1,2,83,4,5,4,6,6,
                        1,2,3,4,5,67,6,6,1,2,3,87,7,4,8,4
                        };
-            RandomForestForm bf = new RandomForestForm();
-            bf.ShowDialog();
+            KmeansForm kf = new KmeansForm();
+            kf.ShowDialog();
             Kmeans test = new Kmeans(3,1000,2);
             test.Train(ref data);
             float[] testdata = { 1, 2, 3, 4, 5, 4, 6, 6, 1, 2, 3, 23 };
@@ -218,7 +222,6 @@ namespace 环保分析系统
             }
             catch (Exception)
             {
-
                 thread.Abort();
                 logger.Error(e);
             }
@@ -232,6 +235,8 @@ namespace 环保分析系统
                               1,0, 1, 1,
                               1,1, 1, 0,
                        };
+            HMMForm hf = new HMMForm();
+            hf.ShowDialog();
             float[] testdata = { 1,0, 1, 1,1,3,3,3};
              HMM test = new HMM();
             ThreadML param = new ThreadML(ref data,ref testdata,test );

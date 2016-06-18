@@ -14,5 +14,31 @@ namespace 环保分析系统.UI.ChildWindow
         {
             InitializeComponent();
         }
+        public int GetIter()
+        {
+           return int.Parse(this.itertextBox.Text);
+        }
+        public int GetClassNum()
+        {
+            return int.Parse(this.classtextBox.Text);
+        }
+
+        private void classtrackBar_Scroll(object sender, EventArgs e)
+        {
+            this.classtextBox.Text = Convert.ToString(this.classtrackBar.Value);
+        }
+
+        private void itertrackBar_Scroll(object sender, EventArgs e)
+        {
+            this.itertextBox.Text = Convert.ToString(this.itertrackBar.Value);
+        }
+        protected override void setAdvancedControlEnabled(bool state)
+        {
+            this.itertrackBar.Enabled = state;
+            this.itertextBox.Enabled = state;
+            this.classtextBox.Enabled = state;
+            this.classtrackBar.Enabled = state;
+
+        }
     }
 }

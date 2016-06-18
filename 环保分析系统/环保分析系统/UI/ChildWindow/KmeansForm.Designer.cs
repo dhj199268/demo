@@ -33,7 +33,7 @@
             this.itertextBox = new System.Windows.Forms.TextBox();
             this.classtrackBar = new System.Windows.Forms.TrackBar();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.classtextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
@@ -48,7 +48,7 @@
             // 
             this.splitContainer.Panel2.Controls.Add(this.classtrackBar);
             this.splitContainer.Panel2.Controls.Add(this.label2);
-            this.splitContainer.Panel2.Controls.Add(this.textBox1);
+            this.splitContainer.Panel2.Controls.Add(this.classtextBox);
             this.splitContainer.Panel2.Controls.Add(this.itertrackBar);
             this.splitContainer.Panel2.Controls.Add(this.label1);
             this.splitContainer.Panel2.Controls.Add(this.itertextBox);
@@ -56,6 +56,7 @@
             // 
             // itertrackBar
             // 
+            this.itertrackBar.Enabled = false;
             this.itertrackBar.Location = new System.Drawing.Point(97, 38);
             this.itertrackBar.Maximum = 1000;
             this.itertrackBar.Minimum = 100;
@@ -66,6 +67,7 @@
             this.itertrackBar.TickFrequency = 10;
             this.itertrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
             this.itertrackBar.Value = 100;
+            this.itertrackBar.Scroll += new System.EventHandler(this.itertrackBar_Scroll);
             // 
             // label1
             // 
@@ -78,6 +80,7 @@
             // 
             // itertextBox
             // 
+            this.itertextBox.Enabled = false;
             this.itertextBox.Location = new System.Drawing.Point(181, 38);
             this.itertextBox.Name = "itertextBox";
             this.itertextBox.Size = new System.Drawing.Size(48, 21);
@@ -86,6 +89,7 @@
             // 
             // classtrackBar
             // 
+            this.classtrackBar.Enabled = false;
             this.classtrackBar.Location = new System.Drawing.Point(97, 68);
             this.classtrackBar.Maximum = 8;
             this.classtrackBar.Minimum = 2;
@@ -95,6 +99,7 @@
             this.classtrackBar.TabIndex = 9;
             this.classtrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
             this.classtrackBar.Value = 2;
+            this.classtrackBar.Scroll += new System.EventHandler(this.classtrackBar_Scroll);
             // 
             // label2
             // 
@@ -105,13 +110,14 @@
             this.label2.TabIndex = 8;
             this.label2.Text = "分类数";
             // 
-            // textBox1
+            // classtextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(181, 68);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(48, 21);
-            this.textBox1.TabIndex = 7;
-            this.textBox1.Text = "2";
+            this.classtextBox.Enabled = false;
+            this.classtextBox.Location = new System.Drawing.Point(181, 68);
+            this.classtextBox.Name = "classtextBox";
+            this.classtextBox.Size = new System.Drawing.Size(48, 21);
+            this.classtextBox.TabIndex = 7;
+            this.classtextBox.Text = "2";
             // 
             // KmeansForm
             // 
@@ -135,6 +141,6 @@
         private System.Windows.Forms.TextBox itertextBox;
         private System.Windows.Forms.TrackBar classtrackBar;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox classtextBox;
     }
 }

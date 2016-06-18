@@ -32,7 +32,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.leve1textBox = new System.Windows.Forms.TextBox();
-            this.level3textBox = new System.Windows.Forms.TextBox();
+            this.leve3textBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -62,7 +62,7 @@
             this.splitContainer.Panel2.Controls.Add(this.label9);
             this.splitContainer.Panel2.Controls.Add(this.textBox7);
             this.splitContainer.Panel2.Controls.Add(this.label10);
-            this.splitContainer.Panel2.Controls.Add(this.level3textBox);
+            this.splitContainer.Panel2.Controls.Add(this.leve3textBox);
             this.splitContainer.Panel2.Controls.Add(this.label3);
             this.splitContainer.Panel2.Controls.Add(this.textBox3);
             this.splitContainer.Panel2.Controls.Add(this.label6);
@@ -102,21 +102,27 @@
             // 
             // leve1textBox
             // 
+            this.leve1textBox.Enabled = false;
             this.leve1textBox.Location = new System.Drawing.Point(120, 37);
             this.leve1textBox.Name = "leve1textBox";
+            this.leve1textBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.leve1textBox.Size = new System.Drawing.Size(29, 21);
             this.leve1textBox.TabIndex = 21;
             this.leve1textBox.Text = "100";
             this.leve1textBox.TextChanged += new System.EventHandler(this.leve1textBox_TextChanged);
+            this.leve1textBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.leve1textBox_KeyPress);
             // 
-            // level3textBox
+            // leve3textBox
             // 
-            this.level3textBox.Location = new System.Drawing.Point(120, 75);
-            this.level3textBox.Name = "level3textBox";
-            this.level3textBox.Size = new System.Drawing.Size(29, 21);
-            this.level3textBox.TabIndex = 25;
-            this.level3textBox.Text = "200";
-            this.level3textBox.TextChanged += new System.EventHandler(this.level3textBox_TextChanged);
+            this.leve3textBox.Enabled = false;
+            this.leve3textBox.Location = new System.Drawing.Point(120, 75);
+            this.leve3textBox.Name = "leve3textBox";
+            this.leve3textBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.leve3textBox.Size = new System.Drawing.Size(29, 21);
+            this.leve3textBox.TabIndex = 25;
+            this.leve3textBox.Text = "200";
+            this.leve3textBox.TextChanged += new System.EventHandler(this.level3textBox_TextChanged);
+            this.leve3textBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.leve3textBox_KeyPress);
             // 
             // label3
             // 
@@ -148,9 +154,11 @@
             // 
             // textBox
             // 
+            this.textBox.Enabled = false;
             this.textBox.Location = new System.Drawing.Point(272, 76);
             this.textBox.Name = "textBox";
             this.textBox.ReadOnly = true;
+            this.textBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.textBox.Size = new System.Drawing.Size(29, 21);
             this.textBox.TabIndex = 33;
             this.textBox.Text = "INF";
@@ -185,12 +193,15 @@
             // 
             // leve2textBox
             // 
+            this.leve2textBox.Enabled = false;
             this.leve2textBox.Location = new System.Drawing.Point(272, 38);
             this.leve2textBox.Name = "leve2textBox";
+            this.leve2textBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.leve2textBox.Size = new System.Drawing.Size(29, 21);
             this.leve2textBox.TabIndex = 29;
             this.leve2textBox.Text = "150";
             this.leve2textBox.TextChanged += new System.EventHandler(this.leve2textBox_TextChanged);
+            this.leve2textBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.leve2textBox_KeyPress);
             // 
             // label9
             // 
@@ -243,7 +254,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox level3textBox;
+        private System.Windows.Forms.TextBox leve3textBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label6;
