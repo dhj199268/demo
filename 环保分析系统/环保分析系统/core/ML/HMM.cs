@@ -39,8 +39,9 @@ namespace 环保分析系统.core.ML
         {
             if (logger.IsDebugEnabled)
             {
-                loggerUntil.printMatToLogger("prinf count mat :", ref traindata, ref logger);
-
+                string tmp;
+                tmp = loggerUntil.printMatToLogger("prinf count mat :", ref traindata);
+                logger.Debug(tmp);
             }
         }
 
@@ -68,8 +69,9 @@ namespace 环保分析系统.core.ML
         {
             if (logger.IsDebugEnabled)
             {
-                loggerUntil.printMatToLogger("prinf predict data  mat :", ref data, ref logger);
-
+                string tmp;
+                tmp=loggerUntil.printMatToLogger("prinf predict data  mat :", ref data);
+                logger.Debug(tmp);
             }
         }
       
@@ -129,7 +131,9 @@ namespace 环保分析系统.core.ML
 
                     if (logger.IsDebugEnabled)
                     {
-                        loggerUntil.printMatToLogger("prinf transfer prob mat :", ref probmat, ref logger);
+                        string tmp;
+                        tmp = loggerUntil.printMatToLogger("prinf transfer prob mat :", ref probmat);
+                        logger.Debug(tmp);
 
                     }
                 }

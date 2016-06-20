@@ -112,10 +112,15 @@ namespace 环保分析系统.core.ML
 
             if (logger.IsDebugEnabled)
             {
-                loggerUntil.printMatToLogger("init Wij mat : ", ref Wij, ref logger);
-                loggerUntil.printMatToLogger("init Wjk mat : ", ref Wjk, ref logger);
-                loggerUntil.printMatToLogger("init a   mat : ", ref a, ref logger);
-                loggerUntil.printMatToLogger("init b   mat : ", ref b, ref logger);
+                string tmp;
+                tmp=loggerUntil.printMatToLogger("init Wij mat : ", ref Wij);
+                logger.Debug(tmp);
+                tmp=loggerUntil.printMatToLogger("init Wjk mat : ", ref Wjk);
+                logger.Debug(tmp);
+                tmp=loggerUntil.printMatToLogger("init a   mat : ", ref a);
+                logger.Debug(tmp);
+                tmp=loggerUntil.printMatToLogger("init b   mat : ", ref b);
+                logger.Debug(tmp);
             }
         
         
@@ -265,10 +270,19 @@ namespace 环保分析系统.core.ML
 
                 if (logger.IsDebugEnabled)
                 {
-                    loggerUntil.printMatToLogger("updata Wij mat : ", ref Wij, ref logger);
+                    string tmp;
+                    tmp = loggerUntil.printMatToLogger("updata Wij mat : ", ref Wij);
+                    logger.Debug(tmp);
+                    tmp = loggerUntil.printMatToLogger("updata Wjk mat : ", ref Wjk);
+                    logger.Debug(tmp);
+                    tmp = loggerUntil.printMatToLogger("updata a   mat : ", ref a);
+                    logger.Debug(tmp);
+                    tmp = loggerUntil.printMatToLogger("updata b   mat : ", ref b);
+                    logger.Debug(tmp);
+                    /*loggerUntil.printMatToLogger("updata Wij mat : ", ref Wij, ref logger);
                     loggerUntil.printMatToLogger("updata Wjk mat : ", ref Wjk, ref logger);
                     loggerUntil.printMatToLogger("updata a   mat : ", ref a, ref logger);
-                    loggerUntil.printMatToLogger("updata b   mat : ", ref b, ref logger);
+                    loggerUntil.printMatToLogger("updata b   mat : ", ref b, ref logger);*/
 
                 }
 
@@ -372,8 +386,11 @@ namespace 环保分析系统.core.ML
             MatrixUntil.maxminnomal(ref label, out outputmaxv, out outputrminv);
             if (logger.IsDebugEnabled)
             {
-                loggerUntil.printMatToLogger("printf nomal train data mat : ", ref traindata, ref logger);
-                loggerUntil.printMatToLogger("printf nomal label data mat : ", ref label, ref logger);
+                string tmp;
+                tmp=loggerUntil.printMatToLogger("printf nomal train data mat : ", ref traindata);
+                logger.Debug(tmp);
+                tmp=loggerUntil.printMatToLogger("printf nomal label data mat : ", ref label);
+                logger.Debug(tmp);
             }
 
         }
@@ -384,7 +401,9 @@ namespace 环保分析系统.core.ML
 
             if (logger.IsDebugEnabled)
             {
-                loggerUntil.printMatToLogger("printf predict  data mat after nomal : ", ref predictdata, ref logger);
+                string tmp;
+                tmp=loggerUntil.printMatToLogger("printf predict  data mat after nomal : ", ref predictdata);
+                logger.Debug(tmp);
             }
         }
         protected override void afterPredict(ref float[] data)
@@ -392,7 +411,9 @@ namespace 环保分析系统.core.ML
 
             if (logger.IsDebugEnabled)
             {
-                loggerUntil.printMatToLogger("printf predict  data mat before reversem nomal : ", ref data, ref logger);
+                string tmp;
+                tmp=loggerUntil.printMatToLogger("printf predict  data mat before reversem nomal : ", ref data);
+                logger.Debug(tmp);
             }
 
             MatrixUntil.reversemaxminnomal(ref data, outputmaxv[0], outputrminv[0]);
