@@ -29,15 +29,21 @@
         private void InitializeComponent()
         {
             this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.predictrownum = new System.Windows.Forms.TextBox();
+            this.timelabel = new System.Windows.Forms.Label();
+            this.timeTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.rownum = new System.Windows.Forms.TextBox();
+            this.trainrownum = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.devarlabel = new System.Windows.Forms.Label();
             this.indevarlabel = new System.Windows.Forms.Label();
             this.varlabel = new System.Windows.Forms.Label();
-            this.MothdcomboBox = new System.Windows.Forms.ComboBox();
+            this.methodcomboBox = new System.Windows.Forms.ComboBox();
             this.cancel = new System.Windows.Forms.Button();
             this.reset = new System.Windows.Forms.Button();
             this.begin = new System.Windows.Forms.Button();
@@ -46,8 +52,6 @@
             this.indevarList = new System.Windows.Forms.ListBox();
             this.varList = new System.Windows.Forms.ListBox();
             this.isAdvence = new System.Windows.Forms.CheckBox();
-            this.timelabel = new System.Windows.Forms.Label();
-            this.timeTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -66,17 +70,21 @@
             // splitContainer.Panel1
             // 
             this.splitContainer.Panel1.AccessibleRole = System.Windows.Forms.AccessibleRole.Pane;
+            this.splitContainer.Panel1.Controls.Add(this.button2);
+            this.splitContainer.Panel1.Controls.Add(this.button1);
+            this.splitContainer.Panel1.Controls.Add(this.label1);
+            this.splitContainer.Panel1.Controls.Add(this.predictrownum);
             this.splitContainer.Panel1.Controls.Add(this.timelabel);
             this.splitContainer.Panel1.Controls.Add(this.timeTextBox);
             this.splitContainer.Panel1.Controls.Add(this.label5);
-            this.splitContainer.Panel1.Controls.Add(this.rownum);
+            this.splitContainer.Panel1.Controls.Add(this.trainrownum);
             this.splitContainer.Panel1.Controls.Add(this.label4);
             this.splitContainer.Panel1.Controls.Add(this.button6);
             this.splitContainer.Panel1.Controls.Add(this.button5);
             this.splitContainer.Panel1.Controls.Add(this.devarlabel);
             this.splitContainer.Panel1.Controls.Add(this.indevarlabel);
             this.splitContainer.Panel1.Controls.Add(this.varlabel);
-            this.splitContainer.Panel1.Controls.Add(this.MothdcomboBox);
+            this.splitContainer.Panel1.Controls.Add(this.methodcomboBox);
             this.splitContainer.Panel1.Controls.Add(this.cancel);
             this.splitContainer.Panel1.Controls.Add(this.reset);
             this.splitContainer.Panel1.Controls.Add(this.begin);
@@ -94,23 +102,82 @@
             this.splitContainer.SplitterDistance = 386;
             this.splitContainer.TabIndex = 0;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(150, 175);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(54, 22);
+            this.button2.TabIndex = 21;
+            this.button2.Text = ">>";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(150, 84);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(54, 22);
+            this.button1.TabIndex = 20;
+            this.button1.Text = "<<";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(10, 310);
+            this.label1.Name = "label1";
+            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label1.Size = new System.Drawing.Size(65, 12);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "预测行号：";
+            // 
+            // predictrownum
+            // 
+            this.predictrownum.Location = new System.Drawing.Point(81, 305);
+            this.predictrownum.Name = "predictrownum";
+            this.predictrownum.Size = new System.Drawing.Size(76, 21);
+            this.predictrownum.TabIndex = 18;
+            // 
+            // timelabel
+            // 
+            this.timelabel.AutoSize = true;
+            this.timelabel.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.timelabel.Location = new System.Drawing.Point(216, 308);
+            this.timelabel.Name = "timelabel";
+            this.timelabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.timelabel.Size = new System.Drawing.Size(65, 12);
+            this.timelabel.TabIndex = 17;
+            this.timelabel.Text = "时序长度：";
+            // 
+            // timeTextBox
+            // 
+            this.timeTextBox.Location = new System.Drawing.Point(279, 303);
+            this.timeTextBox.MaxLength = 3;
+            this.timeTextBox.Name = "timeTextBox";
+            this.timeTextBox.Size = new System.Drawing.Size(48, 21);
+            this.timeTextBox.TabIndex = 16;
+            this.timeTextBox.Text = "4";
+            this.timeTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.timeTextBox_KeyPress);
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label5.Location = new System.Drawing.Point(214, 306);
+            this.label5.Location = new System.Drawing.Point(10, 278);
             this.label5.Name = "label5";
             this.label5.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label5.Size = new System.Drawing.Size(41, 12);
+            this.label5.Size = new System.Drawing.Size(65, 12);
             this.label5.TabIndex = 15;
-            this.label5.Text = "行号：";
+            this.label5.Text = "训练行号：";
             // 
-            // rownum
+            // trainrownum
             // 
-            this.rownum.Location = new System.Drawing.Point(261, 301);
-            this.rownum.Name = "rownum";
-            this.rownum.Size = new System.Drawing.Size(100, 21);
-            this.rownum.TabIndex = 14;
+            this.trainrownum.Location = new System.Drawing.Point(81, 273);
+            this.trainrownum.Name = "trainrownum";
+            this.trainrownum.Size = new System.Drawing.Size(76, 21);
+            this.trainrownum.TabIndex = 14;
             // 
             // label4
             // 
@@ -125,21 +192,23 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(150, 194);
+            this.button6.Location = new System.Drawing.Point(150, 215);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(54, 22);
             this.button6.TabIndex = 12;
-            this.button6.Text = ">>";
+            this.button6.Text = "<<";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(150, 62);
+            this.button5.Location = new System.Drawing.Point(150, 44);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(54, 22);
             this.button5.TabIndex = 11;
             this.button5.Text = ">>";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // devarlabel
             // 
@@ -173,18 +242,18 @@
             this.varlabel.TabIndex = 8;
             this.varlabel.Text = "变量";
             // 
-            // MothdcomboBox
+            // methodcomboBox
             // 
-            this.MothdcomboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.MothdcomboBox.FormattingEnabled = true;
-            this.MothdcomboBox.Items.AddRange(new object[] {
+            this.methodcomboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.methodcomboBox.FormattingEnabled = true;
+            this.methodcomboBox.Items.AddRange(new object[] {
             "快   速",
             "标   准",
             "精   确"});
-            this.MothdcomboBox.Location = new System.Drawing.Point(261, 270);
-            this.MothdcomboBox.Name = "MothdcomboBox";
-            this.MothdcomboBox.Size = new System.Drawing.Size(100, 20);
-            this.MothdcomboBox.TabIndex = 7;
+            this.methodcomboBox.Location = new System.Drawing.Point(261, 270);
+            this.methodcomboBox.Name = "methodcomboBox";
+            this.methodcomboBox.Size = new System.Drawing.Size(100, 20);
+            this.methodcomboBox.TabIndex = 7;
             // 
             // cancel
             // 
@@ -214,6 +283,7 @@
             this.begin.TabIndex = 4;
             this.begin.Text = "开  始";
             this.begin.UseVisualStyleBackColor = true;
+            this.begin.Click += new System.EventHandler(this.begin_Click);
             // 
             // advence
             // 
@@ -264,26 +334,6 @@
             this.isAdvence.UseVisualStyleBackColor = true;
             this.isAdvence.CheckedChanged += new System.EventHandler(this.isAdvence_CheckedChanged);
             // 
-            // timelabel
-            // 
-            this.timelabel.AutoSize = true;
-            this.timelabel.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.timelabel.Location = new System.Drawing.Point(11, 308);
-            this.timelabel.Name = "timelabel";
-            this.timelabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.timelabel.Size = new System.Drawing.Size(65, 12);
-            this.timelabel.TabIndex = 17;
-            this.timelabel.Text = "时序长度：";
-            // 
-            // timeTextBox
-            // 
-            this.timeTextBox.Location = new System.Drawing.Point(74, 303);
-            this.timeTextBox.MaxLength = 3;
-            this.timeTextBox.Name = "timeTextBox";
-            this.timeTextBox.Size = new System.Drawing.Size(34, 21);
-            this.timeTextBox.TabIndex = 16;
-            this.timeTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.timeTextBox_KeyPress);
-            // 
             // baseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -319,12 +369,12 @@
         private System.Windows.Forms.Button cancel;
         private System.Windows.Forms.Button reset;
         private System.Windows.Forms.Button begin;
-        private System.Windows.Forms.ComboBox MothdcomboBox;
+        private System.Windows.Forms.ComboBox methodcomboBox;
 
         public System.Windows.Forms.ComboBox MothdChoose
         {
-            get { return MothdcomboBox; }
-            set { MothdcomboBox = value; }
+            get { return methodcomboBox; }
+            set { methodcomboBox = value; }
         }
         private System.Windows.Forms.Label devarlabel;
         private System.Windows.Forms.Label indevarlabel;
@@ -333,10 +383,19 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox rownum;
+        private System.Windows.Forms.TextBox trainrownum;
         protected internal System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.CheckBox isAdvence;
         private System.Windows.Forms.Label timelabel;
         private System.Windows.Forms.TextBox timeTextBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox predictrownum;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
+        private string[] features;
+        private int limit;
+        private int[] predictnum;
+        private int[] trainnum;
+        private int timelen;
     }
 }

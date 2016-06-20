@@ -14,6 +14,10 @@ namespace 环保分析系统.UI.ChildWindow
         {
             InitializeComponent();
         }
+        public RandomForestForm(string[] features,int limit=1):base(features,limit)
+        {
+            InitializeComponent();
+        }
 
         private void RandomForestForm_Load(object sender, EventArgs e)
         {
@@ -25,7 +29,7 @@ namespace 环保分析系统.UI.ChildWindow
                 this.treenumBar.Enabled = state;
                 this.treenumText.Enabled = state;
                 this.depthTextBox.Enabled = state;
-                this.depthtrackBar.Enabled = state;
+                this.treedepthBar.Enabled = state;
                 this.isPrun.Enabled = state;
         }
 
@@ -36,8 +40,19 @@ namespace 环保分析系统.UI.ChildWindow
 
         private void depthtrackBar_Scroll(object sender, EventArgs e)
         {
-            this.depthTextBox.Text = Convert.ToString(this.depthtrackBar.Value);
+            this.depthTextBox.Text = Convert.ToString(this.treedepthBar.Value);
         }
-      
+        public int GetTreeDepth()
+        {
+            return int.Parse(this.treedepth.Text);
+        }
+        public int GetTreeNum()
+        {
+            return int.Parse(this.treenumText.Text);
+        }
+        public bool IsPrun()
+        {
+            return this.isPrun.Checked; 
+        }
     }
 }

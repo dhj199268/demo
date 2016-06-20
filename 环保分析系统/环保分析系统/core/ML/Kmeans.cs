@@ -23,7 +23,7 @@ namespace 环保分析系统.core.ML
         private Matrix<float> centerDiag;//族中心的对称矩阵
         private int maxIter;//最大迭代次数
 
-        public Kmeans(int numClass = 2, int maxIter = 500, int segTime = 2, float accurate = 0.001f)
+        public Kmeans(int numClass = 2, int maxIter = 100, int segTime = 2, float accurate = 0.001f)
             : base(segTime, true)
         {
             if (numClass < 2)
@@ -155,7 +155,9 @@ namespace 环保分析系统.core.ML
             initCenter(ref traindata);
             if (logger.IsDebugEnabled)
             {
-                loggerUntil.printMatToLogger("init center mat : ", ref center, ref logger);
+                string tmpstr;
+                tmpstr = loggerUntil.printMatToLogger("init center mat : ", ref center);
+                logger.Debug(tmpstr);
 
             }
 
@@ -190,7 +192,9 @@ namespace 环保分析系统.core.ML
                 
                   if (logger.IsDebugEnabled)
                 {
-                    loggerUntil.printMatToLogger("updata center mat:", ref center,ref logger);
+                    string tmpstr;
+                    tmpstr = loggerUntil.printMatToLogger("updata center mat:", ref center);
+                    logger.Debug(tmpstr);
                 
                 }
 
