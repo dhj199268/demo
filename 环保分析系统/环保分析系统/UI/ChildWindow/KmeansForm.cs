@@ -14,6 +14,10 @@ namespace 环保分析系统.UI.ChildWindow
         {
             InitializeComponent();
         }
+        public KmeansForm(string[] features,int limit=2):base(features,limit)
+        {
+            InitializeComponent();
+        }
         public int GetIter()
         {
            return int.Parse(this.itertextBox.Text);

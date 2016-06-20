@@ -14,6 +14,11 @@ namespace 环保分析系统.UI.ChildWindow
         {
             InitializeComponent();
         }
+        public WaveANNForm(string[] features,int limit=1):base(features,limit)
+        {
+            InitializeComponent();
+            
+        }
 
         private void itertrackBar_Scroll(object sender, EventArgs e)
         {

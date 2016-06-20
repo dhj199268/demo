@@ -14,6 +14,10 @@ namespace 环保分析系统.UI.ChildWindow
         {
             InitializeComponent();
         }
+        public HMMForm(string[] features,int limit=1):base(features,limit)
+        {
+            InitializeComponent();
+        }
 
         private void leve1textBox_TextChanged(object sender, EventArgs e)
         {

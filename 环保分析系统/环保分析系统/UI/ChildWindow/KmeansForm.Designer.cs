@@ -52,7 +52,7 @@
             this.splitContainer.Panel2.Controls.Add(this.itertrackBar);
             this.splitContainer.Panel2.Controls.Add(this.label1);
             this.splitContainer.Panel2.Controls.Add(this.itertextBox);
-            this.splitContainer.Size = new System.Drawing.Size(385, 503);
+            this.splitContainer.Size = new System.Drawing.Size(390, 499);
             // 
             // itertrackBar
             // 
@@ -122,7 +122,7 @@
             // KmeansForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.ClientSize = new System.Drawing.Size(385, 503);
+            this.ClientSize = new System.Drawing.Size(390, 499);
             this.Name = "KmeansForm";
             this.splitContainer.Panel2.ResumeLayout(false);
             this.splitContainer.Panel2.PerformLayout();

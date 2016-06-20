@@ -16,6 +16,12 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
         {
             InitializeComponent();
         }
+        public baseForm(string[] feature, int limit)
+        {
+            this.features = feature;
+            this.limit = limit;
+            InitializeComponent();
+        }
         public void SetFeatures(string[] features)
         {
             this.features = features;
@@ -41,35 +47,34 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
 
         public void baseForm_Load(object sender, EventArgs e)
         {
-            this.bighight = this.Height;
-            this.smallhight = this.splitContainer.Panel1.Height+50;
-            this.Height = this.smallhight;
-            this.splitContainer.Panel2Collapsed = true;
+            if (!DesignMode)
+            {
+                if (this.varList != null && this.features != null )
+                {
+                    SetFeatureToListBox(this.features, this.varList);
+                }
+                this.bighight = this.Height;
+                this.smallhight = this.splitContainer.Panel1.Height + 50;
+                this.Height = this.smallhight;
+                this.splitContainer.Panel2Collapsed = true;
+            }
+          
             //this.splitContainer1.Panel2.Hide();
-            SetFeatureToListBox(ref this.features, ref this.varList);
            
         }
-        private static void SetFeatureToListBox(ref string[] feature, ref ListBox listbox)
+       public static void SetFeatureToListBox( string[] feature, ListBox listbox)
         {
-            if (feature == null)
-            {
-                throw new Exception("error set features");
-            }
-            else
-            {
                 for (int i = 0; i < feature.Length; ++i)
-                {
-                   listbox.Items.Add(feature[i]);
+                {  
+                    listbox.Items.Add( feature[i]);
                 }
-            }
-        
         }
 
 
         //用于获取行号
-        public int[] GetRowNum()
+        private static int[] GetRowNum( ref TextBox text)
         {
-            string strtmp= this.trainrownum.Text;
+            string strtmp = text.Text;
             string[] strlist = strtmp.Split('-');
             if (strlist.Length!=2)
             {
@@ -137,7 +142,7 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
             onlyInputNum( sender,  e);
         }
 
-        private void VarToVar(ref ListBox src,ref ListBox dst)
+        private void VarToVar( ListBox src, ListBox dst)
         {
 
             if (src.SelectedIndex>=0)
@@ -150,30 +155,97 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
         private void ResetParm()
         {
             this.varList.Items.Clear();
-            SetFeatureToListBox(ref this.features, ref this.varList);
+            SetFeatureToListBox(this.features, this.varList);
             this.devarList.Items.Clear();
             this.indevarList.Items.Clear();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            VarToVar(ref this.varList, ref this.indevarList);
+            VarToVar(this.varList,  this.indevarList);
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            VarToVar(ref this.indevarList,ref this.varList);
+            VarToVar( this.indevarList, this.varList);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            VarToVar(ref this.varList, ref this.devarList);
+            VarToVar( this.varList,  this.devarList);
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            VarToVar( ref this.devarList,ref this.varList);
+            VarToVar(  this.devarList,this.varList);
         }
 
+        public string GetMethod()
+        {
+            return this.methodcomboBox.Text;
+        }
+        public int[] GetPredictRowNum()
+        {
+            return this.predictnum;
+        
+        }
+        public int[] GetTrainRowNum()
+        { 
+		    return this.trainnum;
+        }
+        public int GetTimeLen()
+        {
+            return this.timelen;
+        }
+        public bool IsAdvence()
+        {
+            return this.isAdvence.Checked;
+        }
+
+        private bool CheckParm()
+        {
+            if (this.indevarList.Items.Count!=this.limit)
+            {
+                return false;   
+            }
+
+            try
+            {
+                this.trainnum = GetRowNum(ref this.trainrownum);
+                this.predictnum = GetRowNum(ref this.predictrownum);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            if (this.timeTextBox.Text==string.Empty)
+            {
+                return false;
+            }
+            else
+            { 
+                this.timelen = Convert.ToInt32(this.timeTextBox.Text);
+            }
+
+            if (this.methodcomboBox.SelectedIndex<0&&this.IsAdvence()==false)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private void begin_Click(object sender, EventArgs e)
+        {
+            if (false==CheckParm())
+            {
+                MessageBox.Show("参数设置错误");
+            }
+            else
+            {
+                this.Close();
+            }
+        }
+       
     }
 }

@@ -43,7 +43,7 @@
             this.devarlabel = new System.Windows.Forms.Label();
             this.indevarlabel = new System.Windows.Forms.Label();
             this.varlabel = new System.Windows.Forms.Label();
-            this.MothdcomboBox = new System.Windows.Forms.ComboBox();
+            this.methodcomboBox = new System.Windows.Forms.ComboBox();
             this.cancel = new System.Windows.Forms.Button();
             this.reset = new System.Windows.Forms.Button();
             this.begin = new System.Windows.Forms.Button();
@@ -84,7 +84,7 @@
             this.splitContainer.Panel1.Controls.Add(this.devarlabel);
             this.splitContainer.Panel1.Controls.Add(this.indevarlabel);
             this.splitContainer.Panel1.Controls.Add(this.varlabel);
-            this.splitContainer.Panel1.Controls.Add(this.MothdcomboBox);
+            this.splitContainer.Panel1.Controls.Add(this.methodcomboBox);
             this.splitContainer.Panel1.Controls.Add(this.cancel);
             this.splitContainer.Panel1.Controls.Add(this.reset);
             this.splitContainer.Panel1.Controls.Add(this.begin);
@@ -158,6 +158,7 @@
             this.timeTextBox.Name = "timeTextBox";
             this.timeTextBox.Size = new System.Drawing.Size(48, 21);
             this.timeTextBox.TabIndex = 16;
+            this.timeTextBox.Text = "4";
             this.timeTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.timeTextBox_KeyPress);
             // 
             // label5
@@ -241,18 +242,18 @@
             this.varlabel.TabIndex = 8;
             this.varlabel.Text = "变量";
             // 
-            // MothdcomboBox
+            // methodcomboBox
             // 
-            this.MothdcomboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.MothdcomboBox.FormattingEnabled = true;
-            this.MothdcomboBox.Items.AddRange(new object[] {
+            this.methodcomboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.methodcomboBox.FormattingEnabled = true;
+            this.methodcomboBox.Items.AddRange(new object[] {
             "快   速",
             "标   准",
             "精   确"});
-            this.MothdcomboBox.Location = new System.Drawing.Point(261, 270);
-            this.MothdcomboBox.Name = "MothdcomboBox";
-            this.MothdcomboBox.Size = new System.Drawing.Size(100, 20);
-            this.MothdcomboBox.TabIndex = 7;
+            this.methodcomboBox.Location = new System.Drawing.Point(261, 270);
+            this.methodcomboBox.Name = "methodcomboBox";
+            this.methodcomboBox.Size = new System.Drawing.Size(100, 20);
+            this.methodcomboBox.TabIndex = 7;
             // 
             // cancel
             // 
@@ -282,6 +283,7 @@
             this.begin.TabIndex = 4;
             this.begin.Text = "开  始";
             this.begin.UseVisualStyleBackColor = true;
+            this.begin.Click += new System.EventHandler(this.begin_Click);
             // 
             // advence
             // 
@@ -367,12 +369,12 @@
         private System.Windows.Forms.Button cancel;
         private System.Windows.Forms.Button reset;
         private System.Windows.Forms.Button begin;
-        private System.Windows.Forms.ComboBox MothdcomboBox;
+        private System.Windows.Forms.ComboBox methodcomboBox;
 
         public System.Windows.Forms.ComboBox MothdChoose
         {
-            get { return MothdcomboBox; }
-            set { MothdcomboBox = value; }
+            get { return methodcomboBox; }
+            set { methodcomboBox = value; }
         }
         private System.Windows.Forms.Label devarlabel;
         private System.Windows.Forms.Label indevarlabel;
@@ -392,5 +394,8 @@
         private System.Windows.Forms.Button button1;
         private string[] features;
         private int limit;
+        private int[] predictnum;
+        private int[] trainnum;
+        private int timelen;
     }
 }

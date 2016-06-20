@@ -65,6 +65,8 @@
     <Compile Include="core\ThreadML.cs" />
     <Compile Include="core\Until\loggerUntil.cs" />
     <Compile Include="core\Until\MatrixUntil.cs" />
+    <Compile Include="Draw\Impl\IDraw.cs" />
+    <Compile Include="Draw\LogDraw.cs" />
     <Compile Include="EPSystem.cs">
       <SubType>Form</SubType>
     </Compile>

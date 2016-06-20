@@ -155,7 +155,9 @@ namespace 环保分析系统.core.ML
             initCenter(ref traindata);
             if (logger.IsDebugEnabled)
             {
-                loggerUntil.printMatToLogger("init center mat : ", ref center, ref logger);
+                string tmpstr;
+                tmpstr = loggerUntil.printMatToLogger("init center mat : ", ref center);
+                logger.Debug(tmpstr);
 
             }
 
@@ -190,7 +192,9 @@ namespace 环保分析系统.core.ML
                 
                   if (logger.IsDebugEnabled)
                 {
-                    loggerUntil.printMatToLogger("updata center mat:", ref center,ref logger);
+                    string tmpstr;
+                    tmpstr = loggerUntil.printMatToLogger("updata center mat:", ref center);
+                    logger.Debug(tmpstr);
                 
                 }
 

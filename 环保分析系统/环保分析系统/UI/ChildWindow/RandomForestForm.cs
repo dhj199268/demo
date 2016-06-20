@@ -14,6 +14,10 @@ namespace 环保分析系统.UI.ChildWindow
         {
             InitializeComponent();
         }
+        public RandomForestForm(string[] features,int limit=1):base(features,limit)
+        {
+            InitializeComponent();
+        }
 
         private void RandomForestForm_Load(object sender, EventArgs e)
         {

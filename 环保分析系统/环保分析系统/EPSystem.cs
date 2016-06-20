@@ -15,7 +15,7 @@ using log4net;
 using 环保分析系统.UI.ChildWindow;
 using 环保分析系统.UI.ChildWindow.baseWindow;
 using 环保分析系统.core;
-
+using 环保分析系统.Draw;
 //用于初始化log 配置文件，必须加入
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -97,7 +97,7 @@ namespace 环保分析系统
                        };*/
             //float[] data = { 1,2,3,4,5,6,1,3};
             string[] ft = { "1", "2", "3" };
-            RandomForestForm bf = new RandomForestForm();
+            RandomForestForm bf = new RandomForestForm(ft,1);
             bf.SetFeatures(ft);
             bf.ShowDialog();
 
@@ -163,8 +163,8 @@ namespace 环保分析系统
             wf.ShowDialog();
             WavesANN test = new WavesANN(15, 6,100);
             float[] testdata = { 1, 2, 3, 4, 5 ,4,6,6,1,2,3,23};
-
-            ThreadML param = new ThreadML(ref data, ref testdata, test);
+            LogDraw ld=new LogDraw();
+            ThreadML param = new ThreadML(ref data, ref testdata, test,ld); 
             Thread thread = new Thread(new ThreadStart(param.train));
 
             try
@@ -211,7 +211,8 @@ namespace 环保分析系统
             Kmeans test = new Kmeans(3,1000,2);
             test.Train(ref data);
             float[] testdata = { 1, 2, 3, 4, 5, 4, 6, 6, 1, 2, 3, 23 };
-            ThreadML param = new ThreadML(ref data, ref testdata, test);
+            LogDraw ld=new LogDraw();
+            ThreadML param = new ThreadML(ref data, ref testdata, test,ld);
             Thread thread = new Thread(new ThreadStart(param.train));
             
             try
@@ -241,7 +242,8 @@ namespace 环保分析系统
             hf.ShowDialog();
             float[] testdata = { 1,0, 1, 1,1,3,3,3};
              HMM test = new HMM();
-            ThreadML param = new ThreadML(ref data,ref testdata,test );
+             LogDraw ld=new LogDraw();
+            ThreadML param = new ThreadML(ref data,ref testdata,test ,ld);
 
             Thread thread = new Thread(new ThreadStart(param.train));
 
