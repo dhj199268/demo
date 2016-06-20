@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using 环保分析系统.core.ML.Impl;
+using 环保分析系统.Draw.Impl;
 
 namespace 环保分析系统.core
 {
@@ -13,15 +14,17 @@ namespace 环保分析系统.core
         private static log4net.ILog logger = log4net.LogManager.GetLogger(typeof(ThreadML));
         private float[] tradata;
         private IMLAlgorithm model;
+        private IDraw draw;
         private float[] result;
-        private float[] predata;
+        private float[] predictdata;
 
 
-        public ThreadML(ref float[] tradata, ref float[] predata, IMLAlgorithm model)
+        public ThreadML(ref float[] tradata, ref float[] predata, IMLAlgorithm model,IDraw draw)
         {
             this.tradata = tradata;
-            this.predata = predata;
+            this.predictdata = predata;
             this.model = model;
+            this.draw = draw;
          }
         
         public  float[] TrainData
@@ -61,11 +64,11 @@ namespace 环保分析系统.core
         {
             set
             {
-                predata = value;            
+                predictdata = value;            
             }
             get 
             {
-                return predata;
+                return predictdata;
             }        
         }
         public void train()
@@ -73,9 +76,9 @@ namespace 环保分析系统.core
             try
             {
                 model.Train(ref tradata);
-                result = model.Predict(ref predata);
+                result = model.Predict(ref predictdata);
                 model.Clear();
-                ShowResult();
+                draw.DrawPicture(ref this.predictdata, ref this.result);
             }
             catch (Exception e)
             {

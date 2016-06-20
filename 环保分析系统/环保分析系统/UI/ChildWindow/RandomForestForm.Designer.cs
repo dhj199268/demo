@@ -32,14 +32,14 @@
             this.treenumBar = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
             this.treedepth = new System.Windows.Forms.Label();
-            this.depthtrackBar = new System.Windows.Forms.TrackBar();
+            this.treedepthBar = new System.Windows.Forms.TrackBar();
             this.depthTextBox = new System.Windows.Forms.TextBox();
             this.isPrun = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.treenumBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.depthtrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.treedepthBar)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer
@@ -49,7 +49,7 @@
             // 
             this.splitContainer.Panel2.Controls.Add(this.isPrun);
             this.splitContainer.Panel2.Controls.Add(this.treedepth);
-            this.splitContainer.Panel2.Controls.Add(this.depthtrackBar);
+            this.splitContainer.Panel2.Controls.Add(this.treedepthBar);
             this.splitContainer.Panel2.Controls.Add(this.depthTextBox);
             this.splitContainer.Panel2.Controls.Add(this.label1);
             this.splitContainer.Panel2.Controls.Add(this.treenumBar);
@@ -104,20 +104,20 @@
             this.treedepth.TabIndex = 6;
             this.treedepth.Text = "树深度";
             // 
-            // depthtrackBar
+            // treedepthBar
             // 
-            this.depthtrackBar.Enabled = false;
-            this.depthtrackBar.Location = new System.Drawing.Point(61, 76);
-            this.depthtrackBar.Maximum = 100;
-            this.depthtrackBar.Minimum = 15;
-            this.depthtrackBar.Name = "depthtrackBar";
-            this.depthtrackBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.depthtrackBar.Size = new System.Drawing.Size(104, 45);
-            this.depthtrackBar.TabIndex = 5;
-            this.depthtrackBar.TickFrequency = 5;
-            this.depthtrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.depthtrackBar.Value = 15;
-            this.depthtrackBar.Scroll += new System.EventHandler(this.depthtrackBar_Scroll);
+            this.treedepthBar.Enabled = false;
+            this.treedepthBar.Location = new System.Drawing.Point(61, 76);
+            this.treedepthBar.Maximum = 100;
+            this.treedepthBar.Minimum = 15;
+            this.treedepthBar.Name = "treedepthBar";
+            this.treedepthBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.treedepthBar.Size = new System.Drawing.Size(104, 45);
+            this.treedepthBar.TabIndex = 5;
+            this.treedepthBar.TickFrequency = 5;
+            this.treedepthBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.treedepthBar.Value = 15;
+            this.treedepthBar.Scroll += new System.EventHandler(this.depthtrackBar_Scroll);
             // 
             // depthTextBox
             // 
@@ -155,7 +155,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.treenumBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.depthtrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.treedepthBar)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -166,7 +166,7 @@
         private System.Windows.Forms.TrackBar treenumBar;
         private System.Windows.Forms.TextBox treenumText;
         private System.Windows.Forms.Label treedepth;
-        private System.Windows.Forms.TrackBar depthtrackBar;
+        private System.Windows.Forms.TrackBar treedepthBar;
         private System.Windows.Forms.TextBox depthTextBox;
         private System.Windows.Forms.CheckBox isPrun;
     }

@@ -15,7 +15,7 @@ namespace 环保分析系统.core.Until
     {
 
         private loggerUntil() { }
-        public static void printMatToLogger(string msg, ref Matrix<float> data, ref log4net.ILog logger)
+        public static string printMatToLogger(string msg, ref Matrix<float> data)
         {
 
             StringBuilder str = new StringBuilder("\n");
@@ -29,10 +29,10 @@ namespace 环保分析系统.core.Until
                 }
                 str.Append("\n");
             }
-            logger.Debug(msg + str);
+            return msg + str;
 
         }
-        public static void printMatToLogger(string msg, ref float[] data, ref log4net.ILog logger)
+        public static string printMatToLogger(string msg, ref float[] data)
         {
 
             StringBuilder str = new StringBuilder("\n");
@@ -40,7 +40,9 @@ namespace 环保分析系统.core.Until
             {
                 str.Append(data[i]+"\n");
             }
-            logger.Debug(msg + str);
+          
+            return msg + str;
+            
         
         
         }
