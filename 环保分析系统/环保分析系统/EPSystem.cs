@@ -6,15 +6,10 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using log4net;
-using System.IO;
-using System.Data.OleDb;
-using System.Runtime.InteropServices;
-using excelApp = Microsoft.Office.Interop.Excel;
-using System.Threading;
 using 环保分析系统.Entity;
+using 环保分析系统.UI.ChildWindow;
 
 //用于初始化log 配置文件，必须加入
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -41,10 +36,26 @@ namespace 环保分析系统
         {
             Application.Exit();
         }
+        int i = 0;
+        SaveShowDataMethod model = new SaveShowDataMethod();
         private void openAimFile_Click(object sender, EventArgs e)
         {
-            SaveShowDataMethod model = new SaveShowDataMethod();
-            model.OpenExcelMethod();
+            OpenFileDialog open = new OpenFileDialog();
+            open.Title = "请选择要导入的Excel文件";
+            open.Filter = "Excel文件(*.xls)|*.xls|Excel文件|*.xlsx";
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    model.SaveDataInDataSet(open.FileName);
+                    txtName.Text = model.MyDataSet.Tables[0].TableName;
+                    dataGridViewOne.DataSource = model.MyDataSet.Tables[0];
+                }
+               catch
+                {
+                    MessageBox.Show("检查文件格式是否正确！");
+                }
+            }
         }
         private void mainForm_Load(object sender, EventArgs e)
         {
@@ -56,137 +67,62 @@ namespace 环保分析系统
         }
         private void SaveAimFile_Click(object sender, EventArgs e)
         {
+            SaveFileDialog saveFileDialogOne = new SaveFileDialog();
             saveFileDialogOne.Title = "保存的excel文件";
             saveFileDialogOne.InitialDirectory = "c:\\";
-            saveFileDialogOne.Filter = "Excel97-2003 (*.xls)|*.xls|All Files (*.*)|*.*";
+            saveFileDialogOne.Filter = "Excel文件(*.xls)|*.xls|Excel文件|*.xlsx";
             saveFileDialogOne.ShowDialog();
-            if (saveFileDialogOne.FileName == "" || saveFileDialogOne.FileName == null)
+            if (saveFileDialogOne.FileName == null)
             {
                 MessageBox.Show("文件名不能为空!");
-                return;
+
             }
             string path = saveFileDialogOne.FileName;
-            DataSet ds = GetDataSetFromDataGridView(dataGridViewOne);
-            ExportExcel(ds, path);
+            DataTable dt = model.GetDataSetFromDataGridView(dataGridViewOne);
+            model.ExportExcel(dt, path);
         }
-        public static DataSet GetDataSetFromDataGridView(DataGridView ucgrd)
-        {
-            DataSet ds = new DataSet();
-            DataTable dt = new DataTable();
-
-            for (int j = 0; j < ucgrd.Columns.Count; j++)
-            {
-                dt.Columns.Add(ucgrd.Columns[j].HeaderCell.Value.ToString());
-            }
-
-            for (int j = 0; j < ucgrd.Rows.Count; j++)
-            {
-                DataRow dr = dt.NewRow();
-                for (int i = 0; i < ucgrd.Columns.Count; i++)
-                {
-                    if (ucgrd.Rows[j].Cells[i].Value != null)
-                    {
-                        dr[i] = ucgrd.Rows[j].Cells[i].Value.ToString();
-                    }
-                    else
-                    {
-                        dr[i] = "";
-                    }
-                }
-                dt.Rows.Add(dr);
-            }
-            ds.Tables.Add(dt);
-
-            return ds;
-        }//将datagridview中的数据导入到临时数据库dataset中
-        public void ExportExcel(DataSet ds, string path)  //以DataSet- 导出Excel文件   
-        {
-            try
-            {
-                long totalCount = ds.Tables[0].Rows.Count;
-                lblTip.Text = "共有" + totalCount + "条数据。";
-                Thread.Sleep(1000);
-                long rowRead = 0;
-                float percent = 0;
-
-                StreamWriter sw = new StreamWriter(path, false, Encoding.GetEncoding("gb2312"));
-                StringBuilder sb = new StringBuilder();
-                for (int k = 0; k < ds.Tables[0].Columns.Count; k++)
-                {
-                    sb.Append(ds.Tables[0].Columns[k].ColumnName.ToString() + "\t");
-                }
-                sb.Append(Environment.NewLine);
-
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                {
-                    rowRead++;
-                    percent = ((float)(100 * rowRead)) / totalCount;
-                    Pbar.Maximum = (int)totalCount;
-                    Pbar.Value = (int)rowRead;
-                    lblTip.Text = "正在写入[" + percent.ToString("0.00") + "%]...的数据";
-                    System.Windows.Forms.Application.DoEvents();
-
-                    for (int j = 0; j < ds.Tables[0].Columns.Count; j++)
-                    {
-                        sb.Append(ds.Tables[0].Rows[i][j].ToString() + "\t");
-                    }
-                    sb.Append(Environment.NewLine);
-                }
-                sw.Write(sb.ToString());
-                sw.Flush();
-                sw.Close();
-                MessageBox.Show("已经生成指定Excel文件!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-        //选择excel文件
-        int i = 0;
-        SaveShowDataMethod model = new SaveShowDataMethod();
-        private void btnSelectExcel_Click(object sender, EventArgs e)
-        {
-            string fileName = model.OpenExcelShowDGVMethod();
-            IsClickShowData(fileName, 0);
-        }
-        private void IsClickShowData(string fileName, int i)
-        {
-            string[] sheetsName = model.GetSheetsName(fileName);
-            string tableName = sheetsName[i];
-            txtName.Text = tableName;
-            string strCom = "SELECT * FROM [" + tableName + "$]";
-            dataGridViewOne.DataSource = model.ShowDataMethod(fileName,strCom); //显示到datagridview
-        }
-
         private void btnLeft_Click(object sender, EventArgs e)
         {
             btnRight.Enabled = true;
-            if (i > 0)
+            try
             {
-                i--;
-                string fileName = model.fileName;
-                IsClickShowData(fileName, i);
+                if (i > 0)
+                {
+                    i--;
+                    txtName.Text = model.MyDataSet.Tables[i].TableName;
+                    dataGridViewOne.DataSource = model.MyDataSet.Tables[i];
+                }
+                else
+                {
+                    btnLeft.Enabled = false;
+                }
             }
-            else
+            catch
             {
-                btnLeft.Enabled = false;
+                MessageBox.Show("请选择一张表！");
             }
+            
         }
-
         private void btnRight_Click(object sender, EventArgs e)
         {
             btnLeft.Enabled = true;
-            if (i < model.GetSheetsName(model.fileName).Length - 1)
+            try
             {
-                i++;
-                string fileName = model.fileName;
-                IsClickShowData(fileName, i);
+                if (i < model.MyDataSet.Tables.Count - 1)
+                {
+                    i++;
+                    txtName.Text = model.MyDataSet.Tables[i].TableName;
+                    dataGridViewOne.DataSource = model.MyDataSet.Tables[i];
+                }
+                else
+                {
+                    btnRight.Enabled = false;
+                }      
             }
-            else
+            catch 
             {
-                btnRight.Enabled = false;
-            }
+               MessageBox.Show("请选择一张表！");
+            }    
         }
         //增加行号
         private void dataGridViewOne_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -195,6 +131,19 @@ namespace 环保分析系统
             TextRenderer.DrawText(e.Graphics, (e.RowIndex + 1).ToString(),
             dataGridViewOne.RowHeadersDefaultCellStyle.Font, rectangle, dataGridViewOne.RowHeadersDefaultCellStyle.ForeColor,
             TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //double[] data = model.GetDataText(dataGridViewOne, "企业名称", 4, 9);
+            double[] X1 = { 69.23, 114.95, 24.58, 35.68, 56.34, 32.57, 45.68, 67.89, 48.67, 34.45 };
+            double[] X2 = { 1, 0, 0, 1, 0 };
+            DrawDisperse formOne = new DrawDisperse(X1, X2);
+            formOne.Show();
+            //double[] X1 = { 69.23, 114.95, 24.58, 35.68, 56.34, 32.57, 45.68, 67.89, 48.67, 34.45 };
+            //double[] X2 = { 49.23, 74.95, 14.58, 15.68, 36.34, 15.57, 35.68, 57.89, 38.67, 14.45 };
+            //DrawLine formTwo = new DrawLine(X1, X2);
+            //formTwo.Show();
+
         }
     }
 }

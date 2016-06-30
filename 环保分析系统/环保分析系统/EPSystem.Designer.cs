@@ -30,13 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnRight = new System.Windows.Forms.Button();
             this.btnLeft = new System.Windows.Forms.Button();
-            this.btnSelectExcel = new System.Windows.Forms.Button();
-            this.Pbar = new System.Windows.Forms.ProgressBar();
-            this.lblTip = new System.Windows.Forms.Label();
             this.labTime = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridViewOne = new System.Windows.Forms.DataGridView();
@@ -59,13 +57,11 @@
             // panel1
             // 
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.txtName);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.btnRight);
             this.panel1.Controls.Add(this.btnLeft);
-            this.panel1.Controls.Add(this.btnSelectExcel);
-            this.panel1.Controls.Add(this.Pbar);
-            this.panel1.Controls.Add(this.lblTip);
             this.panel1.Controls.Add(this.labTime);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.dataGridViewOne);
@@ -78,17 +74,28 @@
             this.panel1.Size = new System.Drawing.Size(1091, 478);
             this.panel1.TabIndex = 0;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(375, 32);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(449, 34);
+            this.txtName.Location = new System.Drawing.Point(688, 34);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(160, 21);
             this.txtName.TabIndex = 15;
+            this.txtName.WordWrap = false;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(318, 37);
+            this.label2.Location = new System.Drawing.Point(547, 37);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(125, 12);
             this.label2.TabIndex = 14;
@@ -96,7 +103,7 @@
             // 
             // btnRight
             // 
-            this.btnRight.Location = new System.Drawing.Point(237, 32);
+            this.btnRight.Location = new System.Drawing.Point(110, 32);
             this.btnRight.Name = "btnRight";
             this.btnRight.Size = new System.Drawing.Size(75, 23);
             this.btnRight.TabIndex = 13;
@@ -106,39 +113,13 @@
             // 
             // btnLeft
             // 
-            this.btnLeft.Location = new System.Drawing.Point(138, 32);
+            this.btnLeft.Location = new System.Drawing.Point(12, 32);
             this.btnLeft.Name = "btnLeft";
             this.btnLeft.Size = new System.Drawing.Size(75, 23);
             this.btnLeft.TabIndex = 12;
             this.btnLeft.Text = "<<";
             this.btnLeft.UseVisualStyleBackColor = true;
             this.btnLeft.Click += new System.EventHandler(this.btnLeft_Click);
-            // 
-            // btnSelectExcel
-            // 
-            this.btnSelectExcel.Location = new System.Drawing.Point(3, 32);
-            this.btnSelectExcel.Name = "btnSelectExcel";
-            this.btnSelectExcel.Size = new System.Drawing.Size(129, 23);
-            this.btnSelectExcel.TabIndex = 11;
-            this.btnSelectExcel.Text = "选择excel文件";
-            this.btnSelectExcel.UseVisualStyleBackColor = true;
-            this.btnSelectExcel.Click += new System.EventHandler(this.btnSelectExcel_Click);
-            // 
-            // Pbar
-            // 
-            this.Pbar.Location = new System.Drawing.Point(751, 32);
-            this.Pbar.Name = "Pbar";
-            this.Pbar.Size = new System.Drawing.Size(142, 23);
-            this.Pbar.TabIndex = 10;
-            // 
-            // lblTip
-            // 
-            this.lblTip.AutoSize = true;
-            this.lblTip.Location = new System.Drawing.Point(647, 36);
-            this.lblTip.Name = "lblTip";
-            this.lblTip.Size = new System.Drawing.Size(53, 12);
-            this.lblTip.TabIndex = 9;
-            this.lblTip.Text = "保存进度";
             // 
             // labTime
             // 
@@ -255,6 +236,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1091, 478);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "mainForm";
             this.ShowIcon = false;
@@ -287,13 +269,11 @@
         private System.Windows.Forms.Label labTime;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label lblTip;
-        private System.Windows.Forms.ProgressBar Pbar;
-        private System.Windows.Forms.Button btnSelectExcel;
         private System.Windows.Forms.Button btnRight;
         private System.Windows.Forms.Button btnLeft;
-        private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.Button button1;
 
     }
 }
