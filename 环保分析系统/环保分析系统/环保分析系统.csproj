@@ -56,28 +56,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="core\ML\AbstractMLAlg.cs" />
-    <Compile Include="core\ML\HMM.cs" />
-    <Compile Include="core\ML\Impl\IMLAlgorithm.cs" />
-    <Compile Include="core\ML\Kmeans.cs" />
-    <Compile Include="core\ML\RandomForest.cs" />
-    <Compile Include="core\ML\WavesANN.cs" />
+    <Compile Include="core\ML\Impl\AbstractMLAlg.cs" />
+    <Compile Include="core\ML\Impl\HMM.cs" />
+    <Compile Include="core\ML\IMLAlgorithm.cs" />
+    <Compile Include="core\ML\Impl\Kmeans.cs" />
+    <Compile Include="core\ML\Impl\RandomForest.cs" />
+    <Compile Include="core\ML\Impl\WavesANN.cs" />
     <Compile Include="core\ThreadML.cs" />
     <Compile Include="core\Until\loggerUntil.cs" />
     <Compile Include="core\Until\MatrixUntil.cs" />
-    <Compile Include="Draw\Impl\IDraw.cs" />
-    <Compile Include="Draw\LogDraw.cs" />
+    <Compile Include="Draw\IDraw.cs" />
+    <Compile Include="Draw\Impl\LogDraw.cs" />
     <Compile Include="EPSystem.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EPSystem.Designer.cs">
       <DependentUpon>EPSystem.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,35 +87,32 @@
     <Compile Include="UI\ChildWindow\baseWindow\baseForm.Designer.cs">
       <DependentUpon>baseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ChildWindow\HMMForm.cs">
+    <Compile Include="UI\ChildWindow\ParamWindow\HMMForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ChildWindow\HMMForm.Designer.cs">
+    <Compile Include="UI\ChildWindow\ParamWindow\HMMForm.Designer.cs">
       <DependentUpon>HMMForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ChildWindow\KmeansForm.cs">
+    <Compile Include="UI\ChildWindow\ParamWindow\KmeansForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ChildWindow\KmeansForm.Designer.cs">
+    <Compile Include="UI\ChildWindow\ParamWindow\KmeansForm.Designer.cs">
       <DependentUpon>KmeansForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ChildWindow\RandomForestForm.cs">
+    <Compile Include="UI\ChildWindow\ParamWindow\RandomForestForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ChildWindow\RandomForestForm.Designer.cs">
+    <Compile Include="UI\ChildWindow\ParamWindow\RandomForestForm.Designer.cs">
       <DependentUpon>RandomForestForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ChildWindow\WaveANNForm.cs">
+    <Compile Include="UI\ChildWindow\ParamWindow\WaveANNForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ChildWindow\WaveANNForm.Designer.cs">
+    <Compile Include="UI\ChildWindow\ParamWindow\WaveANNForm.Designer.cs">
       <DependentUpon>WaveANNForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="EPSystem.resx">
       <DependentUpon>EPSystem.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -138,16 +129,16 @@
     <EmbeddedResource Include="UI\ChildWindow\baseWindow\baseForm.resx">
       <DependentUpon>baseForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ChildWindow\HMMForm.resx">
+    <EmbeddedResource Include="UI\ChildWindow\ParamWindow\HMMForm.resx">
       <DependentUpon>HMMForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ChildWindow\KmeansForm.resx">
+    <EmbeddedResource Include="UI\ChildWindow\ParamWindow\KmeansForm.resx">
       <DependentUpon>KmeansForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ChildWindow\RandomForestForm.resx">
+    <EmbeddedResource Include="UI\ChildWindow\ParamWindow\RandomForestForm.resx">
       <DependentUpon>RandomForestForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ChildWindow\WaveANNForm.resx">
+    <EmbeddedResource Include="UI\ChildWindow\ParamWindow\WaveANNForm.resx">
       <DependentUpon>WaveANNForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

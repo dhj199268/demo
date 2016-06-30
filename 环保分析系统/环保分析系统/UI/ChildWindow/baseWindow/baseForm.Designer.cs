@@ -253,6 +253,7 @@
             this.methodcomboBox.Location = new System.Drawing.Point(261, 270);
             this.methodcomboBox.Name = "methodcomboBox";
             this.methodcomboBox.Size = new System.Drawing.Size(100, 20);
+            this.methodcomboBox.SelectedIndex = 1;
             this.methodcomboBox.TabIndex = 7;
             // 
             // cancel

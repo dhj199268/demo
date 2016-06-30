@@ -234,6 +234,19 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
             }
             return true;
         }
+        public string[] GetIndvFeature()
+        {
+            int size = this.indevarList.Items.Count;
+            string[] tmpstr = new string[size];
+            for (int i = 0; i < size; i++)
+            {
+                tmpstr[i] = this.indevarList.Items[i].ToString();
+            }
+            return tmpstr;
+            
+        }
+     
+
 
         private void begin_Click(object sender, EventArgs e)
         {
