@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using 环保分析系统.core.ML.Impl;
-using 环保分析系统.Draw.Impl;
 
 namespace 环保分析系统.core
 {
