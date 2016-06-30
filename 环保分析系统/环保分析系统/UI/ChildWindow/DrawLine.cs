@@ -21,19 +21,7 @@ namespace 环保分析系统.UI.ChildWindow
             Y1 = X1;
             Y2 = X2;
         }
-
-        private void DrawLine_Load(object sender, EventArgs e)
-        {
-            this.chartTwo.Series[0].ChartType = SeriesChartType.Line;
-            this.chartTwo.Series[1].ChartType = SeriesChartType.Line;
-            this.chartTwo.Series[0].Points.DataBindY(Y1);
-            this.chartTwo.Series[0].Color = System.Drawing.Color.Red;
-            this.chartTwo.Series[1].Points.DataBindY(Y2);
-            this.chartTwo.Series[1].Color = System.Drawing.Color.Blue;
-
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
+        private void btnSave_Click_1(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialogOne = new SaveFileDialog();
             saveFileDialogOne.Title = "保存的图片文件";
@@ -58,6 +46,16 @@ namespace 环保分析系统.UI.ChildWindow
                          MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
+        }
+
+        private void DrawLine_Load_1(object sender, EventArgs e)
+        {
+            this.chartTwo.Series[0].ChartType = SeriesChartType.Line;
+            this.chartTwo.Series[1].ChartType = SeriesChartType.Line;
+            this.chartTwo.Series[0].Points.DataBindY(Y1);
+            this.chartTwo.Series[0].Color = System.Drawing.Color.Red;
+            this.chartTwo.Series[1].Points.DataBindY(Y2);
+            this.chartTwo.Series[1].Color = System.Drawing.Color.Blue;
         }
     }
 }

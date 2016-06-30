@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.chartTwo = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnSave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chartTwo)).BeginInit();
@@ -39,47 +39,44 @@
             // 
             // chartTwo
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartTwo.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartTwo.Legends.Add(legend2);
-            this.chartTwo.Location = new System.Drawing.Point(2, 3);
+            chartArea3.Name = "ChartArea1";
+            this.chartTwo.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chartTwo.Legends.Add(legend3);
+            this.chartTwo.Location = new System.Drawing.Point(-1, 0);
             this.chartTwo.Name = "chartTwo";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series4.Legend = "Legend1";
-            series4.Name = "Series2";
-            this.chartTwo.Series.Add(series3);
-            this.chartTwo.Series.Add(series4);
-            this.chartTwo.Size = new System.Drawing.Size(473, 331);
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series5.Legend = "Legend1";
+            series5.Name = "Series1";
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series6.Legend = "Legend1";
+            series6.Name = "Series2";
+            this.chartTwo.Series.Add(series5);
+            this.chartTwo.Series.Add(series6);
+            this.chartTwo.Size = new System.Drawing.Size(428, 307);
+            this.chartTwo.SuppressExceptions = true;
             this.chartTwo.TabIndex = 0;
-            this.chartTwo.Text = "图形";
+            this.chartTwo.Text = "折线图";
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(392, 340);
+            this.btnSave.Location = new System.Drawing.Point(352, 313);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(83, 23);
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "保存图片";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click_1);
             // 
             // DrawLine
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(479, 366);
+            this.ClientSize = new System.Drawing.Size(429, 337);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.chartTwo);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "DrawLine";
-            this.Text = "折线图";
-            this.Load += new System.EventHandler(this.DrawLine_Load);
+            this.Load += new System.EventHandler(this.DrawLine_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.chartTwo)).EndInit();
             this.ResumeLayout(false);
 
@@ -87,6 +84,8 @@
 
         #endregion
 
+        //private System.Windows.Forms.DataVisualization.Charting.Chart chartTwo;
+        //private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartTwo;
         private System.Windows.Forms.Button btnSave;
     }

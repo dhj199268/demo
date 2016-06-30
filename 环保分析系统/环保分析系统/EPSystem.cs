@@ -135,14 +135,14 @@ namespace 环保分析系统
         private void button1_Click(object sender, EventArgs e)
         {
             //double[] data = model.GetDataText(dataGridViewOne, "企业名称", 4, 9);
-            double[] X1 = { 69.23, 114.95, 24.58, 35.68, 56.34, 32.57, 45.68, 67.89, 48.67, 34.45 };
-            double[] X2 = { 1, 0, 0, 1, 0 };
-            DrawDisperse formOne = new DrawDisperse(X1, X2);
-            formOne.Show();
             //double[] X1 = { 69.23, 114.95, 24.58, 35.68, 56.34, 32.57, 45.68, 67.89, 48.67, 34.45 };
-            //double[] X2 = { 49.23, 74.95, 14.58, 15.68, 36.34, 15.57, 35.68, 57.89, 38.67, 14.45 };
-            //DrawLine formTwo = new DrawLine(X1, X2);
-            //formTwo.Show();
+            //double[] X2 = { 1, 0, 0, 1, 0 };
+            //DrawDisperse formOne = new DrawDisperse(X1, X2);
+            //formOne.Show();
+            double[] X1 = { 69.23, 114.95, 24.58, 35.68, 56.34, 32.57, 45.68, 67.89, 48.67, 34.45 };
+            double[] X2 = { 49.23, 74.95, 14.58, 15.68, 36.34, 15.57, 35.68, 57.89, 38.67, 14.45 };
+            DrawLine formTwo = new DrawLine(X1, X2);
+            formTwo.Show();
 
         }
     }
