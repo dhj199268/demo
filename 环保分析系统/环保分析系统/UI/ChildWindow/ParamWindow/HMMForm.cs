@@ -125,5 +125,9 @@ namespace 环保分析系统.UI.ChildWindow
                 }
             }
         }
+
+        protected override void setParm(string method)
+        {
+        }
     }
 }

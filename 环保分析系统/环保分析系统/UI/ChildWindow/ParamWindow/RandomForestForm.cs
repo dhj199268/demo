@@ -55,12 +55,8 @@ namespace 环保分析系统.UI.ChildWindow
             return this.isPrun.Checked; 
         }
 
-        protected override void setParm()
+        protected override void setParm(string method)
         {
-            string method = GetMethod();
-           //  "快   速",
-            //"标   准",
-            //"精   确"
             switch (method)
             {
                 case "快   速": this.treenumText.Text = "200"; this.isPrun.Checked = false; this.treedepth.Text = "5"; break;

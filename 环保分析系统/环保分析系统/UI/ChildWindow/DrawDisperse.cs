@@ -13,9 +13,9 @@ namespace 环保分析系统.UI.ChildWindow
 {
     public partial class DrawDisperse : Form
     {
-        double[] Y1;
-        double[] Y2;
-        public DrawDisperse(double[] X1,double[] X2)
+        float[] Y1;
+        float[] Y2;
+        public DrawDisperse(float[] X1, float[] X2)
         {
             InitializeComponent();
             Y1 = X1;

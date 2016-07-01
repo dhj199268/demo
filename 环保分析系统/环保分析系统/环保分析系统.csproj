@@ -74,6 +74,7 @@
     <Compile Include="EPSystem.Designer.cs">
       <DependentUpon>EPSystem.cs</DependentUpon>
     </Compile>
+    <Compile Include="except\OutOfRange.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entity\SaveShowDataMethod.cs" />
@@ -178,7 +179,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="dll\" />
-    <Folder Include="Exception\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

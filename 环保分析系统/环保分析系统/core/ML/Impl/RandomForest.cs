@@ -24,7 +24,7 @@ namespace 环保分析系统.core.ML
         private IStatModel trainmodel = null;
 
        
-        public RandomForest(int numTree=500,int segTime=150, int maxCategories=10, float regAccuracy=0.1f,int maxDepth=15, bool seRule=true)
+        public RandomForest(int numTree=500,int segTime=150, int maxCategories=10, int maxDepth=15, bool seRule=true,float regAccuracy=0.1f)
             :base(segTime,true)
         {
             this.maxCategories = maxCategories;

@@ -85,6 +85,10 @@ namespace 环保分析系统.core.ML
             {
                 tmprow = traindata.GetRow(i);
                 tmpsum = (float)tmprow.Sum;
+                if (tmpsum==0)
+                {
+                    continue;
+                }
 
                 for (int j = 0; j < traindata.Width; j++)
                 {
@@ -93,6 +97,7 @@ namespace 环保分析系统.core.ML
                 }
                 
             }
+            logger.Debug(Until.loggerUntil.printMatToLogger("transfer mat:", ref transferMat));
 
         }
         protected override void predict(ref Matrix<float> data, out float[] result)
@@ -147,7 +152,7 @@ namespace 环保分析系统.core.ML
             for (int i = 0; i < data.Height; i++)
             {
                 matlist[i].MinMax(out minv, out maxv, out minlocal, out maxlocal);
-                result[i] = maxlocal.X;
+                result[i] = maxlocal.X + 1;
 
             }
         }

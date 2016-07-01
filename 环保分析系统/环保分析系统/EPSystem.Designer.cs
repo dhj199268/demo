@@ -47,9 +47,12 @@
             this.数据分析ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.计算器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.matlabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pM25预测ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sO2预测ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.异常分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialogOne = new System.Windows.Forms.SaveFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.pM25预测ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.等级预测ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOne)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -176,7 +179,10 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.文件ToolStripMenuItem,
             this.数据分析ToolStripMenuItem1,
-            this.pM25预测ToolStripMenuItem});
+            this.pM25预测ToolStripMenuItem,
+            this.sO2预测ToolStripMenuItem,
+            this.异常分析ToolStripMenuItem,
+            this.等级预测ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1091, 25);
@@ -228,16 +234,37 @@
             this.matlabToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.matlabToolStripMenuItem.Text = "Matlab";
             // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // pM25预测ToolStripMenuItem
             // 
             this.pM25预测ToolStripMenuItem.Name = "pM25预测ToolStripMenuItem";
             this.pM25预测ToolStripMenuItem.Size = new System.Drawing.Size(80, 21);
             this.pM25预测ToolStripMenuItem.Text = "PM2.5预测";
             this.pM25预测ToolStripMenuItem.Click += new System.EventHandler(this.pM25预测ToolStripMenuItem_Click);
+            // 
+            // sO2预测ToolStripMenuItem
+            // 
+            this.sO2预测ToolStripMenuItem.Name = "sO2预测ToolStripMenuItem";
+            this.sO2预测ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.sO2预测ToolStripMenuItem.Text = "SO2预测";
+            this.sO2预测ToolStripMenuItem.Click += new System.EventHandler(this.sO2预测ToolStripMenuItem_Click);
+            // 
+            // 异常分析ToolStripMenuItem
+            // 
+            this.异常分析ToolStripMenuItem.Name = "异常分析ToolStripMenuItem";
+            this.异常分析ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.异常分析ToolStripMenuItem.Text = "异常分析";
+            this.异常分析ToolStripMenuItem.Click += new System.EventHandler(this.异常分析ToolStripMenuItem_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // 等级预测ToolStripMenuItem
+            // 
+            this.等级预测ToolStripMenuItem.Name = "等级预测ToolStripMenuItem";
+            this.等级预测ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.等级预测ToolStripMenuItem.Text = "等级预测";
+            this.等级预测ToolStripMenuItem.Click += new System.EventHandler(this.等级预测ToolStripMenuItem_Click);
             // 
             // mainForm
             // 
@@ -285,6 +312,9 @@
         private System.Windows.Forms.Button button1;
         private 环保分析系统.Entity.SaveShowDataMethod model;
         private System.Windows.Forms.ToolStripMenuItem pM25预测ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sO2预测ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 异常分析ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 等级预测ToolStripMenuItem;
 
     }
 }

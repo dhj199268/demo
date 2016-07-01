@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using 环保分析系统.except;
 
 namespace 环保分析系统.UI.ChildWindow.baseWindow
 {
@@ -86,6 +87,7 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
             {
                 tmp[i] = int.Parse(strlist[i]);
             }
+            
             return tmp;
         }
 
@@ -202,42 +204,42 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
             return this.isAdvence.Checked;
         }
 
-        private bool CheckParm()
+        private void CheckParm()
         {
             if (this.indevarList.Items.Count!=this.limit)
             {
-                return false;   
-            }
-
-            try
-            {
-                this.trainnum = GetRowNum(ref this.trainrownum);
-                this.predictnum = GetRowNum(ref this.predictrownum);
-            }
-            catch (Exception)
-            {
-                return false;
+                throw new IndexOutOfRangeException("因变量个数设置错误");
             }
 
             if (this.timeTextBox.Text==string.Empty)
             {
-                return false;
+                throw new NullReferenceException("请设置时序长度");
             }
             else
             { 
                 this.timelen = Convert.ToInt32(this.timeTextBox.Text);
             }
+            try
+            {
+                this.trainnum = GetRowNum(ref this.trainrownum);
+                this.predictnum = GetRowNum(ref this.predictrownum);
+            }
+            catch (Exception )
+            {
+                throw new IndexOutOfRangeException("训练行号或者预测行号设置错误"); ;
+            }
 
+            
+           
             if (this.methodcomboBox.SelectedIndex<0&&this.IsAdvence()==false)
             {
-                return false;
+                throw new NullReferenceException("请设置方案");
             }
-            return true;
         }
-        protected virtual void setParm()
+        protected virtual void setParm(string method)
         {
 
-            MessageBox.Show("set Parm");
+            MessageBox.Show(method);
 
         }
         public string[] GetIndvFeature()
@@ -256,20 +258,29 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
 
         private void begin_Click(object sender, EventArgs e)
         {
-            if (false==CheckParm())
-            {
-                MessageBox.Show("参数设置错误");
-            }
-            else
-            {
+            
+              try 
+	        {	        
+		        CheckParm();
                 if (this.IsAdvence()==false)
                 {
-                    setParm();
+                    string method = GetMethod();
+
+                    setParm(method);
                 }
                 
                 this.DialogResult = DialogResult.OK;
                 this.Close();
+	        }
+            catch (IndexOutOfRangeException ioe)
+	        {
+                MessageBox.Show(ioe.Message);
             }
+              catch (NullReferenceException nfe)
+            {
+                MessageBox.Show(nfe.Message);
+            }
+         
         }
        
     }

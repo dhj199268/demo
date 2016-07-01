@@ -154,5 +154,7 @@
         private System.Windows.Forms.TrackBar hidelayertrackBar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox hidelayertextBox;
+        private int hidelayer;
+        private int iter;
     }
 }

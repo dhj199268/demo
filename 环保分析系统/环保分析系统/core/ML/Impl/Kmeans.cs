@@ -237,15 +237,14 @@ namespace 环保分析系统.core.ML
             int rows = data.Length / segTime;
             mergedata = new Matrix<float>(rows,segTime);
 
-            for (int row = 0; row < rows; ++row)
-            {
+          
                 for (int col = 0; col < segTime; col++)
                 {
-                    mergedata[row,col]=data[row*segTime+col];
+                    for (int row = 0; row < rows; ++row)
+                    {
+                        mergedata[row, col] = data[rows * col + row];
+                    }
                 }
-                
-            }
-
             return true;
         }
 

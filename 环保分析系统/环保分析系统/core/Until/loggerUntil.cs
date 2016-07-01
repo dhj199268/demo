@@ -38,6 +38,7 @@ namespace 环保分析系统.core.Until
             StringBuilder str = new StringBuilder("\n");
             for (int i = 0; i < data.Length; ++i)
             {
+                str.Append(i + ":  ");
                 str.Append(data[i]+"\n");
             }
           
