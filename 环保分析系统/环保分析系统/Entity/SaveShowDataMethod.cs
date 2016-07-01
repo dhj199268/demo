@@ -86,16 +86,32 @@ namespace 环保分析系统.Entity
             }
             return dataName;
         }
-        public double[] GetDataText(DataGridView dgv, string comulnName, int startRow, int endRow)
+        public float[] GetDataOneText(DataGridView dgv,int startRow, int endRow, params string[] comulnName)
         {
             try
             {
-                double[] dataText = new double[endRow - startRow + 1];
-                for (int i = startRow, j = 0; i <= endRow; i++, j++)
+                if (comulnName.Length == 1)
                 {
-                    dataText[j] = Convert.ToDouble(dgv.Rows[i - 1].Cells[comulnName].Value.ToString());
+                    float[] dataText = new float[endRow - startRow + 1];
+                    for (int i = startRow, j = 0; i <= endRow; i++, j++)
+                    {
+                    dataText[j] = (float)Convert.ToDouble(dgv.Rows[i - 1].Cells[comulnName[0]].Value.ToString());
+                    }
+                    return dataText;
                 }
-                return dataText;
+                else
+                {
+                    float[] dataText = new float[2*(endRow - startRow + 1)];
+                    for (int i = startRow, j = 0; i <= endRow; i++, j++)
+                    {
+                        dataText[j] = (float)Convert.ToDouble(dgv.Rows[i - 1].Cells[comulnName[0]].Value.ToString());
+                    }
+                    for (int i = startRow, j = endRow - startRow + 1; i <= endRow; i++, j++)
+                    {
+                        dataText[j] = (float)Convert.ToDouble(dgv.Rows[i - 1].Cells[comulnName[1]].Value.ToString());
+                    }
+                    return dataText;
+                }
             }
             catch (Exception err)
             {

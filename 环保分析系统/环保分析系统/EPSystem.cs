@@ -139,8 +139,8 @@ namespace 环保分析系统
             //double[] X2 = { 1, 0, 0, 1, 0 };
             //DrawDisperse formOne = new DrawDisperse(X1, X2);
             //formOne.Show();
-            double[] X1 = { 69.23, 114.95, 24.58, 35.68, 56.34, 32.57, 45.68, 67.89, 48.67, 34.45 };
-            double[] X2 = { 49.23, 74.95, 14.58, 15.68, 36.34, 15.57, 35.68, 57.89, 38.67, 14.45 };
+            float[] X1 = new float[]{ 69.23F, 114.95F, 24.58f, 35.68F, 56.34f, 32.57F, 45.68f, 67.89f, 48.67f, 34.45F };
+            float[] X2 = { 49.23f, 74.95f, 14.58f, 15.68f, 36.34f, 15.57f, 35.68f, 57.89f, 38.67f, 14.45f };
             DrawLine formTwo = new DrawLine(X1, X2);
             formTwo.Show();
 
