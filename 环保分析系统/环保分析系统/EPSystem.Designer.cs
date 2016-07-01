@@ -49,6 +49,7 @@
             this.matlabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialogOne = new System.Windows.Forms.SaveFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.pM25预测ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOne)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -174,7 +175,8 @@
             this.menuStrip1.BackColor = System.Drawing.Color.SteelBlue;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.文件ToolStripMenuItem,
-            this.数据分析ToolStripMenuItem1});
+            this.数据分析ToolStripMenuItem1,
+            this.pM25预测ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1091, 25);
@@ -230,6 +232,13 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // pM25预测ToolStripMenuItem
+            // 
+            this.pM25预测ToolStripMenuItem.Name = "pM25预测ToolStripMenuItem";
+            this.pM25预测ToolStripMenuItem.Size = new System.Drawing.Size(80, 21);
+            this.pM25预测ToolStripMenuItem.Text = "PM2.5预测";
+            this.pM25预测ToolStripMenuItem.Click += new System.EventHandler(this.pM25预测ToolStripMenuItem_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -274,6 +283,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Button button1;
+        private 环保分析系统.Entity.SaveShowDataMethod model;
+        private System.Windows.Forms.ToolStripMenuItem pM25预测ToolStripMenuItem;
 
     }
 }

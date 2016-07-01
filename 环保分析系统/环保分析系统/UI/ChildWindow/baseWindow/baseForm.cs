@@ -180,7 +180,7 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
             VarToVar(  this.devarList,this.varList);
         }
 
-        public string GetMethod()
+        protected string GetMethod()
         {
             return this.methodcomboBox.Text;
         }
@@ -197,7 +197,7 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
         {
             return this.timelen;
         }
-        public bool IsAdvence()
+        protected bool IsAdvence()
         {
             return this.isAdvence.Checked;
         }
@@ -234,6 +234,12 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
             }
             return true;
         }
+        protected virtual void setParm()
+        {
+
+            MessageBox.Show("set Parm");
+
+        }
         public string[] GetIndvFeature()
         {
             int size = this.indevarList.Items.Count;
@@ -256,6 +262,12 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
             }
             else
             {
+                if (this.IsAdvence()==false)
+                {
+                    setParm();
+                }
+                
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
         }
