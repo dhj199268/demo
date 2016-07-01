@@ -21,7 +21,7 @@ namespace 环保分析系统.core.ML
         private int maxCategories;
         private int maxDepth ;
         private bool seRule;
-        private RTrees trainmodel = null;
+        private IStatModel trainmodel = null;
 
        
         public RandomForest(int numTree=500,int segTime=150, int maxCategories=10, float regAccuracy=0.1f,int maxDepth=15, bool seRule=true)
@@ -43,11 +43,15 @@ namespace 环保分析系统.core.ML
         {
             logger.Info("before train in RF");
 
+
             RTrees temp = new RTrees();
-            this.trainmodel.MaxCategories = this.maxCategories;
-            this.trainmodel.RegressionAccuracy = this.accurate;
-            this.trainmodel.MaxDepth = this.maxDepth;
-            this.trainmodel.Use1SERule = this.seRule;
+            temp.MaxCategories = this.maxCategories;
+            temp.RegressionAccuracy = this.accurate;
+            temp.MaxDepth = this.maxDepth;
+            temp.Use1SERule = this.seRule;
+
+            this.trainmodel = temp;
+
         }
         protected override void train()
         {

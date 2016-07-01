@@ -30,20 +30,19 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnSelect = new System.Windows.Forms.Button();
-            this.Pbar = new System.Windows.Forms.ProgressBar();
-            this.lblTip = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnRight = new System.Windows.Forms.Button();
+            this.btnLeft = new System.Windows.Forms.Button();
             this.labTime = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.labl = new System.Windows.Forms.Label();
-            this.comboBoxOne = new System.Windows.Forms.ComboBox();
             this.dataGridViewOne = new System.Windows.Forms.DataGridView();
             this.btnIn = new System.Windows.Forms.Button();
             this.btnOut = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openAimFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataView = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveAimFile = new System.Windows.Forms.ToolStripMenuItem();
             this.数据分析ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.计算器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,13 +57,13 @@
             // panel1
             // 
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel1.Controls.Add(this.btnSelect);
-            this.panel1.Controls.Add(this.Pbar);
-            this.panel1.Controls.Add(this.lblTip);
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.txtName);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.btnRight);
+            this.panel1.Controls.Add(this.btnLeft);
             this.panel1.Controls.Add(this.labTime);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.labl);
-            this.panel1.Controls.Add(this.comboBoxOne);
             this.panel1.Controls.Add(this.dataGridViewOne);
             this.panel1.Controls.Add(this.btnIn);
             this.panel1.Controls.Add(this.btnOut);
@@ -75,31 +74,52 @@
             this.panel1.Size = new System.Drawing.Size(1091, 478);
             this.panel1.TabIndex = 0;
             // 
-            // btnSelect
+            // button1
             // 
-            this.btnSelect.Location = new System.Drawing.Point(188, 31);
-            this.btnSelect.Name = "btnSelect";
-            this.btnSelect.Size = new System.Drawing.Size(75, 23);
-            this.btnSelect.TabIndex = 11;
-            this.btnSelect.Text = "添加工作表";
-            this.btnSelect.UseVisualStyleBackColor = true;
-            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
+            this.button1.Location = new System.Drawing.Point(375, 32);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // Pbar
+            // txtName
             // 
-            this.Pbar.Location = new System.Drawing.Point(751, 32);
-            this.Pbar.Name = "Pbar";
-            this.Pbar.Size = new System.Drawing.Size(142, 23);
-            this.Pbar.TabIndex = 10;
+            this.txtName.Location = new System.Drawing.Point(688, 34);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(160, 21);
+            this.txtName.TabIndex = 15;
+            this.txtName.WordWrap = false;
             // 
-            // lblTip
+            // label2
             // 
-            this.lblTip.AutoSize = true;
-            this.lblTip.Location = new System.Drawing.Point(647, 36);
-            this.lblTip.Name = "lblTip";
-            this.lblTip.Size = new System.Drawing.Size(53, 12);
-            this.lblTip.TabIndex = 9;
-            this.lblTip.Text = "保存进度";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(547, 37);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(125, 12);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "当前显示的工作表名：";
+            // 
+            // btnRight
+            // 
+            this.btnRight.Location = new System.Drawing.Point(110, 32);
+            this.btnRight.Name = "btnRight";
+            this.btnRight.Size = new System.Drawing.Size(75, 23);
+            this.btnRight.TabIndex = 13;
+            this.btnRight.Text = ">>";
+            this.btnRight.UseVisualStyleBackColor = true;
+            this.btnRight.Click += new System.EventHandler(this.btnRight_Click);
+            // 
+            // btnLeft
+            // 
+            this.btnLeft.Location = new System.Drawing.Point(12, 32);
+            this.btnLeft.Name = "btnLeft";
+            this.btnLeft.Size = new System.Drawing.Size(75, 23);
+            this.btnLeft.TabIndex = 12;
+            this.btnLeft.Text = "<<";
+            this.btnLeft.UseVisualStyleBackColor = true;
+            this.btnLeft.Click += new System.EventHandler(this.btnLeft_Click);
             // 
             // labTime
             // 
@@ -118,30 +138,6 @@
             this.label1.TabIndex = 7;
             this.label1.Text = "时间：";
             // 
-            // labl
-            // 
-            this.labl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labl.AutoSize = true;
-            this.labl.Location = new System.Drawing.Point(337, 37);
-            this.labl.Name = "labl";
-            this.labl.Size = new System.Drawing.Size(65, 12);
-            this.labl.TabIndex = 6;
-            this.labl.Text = "选择工作表";
-            // 
-            // comboBoxOne
-            // 
-            this.comboBoxOne.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxOne.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxOne.FormattingEnabled = true;
-            this.comboBoxOne.Location = new System.Drawing.Point(424, 33);
-            this.comboBoxOne.Name = "comboBoxOne";
-            this.comboBoxOne.Size = new System.Drawing.Size(121, 20);
-            this.comboBoxOne.TabIndex = 5;
-            // 
             // dataGridViewOne
             // 
             this.dataGridViewOne.AllowUserToAddRows = false;
@@ -153,6 +149,7 @@
             this.dataGridViewOne.RowTemplate.Height = 23;
             this.dataGridViewOne.Size = new System.Drawing.Size(1091, 417);
             this.dataGridViewOne.TabIndex = 4;
+            this.dataGridViewOne.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewOne_RowPostPaint);
             // 
             // btnIn
             // 
@@ -188,7 +185,6 @@
             // 
             this.文件ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openAimFile,
-            this.dataView,
             this.SaveAimFile});
             this.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
             this.文件ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
@@ -197,21 +193,14 @@
             // openAimFile
             // 
             this.openAimFile.Name = "openAimFile";
-            this.openAimFile.Size = new System.Drawing.Size(124, 22);
+            this.openAimFile.Size = new System.Drawing.Size(100, 22);
             this.openAimFile.Text = "打开";
             this.openAimFile.Click += new System.EventHandler(this.openAimFile_Click);
-            // 
-            // dataView
-            // 
-            this.dataView.Name = "dataView";
-            this.dataView.Size = new System.Drawing.Size(124, 22);
-            this.dataView.Text = "数据显示";
-            this.dataView.Click += new System.EventHandler(this.dataView_Click);
             // 
             // SaveAimFile
             // 
             this.SaveAimFile.Name = "SaveAimFile";
-            this.SaveAimFile.Size = new System.Drawing.Size(124, 22);
+            this.SaveAimFile.Size = new System.Drawing.Size(100, 22);
             this.SaveAimFile.Text = "保存";
             this.SaveAimFile.Click += new System.EventHandler(this.SaveAimFile_Click);
             // 
@@ -247,6 +236,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1091, 478);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "mainForm";
             this.ShowIcon = false;
@@ -275,16 +265,15 @@
         private System.Windows.Forms.ToolStripMenuItem openAimFile;
         private System.Windows.Forms.ToolStripMenuItem SaveAimFile;
         private System.Windows.Forms.DataGridView dataGridViewOne;
-        private System.Windows.Forms.ToolStripMenuItem dataView;
-        private System.Windows.Forms.Label labl;
-        private System.Windows.Forms.ComboBox comboBoxOne;
         private System.Windows.Forms.SaveFileDialog saveFileDialogOne;
         private System.Windows.Forms.Label labTime;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label lblTip;
-        private System.Windows.Forms.ProgressBar Pbar;
-        private System.Windows.Forms.Button btnSelect;
+        private System.Windows.Forms.Button btnRight;
+        private System.Windows.Forms.Button btnLeft;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.Button button1;
 
     }
 }

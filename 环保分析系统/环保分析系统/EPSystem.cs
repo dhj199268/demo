@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+<<<<<<< HEAD
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using log4net;
@@ -15,6 +16,12 @@ using System.Runtime.InteropServices;
 using excelApp = Microsoft.Office.Interop.Excel;
 using System.Threading;
 using 环保分析系统.Entity;
+=======
+using System.Windows.Forms;
+using log4net;
+using 环保分析系统.Entity;
+using 环保分析系统.UI.ChildWindow;
+>>>>>>> upstream/master
 
 //用于初始化log 配置文件，必须加入
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -41,6 +48,7 @@ namespace 环保分析系统
         {
             Application.Exit();
         }
+<<<<<<< HEAD
         private void openAimFile_Click(object sender, EventArgs e)
         {
             //点击弹出对话框
@@ -187,8 +195,76 @@ namespace 环保分析系统
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+=======
+        int i = 0;
+        SaveShowDataMethod model = new SaveShowDataMethod();
+        private void openAimFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog open = new OpenFileDialog();
+            open.Title = "请选择要导入的Excel文件";
+            open.Filter = "Excel文件(*.xls)|*.xls|Excel文件|*.xlsx";
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    model.SaveDataInDataSet(open.FileName);
+                    txtName.Text = model.MyDataSet.Tables[0].TableName;
+                    dataGridViewOne.DataSource = model.MyDataSet.Tables[0];
+                }
+               catch
+                {
+                    MessageBox.Show("检查文件格式是否正确！");
+                }
             }
         }
+        private void mainForm_Load(object sender, EventArgs e)
+        {
+            this.timer1.Start();
+        }
+        private void timer1_Tick(object sender, EventArgs e)//显示北京时间
+        {
+            labTime.Text = System.DateTime.Now.ToString();
+        }
+        private void SaveAimFile_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialogOne = new SaveFileDialog();
+            saveFileDialogOne.Title = "保存的excel文件";
+            saveFileDialogOne.InitialDirectory = "c:\\";
+            saveFileDialogOne.Filter = "Excel文件(*.xls)|*.xls|Excel文件|*.xlsx";
+            saveFileDialogOne.ShowDialog();
+            if (saveFileDialogOne.FileName == null)
+            {
+                MessageBox.Show("文件名不能为空!");
+
+            }
+            string path = saveFileDialogOne.FileName;
+            DataTable dt = model.GetDataSetFromDataGridView(dataGridViewOne);
+            model.ExportExcel(dt, path);
+        }
+        private void btnLeft_Click(object sender, EventArgs e)
+        {
+            btnRight.Enabled = true;
+            try
+            {
+                if (i > 0)
+                {
+                    i--;
+                    txtName.Text = model.MyDataSet.Tables[i].TableName;
+                    dataGridViewOne.DataSource = model.MyDataSet.Tables[i];
+                }
+                else
+                {
+                    btnLeft.Enabled = false;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("请选择一张表！");
+>>>>>>> upstream/master
+            }
+            
+        }
+<<<<<<< HEAD
         public static string[] GetSheetsName(string pExcelAddress)
         {
             try
@@ -231,5 +307,49 @@ namespace 环保分析系统
                 }
             }
         }//选择工作表         
+=======
+        private void btnRight_Click(object sender, EventArgs e)
+        {
+            btnLeft.Enabled = true;
+            try
+            {
+                if (i < model.MyDataSet.Tables.Count - 1)
+                {
+                    i++;
+                    txtName.Text = model.MyDataSet.Tables[i].TableName;
+                    dataGridViewOne.DataSource = model.MyDataSet.Tables[i];
+                }
+                else
+                {
+                    btnRight.Enabled = false;
+                }      
+            }
+            catch 
+            {
+               MessageBox.Show("请选择一张表！");
+            }    
+        }
+        //增加行号
+        private void dataGridViewOne_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            Rectangle rectangle = new Rectangle(e.RowBounds.Location.X, e.RowBounds.Location.Y, dataGridViewOne.RowHeadersWidth, e.RowBounds.Height);
+            TextRenderer.DrawText(e.Graphics, (e.RowIndex + 1).ToString(),
+            dataGridViewOne.RowHeadersDefaultCellStyle.Font, rectangle, dataGridViewOne.RowHeadersDefaultCellStyle.ForeColor,
+            TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //double[] data = model.GetDataText(dataGridViewOne, "企业名称", 4, 9);
+            //double[] X1 = { 69.23, 114.95, 24.58, 35.68, 56.34, 32.57, 45.68, 67.89, 48.67, 34.45 };
+            //double[] X2 = { 1, 0, 0, 1, 0 };
+            //DrawDisperse formOne = new DrawDisperse(X1, X2);
+            //formOne.Show();
+            double[] X1 = { 69.23, 114.95, 24.58, 35.68, 56.34, 32.57, 45.68, 67.89, 48.67, 34.45 };
+            double[] X2 = { 49.23, 74.95, 14.58, 15.68, 36.34, 15.57, 35.68, 57.89, 38.67, 14.45 };
+            DrawLine formTwo = new DrawLine(X1, X2);
+            formTwo.Show();
+
+        }
+>>>>>>> upstream/master
     }
 }
