@@ -48,4 +48,7 @@ Temporary Items
 环保分析系统/环保分析系统/obj/Debug/环保分析系统.csproj.GenerateResource.Cache
 /环保分析系统/环保分析系统/bin/*
 /环保分析系统/环保分析系统/obj/*
+/环保分析系统/环保分析系统/obj/*.cs
+/环保分析系统/环保分析系统/obj/*.resx
 #/环保分析系统/环保分析系统/dll/*
+#/环保分析系统/环保分析系统.sln

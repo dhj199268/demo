@@ -55,13 +55,13 @@
             series2.Name = "Series2";
             this.chartOne.Series.Add(series1);
             this.chartOne.Series.Add(series2);
-            this.chartOne.Size = new System.Drawing.Size(481, 339);
+            this.chartOne.Size = new System.Drawing.Size(667, 506);
             this.chartOne.TabIndex = 0;
             this.chartOne.Text = "图形";
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(398, 347);
+            this.btnSave.Location = new System.Drawing.Point(584, 485);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(84, 23);
             this.btnSave.TabIndex = 1;
@@ -73,7 +73,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(485, 375);
+            this.ClientSize = new System.Drawing.Size(668, 509);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.chartOne);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

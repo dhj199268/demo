@@ -79,6 +79,7 @@ namespace 环保分析系统.Entity
         }
         public string[] GetDataName(DataGridView dgv)
         {
+           
             string[] dataName = new string[dgv.Rows[0].Cells.Count];
             for (int i = 0; i < dgv.Rows[0].Cells.Count; i++)
             {
@@ -86,7 +87,7 @@ namespace 环保分析系统.Entity
             }
             return dataName;
         }
-        public float[] GetDataOneText(DataGridView dgv,int startRow, int endRow, params string[] comulnName)
+        public float[] GetDataOneText(DataGridView dgv, int startRow, int endRow, params string[] comulnName)
         {
             try
             {
@@ -95,13 +96,13 @@ namespace 环保分析系统.Entity
                     float[] dataText = new float[endRow - startRow + 1];
                     for (int i = startRow, j = 0; i <= endRow; i++, j++)
                     {
-                    dataText[j] = (float)Convert.ToDouble(dgv.Rows[i - 1].Cells[comulnName[0]].Value.ToString());
+                        dataText[j] = (float)Convert.ToDouble(dgv.Rows[i - 1].Cells[comulnName[0]].Value.ToString());
                     }
                     return dataText;
                 }
                 else
                 {
-                    float[] dataText = new float[2*(endRow - startRow + 1)];
+                    float[] dataText = new float[2 * (endRow - startRow + 1)];
                     for (int i = startRow, j = 0; i <= endRow; i++, j++)
                     {
                         dataText[j] = (float)Convert.ToDouble(dgv.Rows[i - 1].Cells[comulnName[0]].Value.ToString());
