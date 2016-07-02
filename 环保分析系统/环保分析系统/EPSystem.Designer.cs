@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnRight = new System.Windows.Forms.Button();
@@ -50,9 +49,9 @@
             this.pM25预测ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sO2预测ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.异常分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.等级预测ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialogOne = new System.Windows.Forms.SaveFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.等级预测ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOne)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -61,7 +60,6 @@
             // panel1
             // 
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.txtName);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.btnRight);
@@ -78,19 +76,9 @@
             this.panel1.Size = new System.Drawing.Size(1091, 478);
             this.panel1.TabIndex = 0;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(375, 32);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 16;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(688, 34);
+            this.txtName.Location = new System.Drawing.Point(391, 34);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(160, 21);
             this.txtName.TabIndex = 15;
@@ -99,7 +87,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(547, 37);
+            this.label2.Location = new System.Drawing.Point(250, 37);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(125, 12);
             this.label2.TabIndex = 14;
@@ -111,7 +99,7 @@
             this.btnRight.Name = "btnRight";
             this.btnRight.Size = new System.Drawing.Size(75, 23);
             this.btnRight.TabIndex = 13;
-            this.btnRight.Text = ">>";
+            this.btnRight.Text = "下张表";
             this.btnRight.UseVisualStyleBackColor = true;
             this.btnRight.Click += new System.EventHandler(this.btnRight_Click);
             // 
@@ -121,7 +109,7 @@
             this.btnLeft.Name = "btnLeft";
             this.btnLeft.Size = new System.Drawing.Size(75, 23);
             this.btnLeft.TabIndex = 12;
-            this.btnLeft.Text = "<<";
+            this.btnLeft.Text = "上张表";
             this.btnLeft.UseVisualStyleBackColor = true;
             this.btnLeft.Click += new System.EventHandler(this.btnLeft_Click);
             // 
@@ -255,16 +243,16 @@
             this.异常分析ToolStripMenuItem.Text = "异常分析";
             this.异常分析ToolStripMenuItem.Click += new System.EventHandler(this.异常分析ToolStripMenuItem_Click);
             // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // 等级预测ToolStripMenuItem
             // 
             this.等级预测ToolStripMenuItem.Name = "等级预测ToolStripMenuItem";
             this.等级预测ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
             this.等级预测ToolStripMenuItem.Text = "等级预测";
             this.等级预测ToolStripMenuItem.Click += new System.EventHandler(this.等级预测ToolStripMenuItem_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // mainForm
             // 
@@ -309,7 +297,6 @@
         private System.Windows.Forms.Button btnLeft;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.Button button1;
         private 环保分析系统.Entity.SaveShowDataMethod model;
         private System.Windows.Forms.ToolStripMenuItem pM25预测ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sO2预测ToolStripMenuItem;

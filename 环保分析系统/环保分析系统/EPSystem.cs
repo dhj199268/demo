@@ -145,19 +145,6 @@ namespace 环保分析系统
             dataGridViewOne.RowHeadersDefaultCellStyle.Font, rectangle, dataGridViewOne.RowHeadersDefaultCellStyle.ForeColor,
             TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
         }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //double[] data = model.GetDataText(dataGridViewOne, "企业名称", 4, 9);
-            //double[] X1 = { 69.23, 114.95, 24.58, 35.68, 56.34, 32.57, 45.68, 67.89, 48.67, 34.45 };
-            //double[] X2 = { 1, 0, 0, 1, 0 };
-            //DrawDisperse formOne = new DrawDisperse(X1, X2);
-            //formOne.Show();
-            //float[] X1 = { 69.23, 114.95, 24.58, 35.68, 56.34, 32.57, 45.68, 67.89, 48.67, 34.45 };
-            //float[] X2 = { 49.23, 74.95, 14.58, 15.68, 36.34, 15.57, 35.68, 57.89, 38.67, 14.45 };
-           // DrawLine formTwo = new DrawLine(X1, X2);
-            //formTwo.Show();
-
-        }
 
         private void pM25预测ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -181,11 +168,11 @@ namespace 环保分析系统
                     int segtime=rff.GetTimeLen();
                     int[] predice_rows = rff.GetPredictRowNum();
                     int start = predice_rows[0] - segtime + 1;
+
                     if (start<1)
                     {
-                        throw new OutOfRangeException("预测行号设置错误");;
+                        throw new OutOfRangeException("预测行号设置错误");
                     }
-
 
                     RandomForest rfmodel = new RandomForest(ntree, segtime, max_depth, max_depth, isproun);
                     rfmodel.Train(ref traindata);
@@ -198,7 +185,6 @@ namespace 环保分析系统
                     logger.Info("Show Image");
                     DrawLine resultform = new DrawLine(showdata, result);
                     resultform.Show();
-
                 }
 
             }
@@ -208,12 +194,8 @@ namespace 环保分析系统
             }
             catch(OutOfRangeException ooe)
             {
-
                 MessageBox.Show(ooe.Message);
             }
-                
-            
-            
         }
 
         private void sO2预测ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -262,6 +244,10 @@ namespace 环保分析系统
             {
                 MessageBox.Show("请导入excel表");
             }
+            catch (OutOfRangeException ooe)
+            {
+                MessageBox.Show(ooe.Message);
+            }
         }
 
         private void 异常分析ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -271,6 +257,7 @@ namespace 环保分析系统
                 string[] varstr = this.model.GetDataName(dataGridViewOne);
                 KmeansForm kmf = new KmeansForm(varstr);
                 kmf.ShowDialog();
+
                 if (kmf.DialogResult == DialogResult.OK)
                 {
                     logger.Info("Get Parm");
@@ -352,13 +339,16 @@ namespace 环保分析系统
                     logger.Info("Show Image");
                     DrawLine resultform = new DrawLine(showdata, result);
                     resultform.Show();
-
                 }
 
             }
             catch (NullReferenceException)
             {
                 MessageBox.Show("请导入excel表");
+            }
+            catch (OutOfRangeException ooe)
+            {
+                MessageBox.Show(ooe.Message);
             }
         }
     }
