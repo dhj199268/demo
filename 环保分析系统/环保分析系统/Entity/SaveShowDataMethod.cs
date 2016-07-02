@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using 环保分析系统.except;
 
 namespace 环保分析系统.Entity
 {
@@ -72,14 +73,13 @@ namespace 环保分析系统.Entity
                 }
                 catch (Exception err)
                 {
-                    MessageBox.Show("数据绑定Excel失败!失败原因：" + err.Message, "提示信息",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DataAbnormal.ShowError(err);
                 }
             }
         }
         public string[] GetDataName(DataGridView dgv)
         {
-           
+
             string[] dataName = new string[dgv.Rows[0].Cells.Count];
             for (int i = 0; i < dgv.Rows[0].Cells.Count; i++)
             {
@@ -116,8 +116,7 @@ namespace 环保分析系统.Entity
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.Message, "提示信息",
-                         MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DataAbnormal.ShowError(err);
                 return null;
             }
         }
@@ -182,12 +181,11 @@ namespace 环保分析系统.Entity
                 sw.Write(sb.ToString());
                 sw.Flush();
                 sw.Close();
-                MessageBox.Show("已经生成指定Excel文件!");
             }
-            catch (Exception ex)
+            catch (Exception err)
             {
-                MessageBox.Show(ex.Message);
+                DataAbnormal.ShowError(err);
             }
         }
-        }
+    }
 }
