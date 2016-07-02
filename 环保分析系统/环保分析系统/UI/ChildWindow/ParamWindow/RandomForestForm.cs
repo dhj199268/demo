@@ -54,5 +54,16 @@ namespace 环保分析系统.UI.ChildWindow
         {
             return this.isPrun.Checked; 
         }
+
+        protected override void setParm(string method)
+        {
+            switch (method)
+            {
+                case "快   速": this.treenumText.Text = "200"; this.isPrun.Checked = false; this.treedepth.Text = "5"; break;
+                case "标   准": this.treenumText.Text = "500"; this.isPrun.Checked = true; this.treedepth.Text = "15"; break;
+                case "精   确": this.treenumText.Text = "1000"; this.isPrun.Checked = true; this.treedepth.Text = "15"; break;
+               
+            }
+        }
     }
 }

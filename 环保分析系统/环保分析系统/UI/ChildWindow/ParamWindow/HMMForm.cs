@@ -33,7 +33,7 @@ namespace 环保分析系统.UI.ChildWindow
         {
             level4textBox.Text = this.leve3textBox.Text;
         }
-        public int[] GetLevel()
+        private int[] GetLevel()
         {
             int[] level = new int[3];
             level[0] = int.Parse(this.leve1textBox.Text);
@@ -41,6 +41,29 @@ namespace 环保分析系统.UI.ChildWindow
             level[2] = int.Parse(this.leve3textBox.Text);
             return level;
         
+        }
+        public void SetLevel(ref float[] data, out float[] leveldata)
+        {
+
+            leveldata = new float[data.Length];
+            int[] level = GetLevel();
+            for (int i = 0; i < data.Length; ++i)
+            {
+                for (int j = 0; j < level.Length; ++j)
+                {
+                    if (data[i]<=level[j])
+                    {
+                        leveldata[i] = j;
+                        break;
+                    }
+                    else if (data[i] > level[j])
+                    {
+                        leveldata[i] = level.Length;
+                        break;
+                    }
+                }
+            }
+
         }
         protected override void setAdvancedControlEnabled(bool state)
         {
@@ -101,6 +124,10 @@ namespace 环保分析系统.UI.ChildWindow
                     e.KeyChar = (char)0;
                 }
             }
+        }
+
+        protected override void setParm(string method)
+        {
         }
     }
 }
