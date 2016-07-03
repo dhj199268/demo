@@ -74,6 +74,8 @@
     <Compile Include="EPSystem.Designer.cs">
       <DependentUpon>EPSystem.cs</DependentUpon>
     </Compile>
+    <Compile Include="except\InputException.cs" />
+    <Compile Include="except\OrderException.cs" />
     <Compile Include="except\OutOfRange.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

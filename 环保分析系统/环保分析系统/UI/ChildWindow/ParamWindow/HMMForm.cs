@@ -56,12 +56,13 @@ namespace 环保分析系统.UI.ChildWindow
                         leveldata[i] = j;
                         break;
                     }
-                    else if (data[i] > level[j])
+                    else if (data[i] > level[level.Length - 1])
                     {
-                        leveldata[i] = level.Length;
+                        leveldata[i] = level.Length - 1;
                         break;
                     }
                 }
+               
             }
 
         }

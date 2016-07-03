@@ -20,7 +20,7 @@ namespace 环保分析系统.core.ML
 
         private int numClass;
         private Matrix<float> center;//族中心，索引为分类的种类
-        private Matrix<float> centerDiag;//族中心的对称矩阵
+        //private Matrix<float> centerDiag;//族中心的对称矩阵
         private int maxIter;//最大迭代次数
 
         public Kmeans(int numClass = 2, int maxIter = 100, int segTime = 2, float accurate = 0.001f)
@@ -38,16 +38,16 @@ namespace 环保分析系统.core.ML
             this.haslabel = false;
         
         }
-        private void calCenterDiag()
-        {
-            centerDiag = (center * center.Transpose());
-            centerDiag = centerDiag.GetDiag();
+        //private void calCenterDiag()
+        //{
+        //    centerDiag = (center * center.Transpose());
+        //    centerDiag = centerDiag.GetDiag();
 
-            if (centerDiag.Height != numClass && centerDiag.Width != 1)
-            {
-                throw new Exception("cent diag dim wrong");
-            }
-        }
+        //    if (centerDiag.Height != numClass && centerDiag.Width != 1)
+        //    {
+        //        throw new Exception("cent diag dim wrong");
+        //    }
+        //}
 
         private int _predict(ref Matrix<float> y,out float distance)
         {
@@ -56,17 +56,28 @@ namespace 环保分析系统.core.ML
             {
                 throw new Exception("input mat dim wrong");
             }
-            Matrix<float> tmp;
+            Matrix<float> tmp=new Matrix<float>(center.Height,1);
             Point maxlocal;
             Point minlocal;
             double minv = 0;
             double maxv = 0;
-            float prod = 0;
+            //float prod = 0;
 
-            tmp = y.Transpose();
-            prod =( y * tmp)[0,0];
-            tmp = centerDiag - 2 * center * tmp + prod;
-            tmp.MinMax(out minv, out maxv, out minlocal, out maxlocal);
+            //tmp = y.Transpose();
+            //prod = (y * tmp)[0, 0];
+            //tmp = centerDiag - 2 * center * tmp + prod;
+            for (int i = 0; i < center.Height; ++i)
+            {
+
+                for (int j = 0; j < center.Width; ++j)
+                {
+                    tmp[i, 0] += (center[i, j] - y[0, j]) * (center[i, j] - y[0, j]);
+                }
+
+            }
+
+
+                tmp.MinMax(out minv, out maxv, out minlocal, out maxlocal);
 
             //logger.Debug("predict class:" + minlocal.Y);
 
@@ -168,7 +179,7 @@ namespace 环保分析系统.core.ML
             {
                 logger.Debug("iter time : " + (iter + 1));
 
-                calCenterDiag();
+                //calCenterDiag();
 
                 //updata train data label
                 //logger.Info("updata train data label");
@@ -215,7 +226,7 @@ namespace 环保分析系统.core.ML
         {
 
             this.center.Dispose();
-            this.centerDiag.Dispose();
+            //this.centerDiag.Dispose();
             this.traindata.Dispose();
         }
         protected override void predict(ref Matrix<float> data, out float[] result)

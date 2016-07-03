@@ -185,6 +185,7 @@ namespace 环保分析系统
                     logger.Info("Show Image");
                     DrawLine resultform = new DrawLine(showdata, result);
                     resultform.Show();
+                    rfmodel.Clear();
                 }
 
             }
@@ -221,7 +222,7 @@ namespace 环保分析系统
                     int start = predice_rows[0] - segtime + 1;
                     if (start < 1)
                     {
-                        throw new OutOfRangeException("预测行号设置错误"); ;
+                        throw new OutOfRangeException("预测行号设置错误");
                     }
 
 
@@ -236,6 +237,7 @@ namespace 环保分析系统
                     logger.Info("Show Image");
                     DrawLine resultform = new DrawLine(showdata, result);
                     resultform.Show();
+                    wafmodel.Clear();
 
                 }
 
@@ -281,6 +283,7 @@ namespace 环保分析系统
                     logger.Info("Show Image");
                     DrawDisperse resultform = new DrawDisperse(predictdata, result);
                     resultform.Show();
+                    kmodel.Clear();
                 }
             }
             catch (NullReferenceException)
@@ -302,7 +305,6 @@ namespace 环保分析系统
                     logger.Info("Get Parm");
                     int[] train_rows = hmmf.GetTrainRowNum();
                     string[] col = hmmf.GetIndvFeature();
-                    
 
                     int segtime = hmmf.GetTimeLen();
                     int[] predice_rows = hmmf.GetPredictRowNum();
@@ -310,7 +312,7 @@ namespace 环保分析系统
                     int start = predice_rows[0] - segtime + 1;
                     if (start < 1)
                     {
-                        throw new OutOfRangeException("预测行号设置错误"); ;
+                        throw new OutOfRangeException("预测行号设置错误"); 
                     }
 
 
@@ -318,7 +320,7 @@ namespace 环保分析系统
                     float[] train_data = model.GetDataOneText(dataGridViewOne, train_rows[0], train_rows[1], col);
                     float[] traindata;
                     hmmf.SetLevel(ref train_data, out traindata);
-
+                    logger.Debug(loggerUntil.printMatToLogger("train data :", ref traindata));
                     hmmmodel.Train(ref traindata);
 
                     float[] show_data = model.GetDataOneText(dataGridViewOne, predice_rows[0], predice_rows[1], col);
@@ -339,6 +341,7 @@ namespace 环保分析系统
                     logger.Info("Show Image");
                     DrawLine resultform = new DrawLine(showdata, result);
                     resultform.Show();
+                    hmmmodel.Clear();
                 }
 
             }

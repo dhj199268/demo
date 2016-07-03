@@ -79,13 +79,20 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
             string[] strlist = strtmp.Split('-');
             if (strlist.Length!=2)
             {
-                throw new Exception("error input");
+                throw new InputException("行号输入格式有误");
             }
 
             int[] tmp = new int[strlist.Length];
             for (int i = 0; i < strlist.Length; ++i)
             {
                 tmp[i] = int.Parse(strlist[i]);
+            }
+            for (int i = 1; i < strlist.Length; i++)
+            {
+                if (tmp[i]<tmp[i-1])
+                {
+                    throw new OrderException("行号范围输入有误");
+                }
             }
             
             return tmp;
@@ -219,17 +226,9 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
             { 
                 this.timelen = Convert.ToInt32(this.timeTextBox.Text);
             }
-            try
-            {
-                this.trainnum = GetRowNum(ref this.trainrownum);
-                this.predictnum = GetRowNum(ref this.predictrownum);
-            }
-            catch (Exception )
-            {
-                throw new IndexOutOfRangeException("训练行号或者预测行号设置错误"); ;
-            }
 
-            
+            this.trainnum = GetRowNum(ref this.trainrownum);
+            this.predictnum = GetRowNum(ref this.predictrownum);
            
             if (this.methodcomboBox.SelectedIndex<0&&this.IsAdvence()==false)
             {
@@ -258,27 +257,35 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
 
         private void begin_Click(object sender, EventArgs e)
         {
-            
-              try 
-	        {	        
-		        CheckParm();
-                if (this.IsAdvence()==false)
+
+            try
+            {
+                CheckParm();
+                if (this.IsAdvence() == false)
                 {
                     string method = GetMethod();
 
                     setParm(method);
                 }
-                
+
                 this.DialogResult = DialogResult.OK;
                 this.Close();
-	        }
+            }
             catch (IndexOutOfRangeException ioe)
-	        {
+            {
                 MessageBox.Show(ioe.Message);
             }
-              catch (NullReferenceException nfe)
+            catch (NullReferenceException nfe)
             {
                 MessageBox.Show(nfe.Message);
+            }
+            catch (OrderException ore)
+            {
+                MessageBox.Show(ore.Message);
+            }
+            catch(InputException ie) 
+            {
+                MessageBox.Show(ie.Message);
             }
          
         }
