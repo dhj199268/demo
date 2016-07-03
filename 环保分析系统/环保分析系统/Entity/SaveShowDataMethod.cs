@@ -19,6 +19,7 @@ namespace 环保分析系统.Entity
         void ShowDataMethod(string fileName);
         DataTable GetDataSetFromDataGridView(DataGridView ucgrd);
         void ExportExcel(DataTable dt, string path);
+        int GetRowNumber(DataGridView dgv);
     };
     public class SaveShowDataMethod
     {
@@ -78,6 +79,12 @@ namespace 环保分析系统.Entity
                 dataName[i] = dgv.Columns[i].HeaderText;
             }
             return dataName;
+        }
+        public int GetRowNumber(DataGridView dgv)
+        {
+            int num = 0;
+            num = dgv.RowCount;
+            return num;
         }
         public float[] GetDataOneText(DataGridView dgv, int startRow, int endRow, params string[] comulnName)
         {
