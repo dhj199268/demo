@@ -34,52 +34,44 @@ namespace 环保分析系统.Entity
             {
                 MyDataSet = new DataSet();
                 string constr = "Provider=Microsoft.ACE.OLEDB.12.0; Persist Security Info=False;Data Source=" + @fileName + "; Extended Properties='Excel 8.0;HDR=Yes;IMEX=2'";
-                try
+                string[] sheetsName;
+                using (OleDbConnection conn = new OleDbConnection(constr))
                 {
-                    string[] sheetsName;
-                    using (OleDbConnection conn = new OleDbConnection(constr))
+                    conn.Open();
+                    DataTable dt = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                    sheetsName = new string[dt.Rows.Count];
+                    for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        conn.Open();
-                        DataTable dt = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                        sheetsName = new string[dt.Rows.Count];
-                        for (int i = 0; i < dt.Rows.Count; i++)
+                        sheetsName[i] = dt.Rows[i][2].ToString().Replace("$", "");
+                    }
+                    // 读取的数据不是顺序排列，这里将字符串重新排列
+                    for (int i = 0; i < sheetsName.Length; i++)
+                    {
+                        for (int j = i + 1; j < sheetsName.Length; j++)
                         {
-                            sheetsName[i] = dt.Rows[i][2].ToString().Replace("$", "");
-                        }
-                        // 读取的数据不是顺序排列，这里将字符串重新排列
-                        for (int i = 0; i < sheetsName.Length; i++)
-                        {
-                            for (int j = i + 1; j < sheetsName.Length; j++)
+                            if (sheetsName[i].Length > sheetsName[j].Length)
                             {
-                                if (sheetsName[i].Length > sheetsName[j].Length)
-                                {
-                                    string temp = sheetsName[i];
-                                    sheetsName[i] = sheetsName[j];
-                                    sheetsName[j] = temp;
-                                }
+                                string temp = sheetsName[i];
+                                sheetsName[i] = sheetsName[j];
+                                sheetsName[j] = temp;
                             }
                         }
-                        for (int j = 0; j < sheetsName.Length; j++)
-                        {
-                            DataTable myDataTable = new DataTable();
-                            string tableName = sheetsName[j];
-                            string strCom = "SELECT * FROM [" + tableName + "$]";
-                            OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(strCom, conn);
-                            myDataAdapter.Fill(myDataTable);
-                            MyDataSet.Tables.Add(myDataTable);
-                            this.MyDataSet = MyDataSet;
-                        }
                     }
-                }
-                catch (Exception err)
-                {
-                    DataAbnormal.ShowError(err);
+                    for (int j = 0; j < sheetsName.Length; j++)
+                    {
+                        DataTable myDataTable = new DataTable();
+                        string tableName = sheetsName[j];
+                        string strCom = "SELECT * FROM [" + tableName + "$]";
+                        OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(strCom, conn);
+                        myDataAdapter.Fill(myDataTable);
+                        MyDataSet.Tables.Add(myDataTable);
+                        this.MyDataSet = MyDataSet;
+                    }
                 }
             }
         }
         public string[] GetDataName(DataGridView dgv)
         {
-
             string[] dataName = new string[dgv.Rows[0].Cells.Count];
             for (int i = 0; i < dgv.Rows[0].Cells.Count; i++)
             {
@@ -89,8 +81,6 @@ namespace 环保分析系统.Entity
         }
         public float[] GetDataOneText(DataGridView dgv, int startRow, int endRow, params string[] comulnName)
         {
-            try
-            {
                 if (comulnName.Length == 1)
                 {
                     float[] dataText = new float[endRow - startRow + 1];
@@ -114,12 +104,6 @@ namespace 环保分析系统.Entity
                     return dataText;
                 }
             }
-            catch (Exception err)
-            {
-                DataAbnormal.ShowError(err);
-                return null;
-            }
-        }
         //将datagridview中的数据导入到临时数据库dataTable中
         public DataTable GetDataSetFromDataGridView(DataGridView ucgrd)
         {
@@ -150,8 +134,6 @@ namespace 环保分析系统.Entity
         }
         public void ExportExcel(DataTable dt, string path)  //以DataSet- 导出Excel文件   
         {
-            try
-            {
                 long totalCount = dt.Rows.Count;
                 Thread.Sleep(1000);
                 long rowRead = 0;
@@ -182,10 +164,6 @@ namespace 环保分析系统.Entity
                 sw.Flush();
                 sw.Close();
             }
-            catch (Exception err)
-            {
-                DataAbnormal.ShowError(err);
-            }
         }
     }
-}
+

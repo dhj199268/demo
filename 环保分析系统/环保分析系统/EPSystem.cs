@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using log4net;
+using System.Data.OleDb;
 using 环保分析系统.Entity;
 using 环保分析系统.UI.ChildWindow;
 using 环保分析系统.core.ML;
@@ -48,13 +49,21 @@ namespace 环保分析系统
             open.Filter = "Excel文件(*.xls)|*.xls|Excel文件|*.xlsx";
             if (open.ShowDialog() == DialogResult.OK)
             {
-                model = new SaveShowDataMethod();
-                model.SaveDataInDataSet(open.FileName);
-                if (model.MyDataSet.Tables.Count != 0)
+                try
                 {
-                    txtName.Text = model.MyDataSet.Tables[0].TableName;
-                    dataGridViewOne.DataSource = model.MyDataSet.Tables[0];
+                    model = new SaveShowDataMethod();
+                    model.SaveDataInDataSet(open.FileName);
+                    if (model.MyDataSet.Tables.Count != 0)
+                    {
+                        txtName.Text = model.MyDataSet.Tables[0].TableName;
+                        dataGridViewOne.DataSource = model.MyDataSet.Tables[0];
+                    }
                 }
+                catch (OleDbException)
+                {
+                    MessageBox.Show("无法打开已加密的文件!");
+                }
+
             }
         }
         private void mainForm_Load(object sender, EventArgs e)
