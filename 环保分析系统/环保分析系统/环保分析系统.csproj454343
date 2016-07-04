@@ -41,10 +41,16 @@
     <Reference Include="Emgu.Util">
       <HintPath>dll\Emgu.Util.dll</HintPath>
     </Reference>
+    <Reference Include="Interop.VBIDE">
+      <HintPath>dll\Interop.VBIDE.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>dll\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Office.Interop.Excel">
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>dll\Microsoft.Office.Interop.Excel.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -60,27 +66,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="core\ML\Impl\AbstractMLAlg.cs" />
-    <Compile Include="core\ML\Impl\HMM.cs" />
-    <Compile Include="core\ML\IMLAlgorithm.cs" />
-    <Compile Include="core\ML\Impl\Kmeans.cs" />
-    <Compile Include="core\ML\Impl\RandomForest.cs" />
-    <Compile Include="core\ML\Impl\WavesANN.cs" />
+    <Compile Include="core\ML\AbstractMLAlg.cs" />
+    <Compile Include="core\ML\HMM.cs" />
+    <Compile Include="core\ML\Impl\IMLAlgorithm.cs" />
+    <Compile Include="core\ML\Kmeans.cs" />
+    <Compile Include="core\ML\RandomForest.cs" />
+    <Compile Include="core\ML\WavesANN.cs" />
     <Compile Include="core\Until\loggerUntil.cs" />
     <Compile Include="core\Until\MatrixUntil.cs" />
+    <Compile Include="Entity\SaveShowDataMethod.cs" />
     <Compile Include="EPSystem.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EPSystem.Designer.cs">
       <DependentUpon>EPSystem.cs</DependentUpon>
     </Compile>
-    <Compile Include="except\InputException.cs" />
-    <Compile Include="except\OrderException.cs" />
-    <Compile Include="except\OutOfRange.cs" />
-    <Compile Include="except\OutOfRange.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entity\SaveShowDataMethod.cs" />
     <Compile Include="UI\ChildWindow\About.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,29 +107,11 @@
     <Compile Include="UI\ChildWindow\DrawLine.Designer.cs">
       <DependentUpon>DrawLine.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ChildWindow\ParamWindow\HMMForm.Designer.cs">
-      <DependentUpon>HMMForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ChildWindow\ParamWindow\HMMForm.cs">
+    <Compile Include="UI\ChildWindow\RandomForestForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ChildWindow\ParamWindow\KmeansForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ChildWindow\ParamWindow\KmeansForm.Designer.cs">
-      <DependentUpon>KmeansForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ChildWindow\ParamWindow\RandomForestForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ChildWindow\ParamWindow\RandomForestForm.Designer.cs">
+    <Compile Include="UI\ChildWindow\RandomForestForm.Designer.cs">
       <DependentUpon>RandomForestForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ChildWindow\ParamWindow\WaveANNForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ChildWindow\ParamWindow\WaveANNForm.Designer.cs">
-      <DependentUpon>WaveANNForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="EPSystem.resx">
       <DependentUpon>EPSystem.cs</DependentUpon>
@@ -136,12 +120,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ChildWindow\DrawDisperse.resx">
-      <DependentUpon>DrawDisperse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ChildWindow\DrawLine.resx">
-      <DependentUpon>DrawLine.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -153,17 +131,14 @@
     <EmbeddedResource Include="UI\ChildWindow\baseWindow\baseForm.resx">
       <DependentUpon>baseForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ChildWindow\ParamWindow\HMMForm.resx">
-      <DependentUpon>HMMForm.cs</DependentUpon>
+    <EmbeddedResource Include="UI\ChildWindow\DrawDisperse.resx">
+      <DependentUpon>DrawDisperse.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ChildWindow\ParamWindow\KmeansForm.resx">
-      <DependentUpon>KmeansForm.cs</DependentUpon>
+    <EmbeddedResource Include="UI\ChildWindow\DrawLine.resx">
+      <DependentUpon>DrawLine.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ChildWindow\ParamWindow\RandomForestForm.resx">
+    <EmbeddedResource Include="UI\ChildWindow\RandomForestForm.resx">
       <DependentUpon>RandomForestForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ChildWindow\ParamWindow\WaveANNForm.resx">
-      <DependentUpon>WaveANNForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -182,23 +157,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="dll\" />
+    <Folder Include="Exception\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
       <VersionMajor>2</VersionMajor>
-      <VersionMinor>5</VersionMinor>
+      <VersionMinor>4</VersionMinor>
       <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="VBIDE">
-      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>5</VersionMajor>
-      <VersionMinor>3</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
+      <WrapperTool>tlbimp</WrapperTool>
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>

@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.chartTwo = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnSave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chartTwo)).BeginInit();
@@ -39,22 +39,22 @@
             // 
             // chartTwo
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartTwo.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartTwo.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chartTwo.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartTwo.Legends.Add(legend2);
             this.chartTwo.Location = new System.Drawing.Point(-1, 0);
             this.chartTwo.Name = "chartTwo";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Legend = "Legend1";
-            series2.Name = "Series2";
-            this.chartTwo.Series.Add(series1);
-            this.chartTwo.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Legend = "Legend1";
+            series3.Name = "真实";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.Legend = "Legend1";
+            series4.Name = "预测";
+            this.chartTwo.Series.Add(series3);
+            this.chartTwo.Series.Add(series4);
             this.chartTwo.Size = new System.Drawing.Size(719, 516);
             this.chartTwo.SuppressExceptions = true;
             this.chartTwo.TabIndex = 0;
@@ -75,6 +75,7 @@
             this.ClientSize = new System.Drawing.Size(721, 518);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.chartTwo);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "DrawLine";
             this.Load += new System.EventHandler(this.DrawLine_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.chartTwo)).EndInit();
