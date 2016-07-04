@@ -87,6 +87,7 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
             {
                 tmp[i] = int.Parse(strlist[i]);
             }
+<<<<<<< HEAD
             for (int i = 1; i < strlist.Length; i++)
             {
                 if (tmp[i]<tmp[i-1])
@@ -94,6 +95,8 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
                     throw new OrderException("行号范围输入有误");
                 }
             }
+=======
+>>>>>>> upstream/master
             
             return tmp;
         }
@@ -216,6 +219,8 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
             if (this.indevarList.Items.Count!=this.limit)
             {
                 throw new IndexOutOfRangeException("因变量个数设置错误");
+<<<<<<< HEAD
+=======
             }
 
             if (this.timeTextBox.Text==string.Empty)
@@ -226,7 +231,36 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
             { 
                 this.timelen = Convert.ToInt32(this.timeTextBox.Text);
             }
+            try
+            {
+                this.trainnum = GetRowNum(ref this.trainrownum);
+                this.predictnum = GetRowNum(ref this.predictrownum);
+            }
+            catch (Exception )
+            {
+                throw new IndexOutOfRangeException("训练行号或者预测行号设置错误"); ;
+>>>>>>> upstream/master
+            }
 
+            
+           
+            if (this.methodcomboBox.SelectedIndex<0&&this.IsAdvence()==false)
+            {
+<<<<<<< HEAD
+                throw new NullReferenceException("请设置时序长度");
+            }
+            else
+            { 
+                this.timelen = Convert.ToInt32(this.timeTextBox.Text);
+=======
+                throw new NullReferenceException("请设置方案");
+>>>>>>> upstream/master
+            }
+        }
+        protected virtual void setParm(string method)
+        {
+
+<<<<<<< HEAD
             this.trainnum = GetRowNum(ref this.trainrownum);
             this.predictnum = GetRowNum(ref this.predictrownum);
            
@@ -237,12 +271,31 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
         }
         protected virtual void setParm(string method)
         {
+=======
+            MessageBox.Show(method);
+
+        }
+        public string[] GetIndvFeature()
+        {
+            int size = this.indevarList.Items.Count;
+            string[] tmpstr = new string[size];
+            for (int i = 0; i < size; i++)
+            {
+                tmpstr[i] = this.indevarList.Items[i].ToString();
+            }
+            return tmpstr;
+            
+        }
+     
+
+>>>>>>> upstream/master
 
             MessageBox.Show(method);
 
         }
         public string[] GetIndvFeature()
         {
+<<<<<<< HEAD
             int size = this.indevarList.Items.Count;
             string[] tmpstr = new string[size];
             for (int i = 0; i < size; i++)
@@ -287,6 +340,30 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
             {
                 MessageBox.Show(ie.Message);
             }
+=======
+            
+              try 
+	        {	        
+		        CheckParm();
+                if (this.IsAdvence()==false)
+                {
+                    string method = GetMethod();
+
+                    setParm(method);
+                }
+                
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+	        }
+            catch (IndexOutOfRangeException ioe)
+	        {
+                MessageBox.Show(ioe.Message);
+            }
+              catch (NullReferenceException nfe)
+            {
+                MessageBox.Show(nfe.Message);
+            }
+>>>>>>> upstream/master
          
         }
        

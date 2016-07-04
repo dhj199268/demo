@@ -48,11 +48,11 @@
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
             series1.Legend = "Legend1";
-            series1.Name = "Series1";
+            series1.Name = "类一";
             series2.ChartArea = "ChartArea1";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
             series2.Legend = "Legend1";
-            series2.Name = "Series2";
+            series2.Name = "类二";
             this.chartOne.Series.Add(series1);
             this.chartOne.Series.Add(series2);
             this.chartOne.Size = new System.Drawing.Size(667, 506);
