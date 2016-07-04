@@ -41,10 +41,6 @@
     <Reference Include="Emgu.Util">
       <HintPath>dll\Emgu.Util.dll</HintPath>
     </Reference>
-    <Reference Include="Interop.VBIDE">
-      <HintPath>dll\Interop.VBIDE.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="log4net">
       <HintPath>dll\log4net.dll</HintPath>
     </Reference>
@@ -78,6 +74,9 @@
     <Compile Include="EPSystem.Designer.cs">
       <DependentUpon>EPSystem.cs</DependentUpon>
     </Compile>
+    <Compile Include="except\InputException.cs" />
+    <Compile Include="except\OrderException.cs" />
+    <Compile Include="except\OutOfRange.cs" />
     <Compile Include="except\OutOfRange.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -183,6 +182,26 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="dll\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
