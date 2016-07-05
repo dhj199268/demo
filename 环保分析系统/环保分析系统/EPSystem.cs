@@ -98,6 +98,11 @@ namespace 环保分析系统
 
                 MessageBox.Show("请导入Excel表");
             }
+            catch (FormatException)
+            {
+                MessageBox.Show("输入行号超出范围");
+            
+            }
 
         }
         private void btnLeft_Click(object sender, EventArgs e)
@@ -205,6 +210,11 @@ namespace 环保分析系统
             {
                 MessageBox.Show(ooe.Message);
             }
+            catch (FormatException)
+            {
+                MessageBox.Show("输入行号超出范围");
+
+            }
         }
 
         private void sO2预测ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -258,6 +268,11 @@ namespace 环保分析系统
             {
                 MessageBox.Show(ooe.Message);
             }
+            catch (FormatException)
+            {
+                MessageBox.Show("输入行号超出范围");
+
+            }
         }
 
         private void 异常分析ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -297,6 +312,11 @@ namespace 环保分析系统
             catch (NullReferenceException)
             {
                 MessageBox.Show("请导入excel表");
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("输入行号超出范围");
+
             }
         }
 
@@ -361,6 +381,11 @@ namespace 环保分析系统
             catch (OutOfRangeException ooe)
             {
                 MessageBox.Show(ooe.Message);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("输入行号超出范围");
+
             }
         }
     }
