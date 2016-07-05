@@ -159,8 +159,9 @@ namespace 环保分析系统
 
             try
             {
+                int rows = this.model.GetRowNumber(dataGridViewOne);
                 string[] varstr = this.model.GetDataName(dataGridViewOne);
-                RandomForestForm rff = new RandomForestForm(varstr);
+                RandomForestForm rff = new RandomForestForm(varstr,rows);
                 rff.ShowDialog();
 
                 if (rff.DialogResult == DialogResult.OK)
@@ -210,8 +211,9 @@ namespace 环保分析系统
         {
             try
             {
+                int rows = this.model.GetRowNumber(dataGridViewOne);
                 string[] varstr = this.model.GetDataName(dataGridViewOne);
-                WaveANNForm waf = new WaveANNForm(varstr);
+                WaveANNForm waf = new WaveANNForm(varstr,rows);
                 waf.ShowDialog();
 
                 if (waf.DialogResult == DialogResult.OK)
@@ -262,8 +264,9 @@ namespace 环保分析系统
         {
             try
             {
+                int rows = this.model.GetRowNumber(dataGridViewOne);
                 string[] varstr = this.model.GetDataName(dataGridViewOne);
-                KmeansForm kmf = new KmeansForm(varstr);
+                KmeansForm kmf = new KmeansForm(varstr,rows);
                 kmf.ShowDialog();
 
                 if (kmf.DialogResult == DialogResult.OK)
@@ -301,8 +304,9 @@ namespace 环保分析系统
         {
             try
             {
+                int rows = this.model.GetRowNumber(dataGridViewOne);
                 string[] varstr = this.model.GetDataName(dataGridViewOne);
-                HMMForm hmmf = new HMMForm(varstr);
+                HMMForm hmmf = new HMMForm(varstr, rows);
                 hmmf.ShowDialog();
 
                 if (hmmf.DialogResult == DialogResult.OK)

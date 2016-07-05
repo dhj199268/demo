@@ -14,7 +14,7 @@ namespace 环保分析系统.UI.ChildWindow
         {
             InitializeComponent();
         }
-        public RandomForestForm(string[] features,int limit=1):base(features,limit)
+        public RandomForestForm(string[] features,int rows,int limit=1):base(features,limit,rows)
         {
             InitializeComponent();
         }
@@ -55,7 +55,7 @@ namespace 环保分析系统.UI.ChildWindow
             return this.isPrun.Checked; 
         }
 
-        protected override void setParm(string method)
+        protected override void SetParm(string method)
         {
             switch (method)
             {
