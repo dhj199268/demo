@@ -59,9 +59,9 @@ namespace 环保分析系统
                         dataGridViewOne.DataSource = model.MyDataSet.Tables[0];
                     }
                 }
-                catch (OleDbException)
+                catch
                 {
-                    MessageBox.Show("无法打开已加密的文件!");
+                    MessageBox.Show("文件被加密,或工作表命名不符合规范！");
                 }
 
             }
@@ -81,24 +81,21 @@ namespace 环保分析系统
             saveFileDialogOne.InitialDirectory = "c:\\";
             saveFileDialogOne.Filter = "Excel文件(*.xls)|*.xls|Excel文件|*.xlsx";
             saveFileDialogOne.ShowDialog();
-            if (saveFileDialogOne.FileName == null)
-            {
-                MessageBox.Show("文件名不能为空!");
-
-            }
             string path = saveFileDialogOne.FileName;
-            try
+            if (path != null)
             {
-                DataTable dt = model.GetDataSetFromDataGridView(dataGridViewOne);
-                model.ExportExcel(dt, path);
-                MessageBox.Show("已经生成指定Excel文件!");
+                try
+                {
+                    DataTable dt = model.MyDataSet.Tables[0];
+                    model.ExportExcel(dt,path);
+                    MessageBox.Show("已经生成指定Excel文件!");
+                }
+                catch
+                {
+                    MessageBox.Show("请导入Excel文件！");
+                } 
             }
-            catch (NullReferenceException)
-            {
-
-                MessageBox.Show("请导入Excel表");
-            }
-
+           
         }
         private void btnLeft_Click(object sender, EventArgs e)
         {
@@ -359,5 +356,6 @@ namespace 环保分析系统
                 MessageBox.Show(ooe.Message);
             }
         }
+
     }
 }

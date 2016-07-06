@@ -88,89 +88,90 @@ namespace 环保分析系统.Entity
         }
         public float[] GetDataOneText(DataGridView dgv, int startRow, int endRow, params string[] comulnName)
         {
-                if (comulnName.Length == 1)
-                {
-                    float[] dataText = new float[endRow - startRow + 1];
-                    for (int i = startRow, j = 0; i <= endRow; i++, j++)
-                    {
-                        dataText[j] = (float)Convert.ToDouble(dgv.Rows[i - 1].Cells[comulnName[0]].Value.ToString());
-                    }
-                    return dataText;
-                }
-                else
-                {
-                    float[] dataText = new float[2 * (endRow - startRow + 1)];
-                    for (int i = startRow, j = 0; i <= endRow; i++, j++)
-                    {
-                        dataText[j] = (float)Convert.ToDouble(dgv.Rows[i - 1].Cells[comulnName[0]].Value.ToString());
-                    }
-                    for (int i = startRow, j = endRow - startRow + 1; i <= endRow; i++, j++)
-                    {
-                        dataText[j] = (float)Convert.ToDouble(dgv.Rows[i - 1].Cells[comulnName[1]].Value.ToString());
-                    }
-                    return dataText;
-                }
-            }
-        //将datagridview中的数据导入到临时数据库dataTable中
-        public DataTable GetDataSetFromDataGridView(DataGridView ucgrd)
-        {
-            DataTable dt = new DataTable();
-
-            for (int j = 0; j < ucgrd.Columns.Count; j++)
+            if (comulnName.Length == 1)
             {
-                dt.Columns.Add(ucgrd.Columns[j].HeaderCell.Value.ToString());
-            }
-
-            for (int j = 0; j < ucgrd.Rows.Count; j++)
-            {
-                DataRow dr = dt.NewRow();
-                for (int i = 0; i < ucgrd.Columns.Count; i++)
+                float[] dataText = new float[endRow - startRow + 1];
+                for (int i = startRow, j = 0; i <= endRow; i++, j++)
                 {
-                    if (ucgrd.Rows[j].Cells[i].Value != null)
-                    {
-                        dr[i] = ucgrd.Rows[j].Cells[i].Value.ToString();
-                    }
-                    else
-                    {
-                        dr[i] = "";
-                    }
+                    dataText[j] = (float)Convert.ToDouble(dgv.Rows[i - 1].Cells[comulnName[0]].Value.ToString());
                 }
-                dt.Rows.Add(dr);
+                return dataText;
             }
-            return dt;
+            else
+            {
+                float[] dataText = new float[2 * (endRow - startRow + 1)];
+                for (int i = startRow, j = 0; i <= endRow; i++, j++)
+                {
+                    dataText[j] = (float)Convert.ToDouble(dgv.Rows[i - 1].Cells[comulnName[0]].Value.ToString());
+                }
+                for (int i = startRow, j = endRow - startRow + 1; i <= endRow; i++, j++)
+                {
+                    dataText[j] = (float)Convert.ToDouble(dgv.Rows[i - 1].Cells[comulnName[1]].Value.ToString());
+                }
+                return dataText;
+            }
         }
-        public void ExportExcel(DataTable dt, string path)  //以DataSet- 导出Excel文件   
+        //将datagridview中的数据导入到临时数据库dataTable中
+        /*  public DataTable GetDataSetFromDataGridView(DataGridView ucgrd)
+          {
+              DataTable dt = new DataTable();
+
+              for (int j = 0; j < ucgrd.Columns.Count; j++)
+              {
+                  dt.Columns.Add(ucgrd.Columns[j].HeaderCell.Value.ToString());
+              }
+
+              for (int j = 0; j < ucgrd.Rows.Count; j++)
+              {
+                  DataRow dr = dt.NewRow();
+                  for (int i = 0; i < ucgrd.Columns.Count; i++)
+                  {
+                      if (ucgrd.Rows[j].Cells[i].Value != null)
+                      {
+                          dr[i] = ucgrd.Rows[j].Cells[i].Value.ToString();
+                      }
+                      else
+                      {
+                          dr[i] = "";
+                      }
+                  }
+                  dt.Rows.Add(dr);
+              }
+              return dt;
+          }*/
+        public void ExportExcel(DataTable dt, string strFileName)  //以DataSet- 导出Excel文件   
         {
-                long totalCount = dt.Rows.Count;
-                Thread.Sleep(1000);
-                long rowRead = 0;
-                float percent = 0;
+            int rowNum = dt.Rows.Count;
+            int columnNum = dt.Columns.Count;
+            int rowIndex = 0;
+            int columnIndex = 0;
 
-                StreamWriter sw = new StreamWriter(path, false, Encoding.GetEncoding("gb2312"));
-                StringBuilder sb = new StringBuilder();
-                for (int k = 0; k < dt.Columns.Count; k++)
+            if (dt == null || string.IsNullOrEmpty(strFileName))
+            {
+                return;
+            }
+            if (rowNum > 0)
+            {
+                Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
+                xlApp.DefaultFilePath = "";
+                xlApp.DisplayAlerts = true;
+                xlApp.SheetsInNewWorkbook = 1;
+                Microsoft.Office.Interop.Excel.Workbook xlBook = xlApp.Workbooks.Add(true);
+                for (int i = 0; i < rowNum; i++)
                 {
-                    sb.Append(dt.Columns[k].ColumnName.ToString() + "\t");
-                }
-                sb.Append(Environment.NewLine);
-
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    rowRead++;
-                    percent = ((float)(100 * rowRead)) / totalCount;
-                    // LblTip = "正在写入[" + percent.ToString("0.00") + "%]...的数据";
-                    System.Windows.Forms.Application.DoEvents();
-
-                    for (int j = 0; j < dt.Columns.Count; j++)
+                    rowIndex++;
+                    columnIndex = 0;
+                    for (int j = 0; j < columnNum; j++)
                     {
-                        sb.Append(dt.Rows[i][j].ToString() + "\t");
+                        columnIndex++;
+                        xlApp.Cells[rowIndex, columnIndex] = dt.Rows[i][j].ToString();
                     }
-                    sb.Append(Environment.NewLine);
                 }
-                sw.Write(sb.ToString());
-                sw.Flush();
-                sw.Close();
+                xlBook.SaveCopyAs(strFileName);
+                xlApp = null;
+                xlBook = null;
             }
         }
     }
+}
 
