@@ -41,9 +41,10 @@
     <Reference Include="Emgu.Util">
       <HintPath>dll\Emgu.Util.dll</HintPath>
     </Reference>
-    <Reference Include="Interop.VBIDE">
-      <HintPath>dll\Interop.VBIDE.dll</HintPath>
+    <Reference Include="Interop.VBIDE, Version=5.3.0.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>dll\Interop.VBIDE.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>dll\log4net.dll</HintPath>
@@ -80,6 +81,8 @@
     <Compile Include="EPSystem.Designer.cs">
       <DependentUpon>EPSystem.cs</DependentUpon>
     </Compile>
+    <Compile Include="except\InputException.cs" />
+    <Compile Include="except\OrderException.cs" />
     <Compile Include="except\OutOfRange.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
