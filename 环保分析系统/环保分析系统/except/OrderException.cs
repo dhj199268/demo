@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace 环保分析系统.except
 {
-    class OutOfRangeException: ApplicationException
+    class OrderException : ApplicationException
     {
-        public OutOfRangeException(string message) : base(message) { }
+        public OrderException(string message) : base(message) { }
         public override string Message
         {
             get
@@ -17,6 +17,4 @@ namespace 环保分析系统.except
             }
         }
     }
-
-    
 }
