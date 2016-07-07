@@ -81,27 +81,19 @@ namespace 环保分析系统
             saveFileDialogOne.InitialDirectory = "c:\\";
             saveFileDialogOne.Filter = "Excel文件(*.xls)|*.xls|Excel文件|*.xlsx";
             saveFileDialogOne.ShowDialog();
-            if (saveFileDialogOne.FileName == null)
+            if (saveFileDialogOne.FileName!=string.Empty)
             {
-                MessageBox.Show("文件名不能为空!");
-
-            }
-            string path = saveFileDialogOne.FileName;
-            try
-            {
-                DataTable dt = model.GetDataSetFromDataGridView(dataGridViewOne);
-                model.ExportExcel(dt, path);
-                MessageBox.Show("已经生成指定Excel文件!");
-            }
-            catch (NullReferenceException)
-            {
-
-                MessageBox.Show("请导入Excel表");
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("输入行号超出范围");
-            
+                string path = saveFileDialogOne.FileName;
+                try
+                {
+                    DataTable dt = model.GetDataSetFromDataGridView(dataGridViewOne);
+                    model.ExportExcel(dt, path);
+                    MessageBox.Show("保存成功");
+                }
+                catch (NullReferenceException)
+                {
+                    MessageBox.Show("请导入Excel表");
+                }
             }
 
         }
