@@ -14,7 +14,7 @@ namespace 环保分析系统.UI.ChildWindow
         {
             InitializeComponent();
         }
-        public KmeansForm(string[] features,int limit=2):base(features,limit)
+        public KmeansForm(string[] features,int rows,int limit=2):base(features,limit,rows)
         {
             InitializeComponent();
         }
@@ -43,7 +43,7 @@ namespace 环保分析系统.UI.ChildWindow
             this.classtextBox.Enabled = state;
             this.classtrackBar.Enabled = state;
         }
-        protected override void setParm(string method)
+        protected override void SetParm(string method)
         {
             switch (method)
             {
@@ -52,6 +52,14 @@ namespace 环保分析系统.UI.ChildWindow
                 case "精   确": this.itertextBox.Text = "1000"; this.classtextBox.Text = "2"; break;
 
             }
+        }
+        protected override void SetTrainRow(int rows)
+        {
+            string str;
+            str = "1" + "-" + rows;
+            this.trainrownum.Text = str;
+            this.predictrownum.Text = str;
+
         }
     }
 }

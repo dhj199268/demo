@@ -13,11 +13,12 @@ namespace 环保分析系统.UI.ChildWindow
         public WaveANNForm()
         {
             InitializeComponent();
+           
         }
-        public WaveANNForm(string[] features,int limit=1):base(features,limit)
+        public WaveANNForm(string[] features, int rows, int limit = 1)
+            : base(features, limit, rows)
         {
             InitializeComponent();
-            
         }
         public int GetHideLayer()
         {
@@ -29,7 +30,7 @@ namespace 环保分析系统.UI.ChildWindow
             return this.iter;
         }
 
-        protected override void setParm(string method)
+        protected override void SetParm(string method)
         {
             //  "快   速",
             //"标   准",
@@ -37,8 +38,8 @@ namespace 环保分析系统.UI.ChildWindow
             switch (method)
             {
                 case "快   速": this.hidelayer = this.GetTimeLen()+4; this.iter=100; break;
-                case "标   准": this.hidelayer = this.GetTimeLen() + 10; this.iter = 500; break;
-                case "精   确": this.hidelayer = this.GetTimeLen() + 15; this.iter = 1000; break;
+                case "标   准": this.hidelayer = this.GetTimeLen() + 10; this.iter = 200; break;
+                case "精   确": this.hidelayer = this.GetTimeLen() + 15; this.iter = 300; break;
 
             }
         }
@@ -57,6 +58,14 @@ namespace 环保分析系统.UI.ChildWindow
             this.hidelayertrackBar.Enabled = state;
             this.itertrackBar.Enabled = state;
             this.itertextBox.Enabled = state;
+        }
+        protected override void SetTrainRow(int rows)
+        {
+            if (rows > 1000)
+            {
+                rows = 1000;
+            }
+            base.SetTrainRow(rows);
         }
     }
 }

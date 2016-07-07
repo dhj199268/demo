@@ -81,22 +81,19 @@ namespace 环保分析系统
             saveFileDialogOne.InitialDirectory = "c:\\";
             saveFileDialogOne.Filter = "Excel文件(*.xls)|*.xls|Excel文件|*.xlsx";
             saveFileDialogOne.ShowDialog();
-            if (saveFileDialogOne.FileName == null)
+            if (saveFileDialogOne.FileName!=string.Empty)
             {
-                MessageBox.Show("文件名不能为空!");
-
-            }
-            string path = saveFileDialogOne.FileName;
-            try
-            {
-                DataTable dt = model.GetDataSetFromDataGridView(dataGridViewOne);
-                model.ExportExcel(dt, path);
-                MessageBox.Show("已经生成指定Excel文件!");
-            }
-            catch (NullReferenceException)
-            {
-
-                MessageBox.Show("请导入Excel表");
+                string path = saveFileDialogOne.FileName;
+                try
+                {
+                    DataTable dt = model.GetDataSetFromDataGridView(dataGridViewOne);
+                    model.ExportExcel(dt, path);
+                    MessageBox.Show("保存成功");
+                }
+                catch (NullReferenceException)
+                {
+                    MessageBox.Show("请导入Excel表");
+                }
             }
 
         }
@@ -159,8 +156,9 @@ namespace 环保分析系统
 
             try
             {
+                int rows = this.model.GetRowNumber(dataGridViewOne);
                 string[] varstr = this.model.GetDataName(dataGridViewOne);
-                RandomForestForm rff = new RandomForestForm(varstr);
+                RandomForestForm rff = new RandomForestForm(varstr,rows);
                 rff.ShowDialog();
 
                 if (rff.DialogResult == DialogResult.OK)
@@ -204,14 +202,20 @@ namespace 环保分析系统
             {
                 MessageBox.Show(ooe.Message);
             }
+            catch (FormatException)
+            {
+                MessageBox.Show("输入行号超出范围");
+
+            }
         }
 
         private void sO2预测ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
+                int rows = this.model.GetRowNumber(dataGridViewOne);
                 string[] varstr = this.model.GetDataName(dataGridViewOne);
-                WaveANNForm waf = new WaveANNForm(varstr);
+                WaveANNForm waf = new WaveANNForm(varstr,rows);
                 waf.ShowDialog();
 
                 if (waf.DialogResult == DialogResult.OK)
@@ -256,14 +260,20 @@ namespace 环保分析系统
             {
                 MessageBox.Show(ooe.Message);
             }
+            catch (FormatException)
+            {
+                MessageBox.Show("输入行号超出范围");
+
+            }
         }
 
         private void 异常分析ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
+                int rows = this.model.GetRowNumber(dataGridViewOne);
                 string[] varstr = this.model.GetDataName(dataGridViewOne);
-                KmeansForm kmf = new KmeansForm(varstr);
+                KmeansForm kmf = new KmeansForm(varstr,rows);
                 kmf.ShowDialog();
 
                 if (kmf.DialogResult == DialogResult.OK)
@@ -295,14 +305,20 @@ namespace 环保分析系统
             {
                 MessageBox.Show("请导入excel表");
             }
+            catch (FormatException)
+            {
+                MessageBox.Show("输入行号超出范围");
+
+            }
         }
 
         private void 等级预测ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
+                int rows = this.model.GetRowNumber(dataGridViewOne);
                 string[] varstr = this.model.GetDataName(dataGridViewOne);
-                HMMForm hmmf = new HMMForm(varstr);
+                HMMForm hmmf = new HMMForm(varstr, rows);
                 hmmf.ShowDialog();
 
                 if (hmmf.DialogResult == DialogResult.OK)
@@ -357,6 +373,11 @@ namespace 环保分析系统
             catch (OutOfRangeException ooe)
             {
                 MessageBox.Show(ooe.Message);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("输入行号超出范围");
+
             }
         }
     }

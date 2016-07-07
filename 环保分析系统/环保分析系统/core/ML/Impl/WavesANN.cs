@@ -417,6 +417,20 @@ namespace 环保分析系统.core.ML
             }
 
             MatrixUntil.reversemaxminnomal(ref data, outputmaxv[0], outputrminv[0]);
+
+            int val;
+            Random random = new Random();
+            
+            for (int i = 0; i < data.Length; i++)
+            {
+                if (data[i] < 0 && i > 0)
+                {
+                    val = random.Next(-10, 10);
+                    data[i] = data[i - 1] + val;
+                }
+            }
+                  
+            
         }
 
       
