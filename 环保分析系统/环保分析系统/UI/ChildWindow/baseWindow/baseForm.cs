@@ -17,10 +17,11 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
         {
             InitializeComponent();
         }
-        public baseForm(string[] feature, int limit)
+        public baseForm(string[] feature, int limit,int rows)
         {
             this.features = feature;
             this.limit = limit;
+            this.rows = rows;
             InitializeComponent();
         }
         public void SetFeatures(string[] features)
@@ -58,10 +59,21 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
                 this.smallhight = this.splitContainer.Panel1.Height + 50;
                 this.Height = this.smallhight;
                 this.splitContainer.Panel2Collapsed = true;
+                SetTrainRow(this.rows);
             }
           
             //this.splitContainer1.Panel2.Hide();
            
+        }
+        protected virtual void SetTrainRow(int rows)
+        {
+            string str;
+            int row = (int)Math.Floor(0.9*rows);
+            str = "1" + "-" + row;
+            this.trainrownum.Text = str;
+            str = row + "-" + rows;
+            this.predictrownum.Text = str;
+            
         }
        public static void SetFeatureToListBox( string[] feature, ListBox listbox)
         {
@@ -79,7 +91,7 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
             string[] strlist = strtmp.Split('-');
             if (strlist.Length!=2)
             {
-                throw new Exception("error input");
+                throw new InputException("行号输入格式有误");
             }
 
             int[] tmp = new int[strlist.Length];
@@ -87,6 +99,15 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
             {
                 tmp[i] = int.Parse(strlist[i]);
             }
+
+            for (int i = 1; i < strlist.Length; i++)
+            {
+                if (tmp[i]<tmp[i-1])
+                {
+                    throw new OrderException("行号范围输入有误");
+                }
+            }
+
             
             return tmp;
         }
@@ -209,6 +230,7 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
             if (this.indevarList.Items.Count!=this.limit)
             {
                 throw new IndexOutOfRangeException("因变量个数设置错误");
+
             }
 
             if (this.timeTextBox.Text==string.Empty)
@@ -233,15 +255,31 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
            
             if (this.methodcomboBox.SelectedIndex<0&&this.IsAdvence()==false)
             {
+
+                throw new NullReferenceException("请设置时序长度");
+            }
+            else
+            { 
+                this.timelen = Convert.ToInt32(this.timeTextBox.Text);
+
+            }
+        }
+        protected virtual void SetParm(string method)
+        {
+
+            //this.trainnum = GetRowNum(ref this.trainrownum);
+            //this.predictnum = GetRowNum(ref this.predictrownum);
+           
+            if (this.methodcomboBox.SelectedIndex<0&&this.IsAdvence()==false)
+            {
                 throw new NullReferenceException("请设置方案");
             }
         }
-        protected virtual void setParm(string method)
-        {
+        //protected virtual void setParm(string method)
+        //{
+        //    MessageBox.Show(method);
 
-            MessageBox.Show(method);
-
-        }
+        //}
         public string[] GetIndvFeature()
         {
             int size = this.indevarList.Items.Count;
@@ -255,31 +293,77 @@ namespace 环保分析系统.UI.ChildWindow.baseWindow
         }
      
 
+//        public string[] GetIndvFeature()
+//        {
+////<<<<<<< HEAD
+//            int size = this.indevarList.Items.Count;
+//            string[] tmpstr = new string[size];
+//            for (int i = 0; i < size; i++)
+//            {
+//                tmpstr[i] = this.indevarList.Items[i].ToString();
+//            }
+//            return tmpstr;
+            
+//        }
+     
+
 
         private void begin_Click(object sender, EventArgs e)
         {
-            
-              try 
-	        {	        
-		        CheckParm();
-                if (this.IsAdvence()==false)
+
+            try
+            {
+                CheckParm();
+                if (this.IsAdvence() == false)
                 {
                     string method = GetMethod();
 
-                    setParm(method);
+                    SetParm(method);
                 }
-                
+
                 this.DialogResult = DialogResult.OK;
                 this.Close();
-	        }
+            }
             catch (IndexOutOfRangeException ioe)
-	        {
+            {
                 MessageBox.Show(ioe.Message);
             }
-              catch (NullReferenceException nfe)
+            catch (NullReferenceException nfe)
             {
                 MessageBox.Show(nfe.Message);
             }
+            catch (OrderException ore)
+            {
+                MessageBox.Show(ore.Message);
+            }
+            catch(InputException ie) 
+            {
+                MessageBox.Show(ie.Message);
+            }
+//=======
+            
+//              try 
+//            {	        
+//                CheckParm();
+//                if (this.IsAdvence()==false)
+//                {
+//                    string method = GetMethod();
+
+//                    setParm(method);
+//                }
+                
+//                this.DialogResult = DialogResult.OK;
+//                this.Close();
+//            }
+//            catch (IndexOutOfRangeException ioe)
+//            {
+//                MessageBox.Show(ioe.Message);
+//            }
+//              catch (NullReferenceException nfe)
+//            {
+//                MessageBox.Show(nfe.Message);
+//            }
+//>>>>>>> upstream/master
          
         }
        

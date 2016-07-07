@@ -14,7 +14,7 @@ namespace 环保分析系统.UI.ChildWindow
         {
             InitializeComponent();
         }
-        public HMMForm(string[] features,int limit=1):base(features,limit)
+        public HMMForm(string[] features,int rows,int limit=1):base(features,limit,rows)
         {
             InitializeComponent();
         }
@@ -56,12 +56,14 @@ namespace 环保分析系统.UI.ChildWindow
                         leveldata[i] = j;
                         break;
                     }
-                    else if (data[i] > level[j])
+                    else if (data[i] > level[level.Length - 1])
                     {
-                        leveldata[i] = level.Length;
+                        leveldata[i] = level.Length - 1;
                         break;
                     }
                 }
+               
+
             }
 
         }
@@ -126,8 +128,13 @@ namespace 环保分析系统.UI.ChildWindow
             }
         }
 
-        protected override void setParm(string method)
+        protected override void SetParm(string method)
         {
         }
+        //protected override void SetTrainRow(int rows)
+        //{
+
+        //    base.SetTrainRow(rows);
+        //}
     }
 }

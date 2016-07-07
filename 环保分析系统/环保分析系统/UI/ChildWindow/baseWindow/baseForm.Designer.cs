@@ -372,11 +372,11 @@
         private System.Windows.Forms.Button begin;
         private System.Windows.Forms.ComboBox methodcomboBox;
 
-        public System.Windows.Forms.ComboBox MothdChoose
-        {
-            get { return methodcomboBox; }
-            set { methodcomboBox = value; }
-        }
+        //public System.Windows.Forms.ComboBox MothdChoose
+        //{
+        //    get { return methodcomboBox; }
+        //    set { methodcomboBox = value; }
+        //}
         private System.Windows.Forms.Label devarlabel;
         private System.Windows.Forms.Label indevarlabel;
         private System.Windows.Forms.Label varlabel;
@@ -384,13 +384,13 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox trainrownum;
+        protected System.Windows.Forms.TextBox trainrownum;
         protected internal System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.CheckBox isAdvence;
         private System.Windows.Forms.Label timelabel;
         private System.Windows.Forms.TextBox timeTextBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox predictrownum;
+        protected System.Windows.Forms.TextBox predictrownum;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private string[] features;
@@ -398,5 +398,6 @@
         private int[] predictnum;
         private int[] trainnum;
         private int timelen;
+        private int rows;
     }
 }
