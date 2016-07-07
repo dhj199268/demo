@@ -59,9 +59,9 @@ namespace 环保分析系统
                         dataGridViewOne.DataSource = model.MyDataSet.Tables[0];
                     }
                 }
-                catch
+                catch (OleDbException)
                 {
-                    MessageBox.Show("文件被加密,或工作表命名不符合规范！");
+                    MessageBox.Show("无法打开已加密的文件!");
                 }
 
             }
@@ -81,21 +81,21 @@ namespace 环保分析系统
             saveFileDialogOne.InitialDirectory = "c:\\";
             saveFileDialogOne.Filter = "Excel文件(*.xls)|*.xls|Excel文件|*.xlsx";
             saveFileDialogOne.ShowDialog();
-            string path = saveFileDialogOne.FileName;
-            if (path != null)
+            if (saveFileDialogOne.FileName!=string.Empty)
             {
+                string path = saveFileDialogOne.FileName;
                 try
                 {
-                    DataTable dt = model.MyDataSet.Tables[0];
-                    model.ExportExcel(dt,path);
-                    MessageBox.Show("已经生成指定Excel文件!");
+                    DataTable dt = model.GetDataSetFromDataGridView(dataGridViewOne);
+                    model.ExportExcel(dt, path);
+                    MessageBox.Show("保存成功");
                 }
-                catch
+                catch (NullReferenceException)
                 {
-                    MessageBox.Show("请导入Excel文件！");
-                } 
+                    MessageBox.Show("请导入Excel表");
+                }
             }
-           
+
         }
         private void btnLeft_Click(object sender, EventArgs e)
         {
@@ -156,8 +156,9 @@ namespace 环保分析系统
 
             try
             {
+                int rows = this.model.GetRowNumber(dataGridViewOne);
                 string[] varstr = this.model.GetDataName(dataGridViewOne);
-                RandomForestForm rff = new RandomForestForm(varstr);
+                RandomForestForm rff = new RandomForestForm(varstr,rows);
                 rff.ShowDialog();
 
                 if (rff.DialogResult == DialogResult.OK)
@@ -201,14 +202,20 @@ namespace 环保分析系统
             {
                 MessageBox.Show(ooe.Message);
             }
+            catch (FormatException)
+            {
+                MessageBox.Show("输入行号超出范围");
+
+            }
         }
 
         private void sO2预测ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
+                int rows = this.model.GetRowNumber(dataGridViewOne);
                 string[] varstr = this.model.GetDataName(dataGridViewOne);
-                WaveANNForm waf = new WaveANNForm(varstr);
+                WaveANNForm waf = new WaveANNForm(varstr,rows);
                 waf.ShowDialog();
 
                 if (waf.DialogResult == DialogResult.OK)
@@ -253,14 +260,20 @@ namespace 环保分析系统
             {
                 MessageBox.Show(ooe.Message);
             }
+            catch (FormatException)
+            {
+                MessageBox.Show("输入行号超出范围");
+
+            }
         }
 
         private void 异常分析ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
+                int rows = this.model.GetRowNumber(dataGridViewOne);
                 string[] varstr = this.model.GetDataName(dataGridViewOne);
-                KmeansForm kmf = new KmeansForm(varstr);
+                KmeansForm kmf = new KmeansForm(varstr,rows);
                 kmf.ShowDialog();
 
                 if (kmf.DialogResult == DialogResult.OK)
@@ -292,14 +305,20 @@ namespace 环保分析系统
             {
                 MessageBox.Show("请导入excel表");
             }
+            catch (FormatException)
+            {
+                MessageBox.Show("输入行号超出范围");
+
+            }
         }
 
         private void 等级预测ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
+                int rows = this.model.GetRowNumber(dataGridViewOne);
                 string[] varstr = this.model.GetDataName(dataGridViewOne);
-                HMMForm hmmf = new HMMForm(varstr);
+                HMMForm hmmf = new HMMForm(varstr, rows);
                 hmmf.ShowDialog();
 
                 if (hmmf.DialogResult == DialogResult.OK)
@@ -355,7 +374,11 @@ namespace 环保分析系统
             {
                 MessageBox.Show(ooe.Message);
             }
-        }
+            catch (FormatException)
+            {
+                MessageBox.Show("输入行号超出范围");
 
+            }
+        }
     }
 }

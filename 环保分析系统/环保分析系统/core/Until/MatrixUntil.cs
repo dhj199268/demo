@@ -149,6 +149,7 @@ namespace 环保分析系统.core.Until
             {
                 double tmp = (double)data[i];
                 tmp = (tmp - ymin) * (maxv - minv) / 2.0 + minv;
+               
                 data[i] = (float)tmp;
             }
         }

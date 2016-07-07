@@ -112,7 +112,7 @@ namespace 环保分析系统.Entity
             }
         }
         //将datagridview中的数据导入到临时数据库dataTable中
-        /*  public DataTable GetDataSetFromDataGridView(DataGridView ucgrd)
+        public DataTable GetDataSetFromDataGridView(DataGridView ucgrd)
           {
               DataTable dt = new DataTable();
 
@@ -138,7 +138,7 @@ namespace 环保分析系统.Entity
                   dt.Rows.Add(dr);
               }
               return dt;
-          }*/
+          }
         public void ExportExcel(DataTable dt, string strFileName)  //以DataSet- 导出Excel文件   
         {
             int rowNum = dt.Rows.Count;
