@@ -141,35 +141,43 @@ namespace 环保分析系统.Entity
           }
         public void ExportExcel(DataTable dt, string strFileName)  //以DataSet- 导出Excel文件   
         {
-            int rowNum = dt.Rows.Count;
-            int columnNum = dt.Columns.Count;
-            int rowIndex = 0;
-            int columnIndex = 0;
-
-            if (dt == null || string.IsNullOrEmpty(strFileName))
+            Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
+            if (app == null)
             {
-                return;
+                throw new Exception("new Microsoft.Office.Interop.Excel.Application() returns null");
             }
-            if (rowNum > 0)
+            else
             {
-                Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
-                xlApp.DefaultFilePath = "";
-                xlApp.DisplayAlerts = true;
-                xlApp.SheetsInNewWorkbook = 1;
-                Microsoft.Office.Interop.Excel.Workbook xlBook = xlApp.Workbooks.Add(true);
-                for (int i = 0; i < rowNum; i++)
+               Microsoft.Office.Interop.Excel.Workbooks xlBooks = app.Workbooks;
+               Microsoft.Office.Interop.Excel.Workbook xlBook = xlBooks.Add(Microsoft.Office.Interop.Excel.XlWBATemplate.xlWBATWorksheet);
+               Microsoft.Office.Interop.Excel.Worksheet xlSheet = xlBook.Worksheets[1] as Microsoft.Office.Interop.Excel.Worksheet;
+                int n = 1;
+                foreach (System.Data.DataColumn col in dt.Columns)
                 {
-                    rowIndex++;
-                    columnIndex = 0;
-                    for (int j = 0; j < columnNum; j++)
-                    {
-                        columnIndex++;
-                        xlApp.Cells[rowIndex, columnIndex] = dt.Rows[i][j].ToString();
-                    }
+                    xlSheet.Cells[1, n++] = col.ColumnName;
                 }
-                xlBook.SaveCopyAs(strFileName);
-                xlApp = null;
-                xlBook = null;
+                // int row = 2;
+                int row = 0;
+                object[,] arr = new object[dt.Rows.Count, dt.Columns.Count];
+
+                foreach (System.Data.DataRow r in dt.Rows)
+                {
+                    //int column = 1;
+                    int column = 0;
+                    foreach (System.Data.DataColumn col in dt.Columns)
+                    {
+                        //xlSheet.Cells[row, column] = data.Rows[row-2].ItemArray[column - 1];
+                        arr[row, column] = dt.Rows[row][column];
+                        column++;
+                    }
+                    row++;
+                }
+                Microsoft.Office.Interop.Excel.Range range = (Microsoft.Office.Interop.Excel.Range)xlSheet.Cells[2, 1];
+                range = range.get_Resize(dt.Rows.Count, dt.Columns.Count);
+                range.Value2 = arr;
+                object missing = System.Reflection.Missing.Value;
+                xlSheet.SaveAs(strFileName, missing, missing, missing,
+                        missing, missing, missing, missing, missing, missing);
             }
         }
     }
