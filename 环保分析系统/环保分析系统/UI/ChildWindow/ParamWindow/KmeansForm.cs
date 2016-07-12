@@ -47,9 +47,9 @@ namespace 环保分析系统.UI.ChildWindow
         {
             switch (method)
             {
-                case "快   速": this.itertextBox.Text = "100"; this.classtextBox.Text="2"; break;
-                case "标   准": this.itertextBox.Text = "500"; this.classtextBox.Text = "2"; break;
-                case "精   确": this.itertextBox.Text = "1000"; this.classtextBox.Text = "2"; break;
+                case "快   速": this.itertextBox.Text = "6"; this.classtextBox.Text="2"; break;
+                case "标   准": this.itertextBox.Text = "15"; this.classtextBox.Text = "2"; break;
+                case "精   确": this.itertextBox.Text = "20"; this.classtextBox.Text = "2"; break;
 
             }
         }

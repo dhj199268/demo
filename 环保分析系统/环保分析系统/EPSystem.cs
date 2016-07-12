@@ -185,9 +185,18 @@ namespace 环保分析系统
                     float[] showdata = model.GetDataOneText(dataGridViewOne, predice_rows[0], predice_rows[1], col);
                     float[] predictdata = model.GetDataOneText(dataGridViewOne, start, predice_rows[1], col);
                     logger.Debug(loggerUntil.printMatToLogger("predcit data :", ref showdata));
+                    
                     float[] result = rfmodel.Predict(ref predictdata);
                     logger.Debug(loggerUntil.printMatToLogger("reuslt data :", ref result));
-
+                    //float[] predict_data = model.GetDataOneText(dataGridViewOne, predice_rows[1] - segtime+1, predice_rows[1], col);
+                    //float[] result2 = rfmodel.Predict(ref predict_data);
+                    List<float> tmp=new List<float>(predictdata);
+                    for (int i = 0; i < 5; i++)
+                    {
+                        result = rfmodel.Predict(ref predictdata);
+                        tmp.Add(result[result.Length - 1]);
+                        predictdata = tmp.ToArray();
+                    }
                     logger.Info("Show Image");
                     DrawLine resultform = new DrawLine(showdata, result);
                     resultform.Show();
@@ -245,7 +254,15 @@ namespace 环保分析系统
                     float[] result = wafmodel.Predict(ref predictdata);
                     logger.Debug(loggerUntil.printMatToLogger("reuslt data :", ref result));
 
+                    List<float> tmp = new List<float>(predictdata);
+                    for (int i = 0; i < 5; i++)
+                    {
+                        result = wafmodel.Predict(ref predictdata);
+                        tmp.Add(result[result.Length - 1]);
+                        predictdata = tmp.ToArray();
+                    }
                     logger.Info("Show Image");
+
                     DrawLine resultform = new DrawLine(showdata, result);
                     resultform.Show();
 
@@ -286,7 +303,7 @@ namespace 环保分析系统
                     int classnum = kmf.GetClassNum();
                     int iter = kmf.GetIter();
                     int segtime = col.Length;
-                    Kmeans kmodel = new Kmeans(classnum, iter, segtime);
+                    KOut kmodel = new KOut(classnum,iter);
                     kmodel.Train(ref traindata);
 
                     int[] predice_rows = kmf.GetPredictRowNum();

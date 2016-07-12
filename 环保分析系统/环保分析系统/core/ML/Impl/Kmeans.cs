@@ -19,7 +19,7 @@ namespace 环保分析系统.core.ML
         private static log4net.ILog logger = log4net.LogManager.GetLogger(typeof(Kmeans));
 
         private int numClass;
-        private Matrix<float> center;//族中心，索引为分类的种类
+        protected Matrix<float> center;//族中心，索引为分类的种类
         //private Matrix<float> centerDiag;//族中心的对称矩阵
         private int maxIter;//最大迭代次数
 

@@ -1,4 +1,4 @@
-﻿namespace 环保分析系统
+namespace 环保分析系统
 {
     partial class mainForm
     {
@@ -304,4 +304,4 @@
         private System.Windows.Forms.ToolStripMenuItem 等级预测ToolStripMenuItem;
 
     }
-}
+﻿}

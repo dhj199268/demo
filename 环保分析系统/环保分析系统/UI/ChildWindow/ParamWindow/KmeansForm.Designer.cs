@@ -35,6 +35,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.classtextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+            this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.itertrackBar)).BeginInit();
@@ -58,25 +59,25 @@
             // 
             this.itertrackBar.Enabled = false;
             this.itertrackBar.Location = new System.Drawing.Point(97, 38);
-            this.itertrackBar.Maximum = 1000;
-            this.itertrackBar.Minimum = 100;
+            this.itertrackBar.Maximum = 20;
+            this.itertrackBar.Minimum = 3;
             this.itertrackBar.Name = "itertrackBar";
             this.itertrackBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.itertrackBar.Size = new System.Drawing.Size(78, 45);
             this.itertrackBar.TabIndex = 6;
             this.itertrackBar.TickFrequency = 10;
             this.itertrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.itertrackBar.Value = 100;
+            this.itertrackBar.Value = 3;
             this.itertrackBar.Scroll += new System.EventHandler(this.itertrackBar_Scroll);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(44, 42);
+            this.label1.Location = new System.Drawing.Point(54, 42);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.Size = new System.Drawing.Size(29, 12);
             this.label1.TabIndex = 5;
-            this.label1.Text = "迭代次数";
+            this.label1.Text = "阈值";
             // 
             // itertextBox
             // 
@@ -85,7 +86,7 @@
             this.itertextBox.Name = "itertextBox";
             this.itertextBox.Size = new System.Drawing.Size(48, 21);
             this.itertextBox.TabIndex = 4;
-            this.itertextBox.Text = "100";
+            this.itertextBox.Text = "3";
             // 
             // classtrackBar
             // 
@@ -124,6 +125,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.ClientSize = new System.Drawing.Size(390, 499);
             this.Name = "KmeansForm";
+            this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel1.PerformLayout();
             this.splitContainer.Panel2.ResumeLayout(false);
             this.splitContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
