@@ -52,6 +52,7 @@
             this.等级预测ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialogOne = new System.Windows.Forms.SaveFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOne)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -60,6 +61,7 @@
             // panel1
             // 
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.txtName);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.btnRight);
@@ -254,6 +256,15 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(638, 31);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -302,6 +313,7 @@
         private System.Windows.Forms.ToolStripMenuItem sO2预测ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 异常分析ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 等级预测ToolStripMenuItem;
+        private System.Windows.Forms.Button button1;
 
     }
 }

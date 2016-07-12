@@ -189,7 +189,7 @@ namespace 环保分析系统
                     logger.Debug(loggerUntil.printMatToLogger("reuslt data :", ref result));
 
                     logger.Info("Show Image");
-                    DrawLine resultform = new DrawLine(showdata, result);
+                    RankDrawLine resultform = new RankDrawLine(showdata, result);
                     resultform.Show();
                 }
 
@@ -246,7 +246,7 @@ namespace 环保分析系统
                     logger.Debug(loggerUntil.printMatToLogger("reuslt data :", ref result));
 
                     logger.Info("Show Image");
-                    DrawLine resultform = new DrawLine(showdata, result);
+                    RankDrawLine resultform = new RankDrawLine(showdata, result);
                     resultform.Show();
 
                 }
@@ -361,7 +361,7 @@ namespace 环保分析系统
                     logger.Debug(loggerUntil.printMatToLogger("reuslt data :", ref result));
 
                     logger.Info("Show Image");
-                    DrawLine resultform = new DrawLine(showdata, result);
+                    RankDrawLine resultform = new RankDrawLine(showdata, result);
                     resultform.Show();
                 }
 
