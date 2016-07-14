@@ -15,17 +15,33 @@ namespace 环保分析系统.UI.ChildWindow
     {
         float[] Y1;
         float[] Y2;
-        public DrawDisperse(float[] X1, float[] X2)
+        public DrawDisperse(float[] X1, float[] X2,string Name,string[] Names)
         {
             InitializeComponent();
             Y1 = X1;
             Y2 = X2;
+            this.chartOne.Titles.Add(Name);
+            this.chartOne.ChartAreas[0].AxisX.Title = Names[0];
+            this.chartOne.ChartAreas[0].AxisY.Title = Names[1];
         }
 
         private void DrawDisperse_Load(object sender, EventArgs e)
         {
             this.chartOne.Series[0].ChartType = SeriesChartType.Point;
             this.chartOne.Series[1].ChartType = SeriesChartType.Point;
+            this.chartOne.ChartAreas[0].AxisX.LabelStyle.Format = "N2";
+            this.chartOne.ChartAreas[0].AxisY.LabelStyle.Format = "N2";         
+
+            this.chartOne.Series[0].ToolTip = "#VALY";
+            this.chartOne.Series[1].ToolTip = "#VALY";
+
+            this.chartOne.ChartAreas[0].CursorX.IsUserEnabled = true;
+            this.chartOne.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
+            this.chartOne.ChartAreas[0].CursorX.Interval = 0;
+            this.chartOne.ChartAreas[0].CursorX.IntervalOffset = 0;
+            this.chartOne.ChartAreas[0].CursorX.IntervalType = DateTimeIntervalType.Minutes;
+            this.chartOne.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
+            this.chartOne.ChartAreas[0].AxisX.ScrollBar.IsPositionedInside = true;
             for (int i = 0; i < Y2.Length; i++)
             {
                 if (Y2[i] == 0)
