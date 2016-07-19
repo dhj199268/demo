@@ -178,6 +178,7 @@ namespace 环保分析系统.Entity
                 object missing = System.Reflection.Missing.Value;
                 xlSheet.SaveAs(strFileName, missing, missing, missing,
                         missing, missing, missing, missing, missing, missing);
+                app.Quit();
             }
         }
     }

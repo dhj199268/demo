@@ -11,15 +11,18 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace 环保分析系统.UI.ChildWindow
 {
-    public partial class DrawLine : Form
+    public partial class RankDrawLine : Form
     {
         float[] Y1;
         float[] Y2;
-        public DrawLine(float[] X1, float[] X2)
+        public RankDrawLine(float[] X1, float[] X2, string Name)
         {
             InitializeComponent();
             Y1 = X1;
             Y2 = X2;
+            this.chartTwo.Titles.Add(Name);
+            this.chartTwo.ChartAreas[0].AxisX.Title = "点数";
+            this.chartTwo.ChartAreas[0].AxisY.Title = "等级";
         }
         private void btnSave_Click_1(object sender, EventArgs e)
         {
@@ -52,10 +55,23 @@ namespace 环保分析系统.UI.ChildWindow
         {
             this.chartTwo.Series[0].ChartType = SeriesChartType.Line;
             this.chartTwo.Series[1].ChartType = SeriesChartType.Line;
+            this.chartTwo.ChartAreas[0].AxisY.LabelStyle.Format = "N0";
+            this.chartTwo.ChartAreas[0].AxisY.Interval = 1;
             this.chartTwo.Series[0].Points.DataBindY(Y1);
             this.chartTwo.Series[0].Color = System.Drawing.Color.Red;
             this.chartTwo.Series[1].Points.DataBindY(Y2);
             this.chartTwo.Series[1].Color = System.Drawing.Color.Blue;
+
+            this.chartTwo.Series[0].ToolTip = "#VALY";
+            this.chartTwo.Series[1].ToolTip = "#VALY";
+
+            this.chartTwo.ChartAreas[0].CursorX.IsUserEnabled = true;
+            this.chartTwo.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
+            this.chartTwo.ChartAreas[0].CursorX.Interval = 0;
+            this.chartTwo.ChartAreas[0].CursorX.IntervalOffset = 0;
+            this.chartTwo.ChartAreas[0].CursorX.IntervalType = DateTimeIntervalType.Minutes;
+            this.chartTwo.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
+            this.chartTwo.ChartAreas[0].AxisX.ScrollBar.IsPositionedInside = true;
         }
     }
-}
+} 

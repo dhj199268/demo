@@ -14,6 +14,7 @@ using 环保分析系统.UI.ChildWindow;
 using 环保分析系统.core.ML;
 using 环保分析系统.core.Until;
 using 环保分析系统.except;
+using 环保分析系统.UI;
 
 //用于初始化log 配置文件，必须加入
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -198,8 +199,8 @@ namespace 环保分析系统
                         predictdata = tmp.ToArray();
                     }
                     logger.Info("Show Image");
-                    DrawLine resultform = new DrawLine(showdata, result);
-                    resultform.Show();
+                   // PMDrawLine resultform = new PMDrawLine(showdata, result);
+                   // resultform.Show();
                 }
 
             }
@@ -263,8 +264,8 @@ namespace 环保分析系统
                     }
                     logger.Info("Show Image");
 
-                    DrawLine resultform = new DrawLine(showdata, result);
-                    resultform.Show();
+                    //SODrawLine resultform = new SODrawLine(showdata, result);
+                   // resultform.Show();
 
                 }
 
@@ -314,8 +315,8 @@ namespace 环保分析系统
                     logger.Debug(loggerUntil.printMatToLogger("reuslt data :", ref result));
 
                     logger.Info("Show Image");
-                    DrawDisperse resultform = new DrawDisperse(predictdata, result);
-                    resultform.Show();
+                   // DrawDisperse resultform = new DrawDisperse(predictdata, result);
+                    //resultform.Show();
                 }
             }
             catch (NullReferenceException)
@@ -378,8 +379,8 @@ namespace 环保分析系统
                     logger.Debug(loggerUntil.printMatToLogger("reuslt data :", ref result));
 
                     logger.Info("Show Image");
-                    DrawLine resultform = new DrawLine(showdata, result);
-                    resultform.Show();
+                    //RankDrawLine resultform = new RankDrawLine(showdata, result);
+                    //resultform.Show();
                 }
 
             }
@@ -397,5 +398,14 @@ namespace 环保分析系统
 
             }
         }
+      //测试数据
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    float[] x1 ={1.4f,2.8f,3.9f,10.8f,19.2f,4.8f,3.6f,7.2f};
+        //    float[] x2 = { 2.4f, 1.8f, 3.9f, 10.8f, 19.2f, 4.8f, 3.6f, 7.2f };
+        //    string name = "泰州市";
+        //    SODrawLine pm25 = new SODrawLine(x1, x2, name);
+        //    pm25.Show();
+        //}
     }
 }

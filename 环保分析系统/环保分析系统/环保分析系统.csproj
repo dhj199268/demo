@@ -32,13 +32,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Emgu.CV">
+    <Reference Include="Emgu.CV, Version=3.0.0.2157, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>dll\Emgu.CV.dll</HintPath>
     </Reference>
-    <Reference Include="Emgu.CV.ML">
+    <Reference Include="Emgu.CV.ML, Version=3.0.0.2157, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>dll\Emgu.CV.ML.dll</HintPath>
     </Reference>
-    <Reference Include="Emgu.Util">
+    <Reference Include="Emgu.Util, Version=3.0.0.2157, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>dll\Emgu.Util.dll</HintPath>
     </Reference>
     <Reference Include="Interop.VBIDE, Version=5.3.0.0, Culture=neutral">
@@ -106,11 +109,11 @@
     <Compile Include="UI\ChildWindow\DrawDisperse.Designer.cs">
       <DependentUpon>DrawDisperse.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ChildWindow\DrawLine.cs">
+    <Compile Include="UI\ChildWindow\RankDrawLine.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ChildWindow\DrawLine.Designer.cs">
-      <DependentUpon>DrawLine.cs</DependentUpon>
+    <Compile Include="UI\ChildWindow\RankDrawLine.Designer.cs">
+      <DependentUpon>RankDrawLine.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ChildWindow\ParamWindow\HMMForm.Designer.cs">
       <DependentUpon>HMMForm.cs</DependentUpon>
@@ -136,6 +139,18 @@
     <Compile Include="UI\ChildWindow\ParamWindow\WaveANNForm.Designer.cs">
       <DependentUpon>WaveANNForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ChildWindow\PMDrawLine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ChildWindow\PMDrawLine.Designer.cs">
+      <DependentUpon>PMDrawLine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ChildWindow\SODrawLine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ChildWindow\SODrawLine.Designer.cs">
+      <DependentUpon>SODrawLine.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="EPSystem.resx">
       <DependentUpon>EPSystem.cs</DependentUpon>
     </EmbeddedResource>
@@ -147,8 +162,8 @@
     <EmbeddedResource Include="UI\ChildWindow\DrawDisperse.resx">
       <DependentUpon>DrawDisperse.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ChildWindow\DrawLine.resx">
-      <DependentUpon>DrawLine.cs</DependentUpon>
+    <EmbeddedResource Include="UI\ChildWindow\RankDrawLine.resx">
+      <DependentUpon>RankDrawLine.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -171,6 +186,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ChildWindow\ParamWindow\WaveANNForm.resx">
       <DependentUpon>WaveANNForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ChildWindow\PMDrawLine.resx">
+      <DependentUpon>PMDrawLine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ChildWindow\SODrawLine.resx">
+      <DependentUpon>SODrawLine.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
